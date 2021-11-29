@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "719966536018",
+    "project_id": "dietaholics-329810",
+    "storage_bucket": "dietaholics-329810.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719966536018:android:4d887a7fa8cef3d9e87a8b",
+        "android_client_info": {
+          "package_name": "com.dietaholics.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719966536018-rdst5g9bmmu1s8bqm8jnfnftfvfrs0fn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dietaholics.app",
+            "certificate_hash": "9376ce128fa5333901202b6cf91c3959c02b033f"
+          }
+        },
+        {
+          "client_id": "719966536018-eub250k37aoo9ictcqltre9i56oq5le6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEWs4OdbgntEOaMyQM3DNcSXgg93LxyL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719966536018-eub250k37aoo9ictcqltre9i56oq5le6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
