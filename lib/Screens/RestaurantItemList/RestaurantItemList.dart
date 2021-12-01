@@ -500,22 +500,22 @@ class _RestaurantItemListState extends State<RestaurantItemList> {
                           new Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              new Row(
-                                children: <Widget>[
-                                  setCommonText('4.0', AppColor.orange, 12.0,
-                                      FontWeight.w600, 1),
-                                  new Icon(
-                                    Icons.star,
-                                    color: AppColor.orange,
-                                    size: 14,
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  setCommonText(S.current.votes, AppColor.grey,
-                                      12.0, FontWeight.w600, 1),
-                                ],
-                              ),
+                              // new Row(
+                              //   children: <Widget>[
+                              //     setCommonText('4.0', AppColor.orange, 12.0,
+                              //         FontWeight.w600, 1),
+                              //     new Icon(
+                              //       Icons.star,
+                              //       color: AppColor.orange,
+                              //       size: 14,
+                              //     ),
+                              //     SizedBox(
+                              //       width: 5,
+                              //     ),
+                              //     setCommonText(S.current.votes, AppColor.grey,
+                              //         12.0, FontWeight.w600, 1),
+                              //   ],
+                              // ),
                               new Row(
                                 children: <Widget>[
                                   new Stack(

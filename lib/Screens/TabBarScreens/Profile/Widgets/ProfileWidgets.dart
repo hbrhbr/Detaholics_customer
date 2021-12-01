@@ -312,14 +312,13 @@ class ProfileWidgets extends StatelessWidget {
                     height: 80,
                     width: 80,
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: AppColor.grey,
-                        width: 4,
-                      ),
-                      // image: DecorationImage(
-                      //     image: NetworkImage(image), fit: BoxFit.cover)
-                    ),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: AppColor.grey,
+                          width: 4,
+                        ),
+                        image: DecorationImage(
+                            image: NetworkImage(image), fit: BoxFit.cover)),
                   ),
                   SizedBox(
                     width: 12,

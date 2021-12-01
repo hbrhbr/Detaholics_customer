@@ -1,0 +1,954 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.dietaholics.app"
+4    android:versionCode="6"
+5    android:versionName="4.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+8-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="30" />
+9-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+11-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:4:1-75
+11-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:4:18-72
+12    <uses-permission android:name="android.permission.CAMERA" />
+12-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:5:5-64
+12-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:5:22-62
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:6:5-66
+13-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:6:22-64
+14    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+14-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:7:5-80
+14-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:7:22-78
+15    <uses-permission android:name="android.permission.VIBRATE" />
+15-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:8:5-66
+15-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:8:22-63
+16    <uses-permission android:name="android.permission.WAKE_LOCK" />
+16-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:9:5-68
+16-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:9:22-65
+17    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+17-->[:location] D:\Dietaholics\Customer_App\Detaholics_customer\build\location\intermediates\library_manifest\release\AndroidManifest.xml:7:5-81
+17-->[:location] D:\Dietaholics\Customer_App\Detaholics_customer\build\location\intermediates\library_manifest\release\AndroidManifest.xml:7:22-78
+18    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+18-->[:flutter_local_notifications] D:\Dietaholics\Customer_App\Detaholics_customer\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:9:5-81
+18-->[:flutter_local_notifications] D:\Dietaholics\Customer_App\Detaholics_customer\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:9:22-78
+19    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+19-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:9:5-79
+19-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:9:22-76
+20
+21    <uses-feature
+21-->[io.card:android-sdk:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a4544caa3eae9d42f342694b23b68e41\jetified-android-sdk-5.5.1\AndroidManifest.xml:12:5-14:36
+22        android:name="android.hardware.camera"
+22-->[io.card:android-sdk:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a4544caa3eae9d42f342694b23b68e41\jetified-android-sdk-5.5.1\AndroidManifest.xml:13:9-47
+23        android:required="false" />
+23-->[io.card:android-sdk:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a4544caa3eae9d42f342694b23b68e41\jetified-android-sdk-5.5.1\AndroidManifest.xml:14:9-33
+24    <uses-feature
+24-->[io.card:android-sdk:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a4544caa3eae9d42f342694b23b68e41\jetified-android-sdk-5.5.1\AndroidManifest.xml:15:5-17:36
+25        android:name="android.hardware.camera.autofocus"
+25-->[io.card:android-sdk:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a4544caa3eae9d42f342694b23b68e41\jetified-android-sdk-5.5.1\AndroidManifest.xml:16:9-57
+26        android:required="false" /> <!-- See https://developer.android.com/training/package-visibility/declaring for more details. -->
+26-->[io.card:android-sdk:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a4544caa3eae9d42f342694b23b68e41\jetified-android-sdk-5.5.1\AndroidManifest.xml:17:9-33
+27    <queries>
+27-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:10:5-14:15
+28
+29        <!-- Added to check if Chrome is installed for browser-based payment authentication (e.g. 3DS1). -->
+30        <package android:name="com.android.chrome" />
+30-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:13:9-54
+30-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:13:18-51
+31
+32        <intent>
+32-->[com.braintreepayments:browser-switch:1.1.3] E:\Java\JDK\bin\caches\transforms-2\files-2.1\4e21307b6e8cd19756a4d1c8d2ddad1d\jetified-browser-switch-1.1.3\AndroidManifest.xml:12:9-18:18
+33            <action android:name="android.intent.action.VIEW" />
+33-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:31:17-69
+33-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:31:25-66
+34
+35            <category android:name="android.intent.category.BROWSABLE" />
+35-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:33:17-78
+35-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:33:27-75
+36
+37            <data android:scheme="https" />
+37-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:35:17-72
+37-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:35:23-69
+38        </intent>
+39    </queries> <!-- Required by older versions of Google Play services to create IID tokens -->
+40    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+40-->[com.google.firebase:firebase-messaging:22.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c6ee4650a72210e95bc281b4aeac49e\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:25:5-82
+40-->[com.google.firebase:firebase-messaging:22.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c6ee4650a72210e95bc281b4aeac49e\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:25:22-79
+41    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+41-->[com.google.android.gms:play-services-measurement:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\64b953dfaefb935ce9c27797ac70829c\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:26:5-110
+41-->[com.google.android.gms:play-services-measurement:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\64b953dfaefb935ce9c27797ac70829c\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:26:22-107
+42
+43    <uses-feature
+43-->[com.google.android.gms:play-services-maps:17.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\8dd2f87fc4cbf5449e41413143263736\jetified-play-services-maps-17.0.0\AndroidManifest.xml:26:5-28:35
+44        android:glEsVersion="0x00020000"
+44-->[com.google.android.gms:play-services-maps:17.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\8dd2f87fc4cbf5449e41413143263736\jetified-play-services-maps-17.0.0\AndroidManifest.xml:27:9-41
+45        android:required="true" />
+45-->[com.google.android.gms:play-services-maps:17.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\8dd2f87fc4cbf5449e41413143263736\jetified-play-services-maps-17.0.0\AndroidManifest.xml:28:9-32
+46    <!--
+47 io.flutter.app.FlutterApplication is an android.app.Application that
+48         calls FlutterMain.startInitialization(this); in its onCreate method.
+49         In most cases you can leave this as-is, but you if you want to provide
+50         additional functionality it is fine to subclass or reimplement
+51         FlutterApplication and put your custom class here.
+52    -->
+53    <!-- AIzaSyB93ViVy-fww-leOBtroda9hOmhYOp9qT0 -->
+54    <application
+54-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:18:5-92:19
+55        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+55-->[androidx.core:core:1.5.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\f541226acf14ad5abd7d9ce9387a5870\core-1.5.0\AndroidManifest.xml:24:18-86
+56        android:extractNativeLibs="false"
+57        android:icon="@mipmap/ic_launcher"
+57-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:22:9-43
+58        android:label="Dietaholics"
+58-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:20:9-36
+59        android:supportsRtl="true"
+59-->[com.facebook.android:facebook-login:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\b387217256b70ad84777bfe55489e169\jetified-facebook-login-5.5.1\AndroidManifest.xml:28:18-44
+60        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+60-->[:stripe_payment] D:\Dietaholics\Customer_App\Detaholics_customer\build\stripe_payment\intermediates\library_manifest\release\AndroidManifest.xml:11:18-74
+61        android:usesCleartextTraffic="true" >
+61-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:19:9-44
+62        <meta-data
+62-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:23:9-123
+63            android:name="com.google.android.geo.API_KEY"
+63-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:23:20-65
+64            android:value="AIzaSyCtv-ig64YziJiZE1VY09E0cMgjBwraQkM" />
+64-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:23:66-121
+65        <meta-data
+65-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:24:9-139
+66            android:name="com.google.firebase.messaging.default_notification_icon"
+66-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:24:20-90
+67            android:resource="@drawable/ic_stat_fastfood" />
+67-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:24:91-136
+68        <meta-data
+68-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:25:9-134
+69            android:name="com.google.firebase.messaging.default_notification_color"
+69-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:25:20-91
+70            android:resource="@android:color/black" />
+70-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:25:92-131
+71
+72        <!-- This is for the Paypal payment -->
+73        <activity
+73-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:28:9-37:20
+74            android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
+74-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:28:19-90
+75            android:launchMode="singleTask" >
+75-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:29:13-44
+76            <intent-filter>
+76-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:30:13-36:29
+77                <action android:name="android.intent.action.VIEW" />
+77-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:31:17-69
+77-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:31:25-66
+78
+79                <category android:name="android.intent.category.DEFAULT" />
+79-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:32:17-76
+79-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:32:27-73
+80                <category android:name="android.intent.category.BROWSABLE" />
+80-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:33:17-78
+80-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:33:27-75
+81                <!-- <data android:scheme="com.foodzone.product.braintree" /> -->
+82                <data android:scheme="com.dietaholics.app.braintree" />
+82-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:35:17-72
+82-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:35:23-69
+83            </intent-filter>
+84        </activity>
+85        <activity
+85-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:39:9-57:20
+86            android:name="com.dietaholics.app.MainActivity"
+86-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:40:13-41
+87            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+87-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:43:13-144
+88            android:hardwareAccelerated="true"
+88-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:44:13-47
+89            android:launchMode="singleTop"
+89-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:41:13-43
+90            android:theme="@style/LaunchTheme"
+90-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:42:13-47
+91            android:windowSoftInputMode="adjustResize" >
+91-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:45:13-55
+92
+93            <!--
+94                 This keeps the window background of the activity showing
+95                 until Flutter renders its first frame. It can be removed if
+96                 there is no splash screen (such as the default splash screen
+97                 defined in @style/LaunchTheme).
+98            -->
+99            <meta-data
+99-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:50:13-52:40
+100                android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
+100-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:51:17-82
+101                android:value="true" />
+101-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:52:17-37
+102
+103            <intent-filter>
+103-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:53:13-56:29
+104                <action android:name="android.intent.action.MAIN" />
+104-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:54:17-68
+104-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:54:25-66
+105
+106                <category android:name="android.intent.category.LAUNCHER" />
+106-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:55:17-76
+106-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:55:27-74
+107            </intent-filter>
+108        </activity>
+109
+110        <meta-data
+110-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:60:9-99
+111            android:name="com.google.android.gms.wallet.api.enabled"
+111-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:60:20-76
+112            android:value="true" />
+112-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:60:77-97
+113
+114        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+114-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:61:10-107
+114-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:61:20-104
+115        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver" >
+115-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:62:9-67:20
+115-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:62:19-107
+116            <intent-filter>
+116-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:63:13-66:29
+117                <action android:name="android.intent.action.BOOT_COMPLETED" />
+117-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:64:17-78
+117-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:64:25-76
+118                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+118-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:65:17-83
+118-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:65:25-81
+119            </intent-filter>
+120            <intent-filter>
+120-->[:flutter_local_notifications] D:\Dietaholics\Customer_App\Detaholics_customer\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:14:13-19:29
+121                <action android:name="android.intent.action.BOOT_COMPLETED" />
+121-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:64:17-78
+121-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:64:25-76
+122                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+122-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:65:17-83
+122-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:65:25-81
+123                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+123-->[:flutter_local_notifications] D:\Dietaholics\Customer_App\Detaholics_customer\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:17:17-82
+123-->[:flutter_local_notifications] D:\Dietaholics\Customer_App\Detaholics_customer\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:17:25-79
+124                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+124-->[:flutter_local_notifications] D:\Dietaholics\Customer_App\Detaholics_customer\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:18:17-82
+124-->[:flutter_local_notifications] D:\Dietaholics\Customer_App\Detaholics_customer\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:18:25-79
+125            </intent-filter>
+126        </receiver>
+127        <!-- Facebook Login configuration -->
+128        <meta-data
+128-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:69:9-70:46
+129            android:name="com.facebook.sdk.ApplicationId"
+129-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:69:20-65
+130            android:value="@string/facebook_app_id" />
+130-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:70:5-44
+131
+132        <activity
+132-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:72:1-75:40
+133            android:name="com.facebook.FacebookActivity"
+133-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:72:11-55
+134            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+134-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:73:5-102
+135            android:label="@string/app_name"
+135-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:75:5-37
+136            android:theme="@style/com_facebook_activity_theme" />
+136-->[com.facebook.android:facebook-common:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c7f794b766f1cd7312830776f3b211c\jetified-facebook-common-5.5.1\AndroidManifest.xml:32:13-63
+137        <activity
+137-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:77:1-86:12
+138            android:name="com.facebook.CustomTabActivity"
+138-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:78:5-50
+139            android:exported="true" >
+139-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:79:5-28
+140            <intent-filter>
+140-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:80:5-85:21
+141                <action android:name="android.intent.action.VIEW" />
+141-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:31:17-69
+141-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:31:25-66
+142
+143                <category android:name="android.intent.category.DEFAULT" />
+143-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:32:17-76
+143-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:32:27-73
+144                <category android:name="android.intent.category.BROWSABLE" />
+144-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:33:17-78
+144-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:33:27-75
+145
+146                <data android:scheme="@string/fb_login_protocol_scheme" />
+146-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:35:17-72
+146-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:35:23-69
+147            </intent-filter>
+148        </activity>
+149        <!--
+150     Don't delete the meta-data below.
+151             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+152        -->
+153        <meta-data
+153-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:89:9-91:33
+154            android:name="flutterEmbedding"
+154-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:90:13-44
+155            android:value="2" />
+155-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:91:13-30
+156
+157        <service
+157-->[:location] D:\Dietaholics\Customer_App\Detaholics_customer\build\location\intermediates\library_manifest\release\AndroidManifest.xml:11:9-15:56
+158            android:name="com.lyokone.location.FlutterLocationService"
+158-->[:location] D:\Dietaholics\Customer_App\Detaholics_customer\build\location\intermediates\library_manifest\release\AndroidManifest.xml:12:13-71
+159            android:enabled="true"
+159-->[:location] D:\Dietaholics\Customer_App\Detaholics_customer\build\location\intermediates\library_manifest\release\AndroidManifest.xml:13:13-35
+160            android:exported="false"
+160-->[:location] D:\Dietaholics\Customer_App\Detaholics_customer\build\location\intermediates\library_manifest\release\AndroidManifest.xml:14:13-37
+161            android:foregroundServiceType="location" />
+161-->[:location] D:\Dietaholics\Customer_App\Detaholics_customer\build\location\intermediates\library_manifest\release\AndroidManifest.xml:15:13-53
+162
+163        <provider
+163-->[:image_picker] D:\Dietaholics\Customer_App\Detaholics_customer\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:8:9-16:20
+164            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+164-->[:image_picker] D:\Dietaholics\Customer_App\Detaholics_customer\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:9:13-82
+165            android:authorities="com.dietaholics.app.flutter.image_provider"
+165-->[:image_picker] D:\Dietaholics\Customer_App\Detaholics_customer\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:10:13-74
+166            android:exported="false"
+166-->[:image_picker] D:\Dietaholics\Customer_App\Detaholics_customer\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:11:13-37
+167            android:grantUriPermissions="true" >
+167-->[:image_picker] D:\Dietaholics\Customer_App\Detaholics_customer\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:12:13-47
+168            <meta-data
+168-->[:image_picker] D:\Dietaholics\Customer_App\Detaholics_customer\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:13:13-15:75
+169                android:name="android.support.FILE_PROVIDER_PATHS"
+169-->[:image_picker] D:\Dietaholics\Customer_App\Detaholics_customer\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:14:17-67
+170                android:resource="@xml/flutter_image_picker_file_paths" />
+170-->[:image_picker] D:\Dietaholics\Customer_App\Detaholics_customer\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:15:17-72
+171        </provider>
+172
+173        <activity
+173-->[:flutter_braintree] D:\Dietaholics\Customer_App\Detaholics_customer\build\flutter_braintree\intermediates\library_manifest\release\AndroidManifest.xml:8:9-11:20
+174            android:name="com.example.flutter_braintree.FlutterBraintreeCustom"
+174-->[:flutter_braintree] D:\Dietaholics\Customer_App\Detaholics_customer\build\flutter_braintree\intermediates\library_manifest\release\AndroidManifest.xml:9:13-80
+175            android:theme="@style/bt_transparent_activity" >
+175-->[:flutter_braintree] D:\Dietaholics\Customer_App\Detaholics_customer\build\flutter_braintree\intermediates\library_manifest\release\AndroidManifest.xml:10:13-59
+176        </activity>
+177        <activity
+177-->[:stripe_payment] D:\Dietaholics\Customer_App\Detaholics_customer\build\stripe_payment\intermediates\library_manifest\release\AndroidManifest.xml:16:9-20:75
+178            android:name="com.gettipsi.stripe.OpenBrowserActivity"
+178-->[:stripe_payment] D:\Dietaholics\Customer_App\Detaholics_customer\build\stripe_payment\intermediates\library_manifest\release\AndroidManifest.xml:17:13-67
+179            android:exported="false"
+179-->[:stripe_payment] D:\Dietaholics\Customer_App\Detaholics_customer\build\stripe_payment\intermediates\library_manifest\release\AndroidManifest.xml:18:13-37
+180            android:launchMode="singleTask"
+180-->[:stripe_payment] D:\Dietaholics\Customer_App\Detaholics_customer\build\stripe_payment\intermediates\library_manifest\release\AndroidManifest.xml:19:13-44
+181            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+181-->[:stripe_payment] D:\Dietaholics\Customer_App\Detaholics_customer\build\stripe_payment\intermediates\library_manifest\release\AndroidManifest.xml:20:13-72
+182        <activity
+182-->[:stripe_payment] D:\Dietaholics\Customer_App\Detaholics_customer\build\stripe_payment\intermediates\library_manifest\release\AndroidManifest.xml:21:9-34:20
+183            android:name="com.gettipsi.stripe.RedirectUriReceiver"
+183-->[:stripe_payment] D:\Dietaholics\Customer_App\Detaholics_customer\build\stripe_payment\intermediates\library_manifest\release\AndroidManifest.xml:22:13-67
+184            android:exported="true"
+184-->[:stripe_payment] D:\Dietaholics\Customer_App\Detaholics_customer\build\stripe_payment\intermediates\library_manifest\release\AndroidManifest.xml:23:13-36
+185            android:launchMode="singleTask"
+185-->[:stripe_payment] D:\Dietaholics\Customer_App\Detaholics_customer\build\stripe_payment\intermediates\library_manifest\release\AndroidManifest.xml:24:13-44
+186            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+186-->[:stripe_payment] D:\Dietaholics\Customer_App\Detaholics_customer\build\stripe_payment\intermediates\library_manifest\release\AndroidManifest.xml:25:13-83
+187            <intent-filter>
+187-->[:stripe_payment] D:\Dietaholics\Customer_App\Detaholics_customer\build\stripe_payment\intermediates\library_manifest\release\AndroidManifest.xml:26:13-33:29
+188                <action android:name="android.intent.action.VIEW" />
+188-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:31:17-69
+188-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:31:25-66
+189
+190                <category android:name="android.intent.category.DEFAULT" />
+190-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:32:17-76
+190-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:32:27-73
+191                <category android:name="android.intent.category.BROWSABLE" />
+191-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:33:17-78
+191-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:33:27-75
+192
+193                <data android:scheme="example" />
+193-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:35:17-72
+193-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:35:23-69
+194            </intent-filter>
+195        </activity>
+196
+197        <service
+197-->[:firebase_auth] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_auth\intermediates\library_manifest\release\AndroidManifest.xml:8:9-12:19
+198            android:name="com.google.firebase.components.ComponentDiscoveryService"
+198-->[:firebase_auth] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_auth\intermediates\library_manifest\release\AndroidManifest.xml:8:18-89
+199            android:directBootAware="true"
+199-->[com.google.firebase:firebase-common:20.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\0f3e9d5a9eec602f4a69489c9ac72c3b\jetified-firebase-common-20.0.0\AndroidManifest.xml:35:13-43
+200            android:exported="false" >
+200-->[com.google.firebase:firebase-messaging:22.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c6ee4650a72210e95bc281b4aeac49e\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:51:13-37
+201            <meta-data
+201-->[:firebase_auth] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_auth\intermediates\library_manifest\release\AndroidManifest.xml:9:13-11:85
+202                android:name="com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar"
+202-->[:firebase_auth] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_auth\intermediates\library_manifest\release\AndroidManifest.xml:10:17-124
+203                android:value="com.google.firebase.components.ComponentRegistrar" />
+203-->[:firebase_auth] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_auth\intermediates\library_manifest\release\AndroidManifest.xml:11:17-82
+204            <meta-data
+204-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:34:13-36:85
+205                android:name="com.google.firebase.components:io.flutter.plugins.firebase.messaging.FlutterFirebaseAppRegistrar"
+205-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:35:17-128
+206                android:value="com.google.firebase.components.ComponentRegistrar" />
+206-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:36:17-82
+207            <meta-data
+207-->[:firebase_core] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_core\intermediates\library_manifest\release\AndroidManifest.xml:9:13-11:85
+208                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+208-->[:firebase_core] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_core\intermediates\library_manifest\release\AndroidManifest.xml:10:17-124
+209                android:value="com.google.firebase.components.ComponentRegistrar" />
+209-->[:firebase_core] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_core\intermediates\library_manifest\release\AndroidManifest.xml:11:17-82
+210            <meta-data
+210-->[com.google.firebase:firebase-messaging:22.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c6ee4650a72210e95bc281b4aeac49e\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:52:13-54:85
+211                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+211-->[com.google.firebase:firebase-messaging:22.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c6ee4650a72210e95bc281b4aeac49e\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:53:17-119
+212                android:value="com.google.firebase.components.ComponentRegistrar" />
+212-->[com.google.firebase:firebase-messaging:22.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c6ee4650a72210e95bc281b4aeac49e\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:54:17-82
+213            <meta-data
+213-->[com.google.firebase:firebase-datatransport:18.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\b9f5ad552c3fd5a9ede54cfea7ac989f\jetified-firebase-datatransport-18.0.0\AndroidManifest.xml:28:13-30:85
+214                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+214-->[com.google.firebase:firebase-datatransport:18.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\b9f5ad552c3fd5a9ede54cfea7ac989f\jetified-firebase-datatransport-18.0.0\AndroidManifest.xml:29:17-115
+215                android:value="com.google.firebase.components.ComponentRegistrar" />
+215-->[com.google.firebase:firebase-datatransport:18.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\b9f5ad552c3fd5a9ede54cfea7ac989f\jetified-firebase-datatransport-18.0.0\AndroidManifest.xml:30:17-82
+216            <meta-data
+216-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:77:13-79:85
+217                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+217-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:78:17-109
+218                android:value="com.google.firebase.components.ComponentRegistrar" />
+218-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:79:17-82
+219            <meta-data
+219-->[com.google.android.gms:play-services-measurement-api:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\f93f236a32ecfb1426a47c8a27a7a50a\jetified-play-services-measurement-api-19.0.0\AndroidManifest.xml:30:13-32:85
+220                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+220-->[com.google.android.gms:play-services-measurement-api:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\f93f236a32ecfb1426a47c8a27a7a50a\jetified-play-services-measurement-api-19.0.0\AndroidManifest.xml:31:17-139
+221                android:value="com.google.firebase.components.ComponentRegistrar" />
+221-->[com.google.android.gms:play-services-measurement-api:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\f93f236a32ecfb1426a47c8a27a7a50a\jetified-play-services-measurement-api-19.0.0\AndroidManifest.xml:32:17-82
+222            <meta-data
+222-->[com.google.firebase:firebase-installations:17.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\b59e27389242b995b0299fb5c17c2afe\jetified-firebase-installations-17.0.0\AndroidManifest.xml:18:13-20:85
+223                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+223-->[com.google.firebase:firebase-installations:17.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\b59e27389242b995b0299fb5c17c2afe\jetified-firebase-installations-17.0.0\AndroidManifest.xml:19:17-127
+224                android:value="com.google.firebase.components.ComponentRegistrar" />
+224-->[com.google.firebase:firebase-installations:17.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\b59e27389242b995b0299fb5c17c2afe\jetified-firebase-installations-17.0.0\AndroidManifest.xml:20:17-82
+225        </service>
+226        <service
+226-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:12:9-15:72
+227            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingBackgroundService"
+227-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:13:13-107
+228            android:exported="false"
+228-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:14:13-37
+229            android:permission="android.permission.BIND_JOB_SERVICE" />
+229-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:15:13-69
+230        <service
+230-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:16:9-22:19
+231            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingService"
+231-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:17:13-97
+232            android:exported="false" >
+232-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:18:13-37
+233            <intent-filter>
+233-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:19:13-21:29
+234                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+234-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:20:17-78
+234-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:20:25-75
+235            </intent-filter>
+236        </service>
+237
+238        <receiver
+238-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:24:9-31:20
+239            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingReceiver"
+239-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:25:13-98
+240            android:exported="true"
+240-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:26:13-36
+241            android:permission="com.google.android.c2dm.permission.SEND" >
+241-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:27:13-73
+242            <intent-filter>
+242-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:28:13-30:29
+243                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+243-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:29:17-81
+243-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:29:25-78
+244            </intent-filter>
+245        </receiver>
+246
+247        <provider
+247-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:39:9-43:38
+248            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider"
+248-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:40:13-102
+249            android:authorities="com.dietaholics.app.flutterfirebasemessaginginitprovider"
+249-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:41:13-88
+250            android:exported="false"
+250-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:42:13-37
+251            android:initOrder="99" />
+251-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:43:13-35
+252        <provider
+252-->[:share] D:\Dietaholics\Customer_App\Detaholics_customer\build\share\intermediates\library_manifest\release\AndroidManifest.xml:8:9-16:20
+253            android:name="io.flutter.plugins.share.ShareFileProvider"
+253-->[:share] D:\Dietaholics\Customer_App\Detaholics_customer\build\share\intermediates\library_manifest\release\AndroidManifest.xml:9:13-70
+254            android:authorities="com.dietaholics.app.flutter.share_provider"
+254-->[:share] D:\Dietaholics\Customer_App\Detaholics_customer\build\share\intermediates\library_manifest\release\AndroidManifest.xml:10:13-74
+255            android:exported="false"
+255-->[:share] D:\Dietaholics\Customer_App\Detaholics_customer\build\share\intermediates\library_manifest\release\AndroidManifest.xml:11:13-37
+256            android:grantUriPermissions="true" >
+256-->[:share] D:\Dietaholics\Customer_App\Detaholics_customer\build\share\intermediates\library_manifest\release\AndroidManifest.xml:12:13-47
+257            <meta-data
+257-->[:image_picker] D:\Dietaholics\Customer_App\Detaholics_customer\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:13:13-15:75
+258                android:name="android.support.FILE_PROVIDER_PATHS"
+258-->[:image_picker] D:\Dietaholics\Customer_App\Detaholics_customer\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:14:17-67
+259                android:resource="@xml/flutter_share_file_paths" />
+259-->[:image_picker] D:\Dietaholics\Customer_App\Detaholics_customer\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:15:17-72
+260        </provider>
+261
+262        <activity
+262-->[:url_launcher] D:\Dietaholics\Customer_App\Detaholics_customer\build\url_launcher\intermediates\library_manifest\release\AndroidManifest.xml:8:9-11:74
+263            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+263-->[:url_launcher] D:\Dietaholics\Customer_App\Detaholics_customer\build\url_launcher\intermediates\library_manifest\release\AndroidManifest.xml:9:13-74
+264            android:exported="false"
+264-->[:url_launcher] D:\Dietaholics\Customer_App\Detaholics_customer\build\url_launcher\intermediates\library_manifest\release\AndroidManifest.xml:10:13-37
+265            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+265-->[:url_launcher] D:\Dietaholics\Customer_App\Detaholics_customer\build\url_launcher\intermediates\library_manifest\release\AndroidManifest.xml:11:13-71
+266        <activity
+266-->[io.card:android-sdk:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a4544caa3eae9d42f342694b23b68e41\jetified-android-sdk-5.5.1\AndroidManifest.xml:20:9-22:66
+267            android:name="io.card.payment.CardIOActivity"
+267-->[io.card:android-sdk:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a4544caa3eae9d42f342694b23b68e41\jetified-android-sdk-5.5.1\AndroidManifest.xml:21:13-58
+268            android:configChanges="keyboardHidden|orientation" />
+268-->[io.card:android-sdk:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a4544caa3eae9d42f342694b23b68e41\jetified-android-sdk-5.5.1\AndroidManifest.xml:22:13-63
+269        <activity android:name="io.card.payment.DataEntryActivity" />
+269-->[io.card:android-sdk:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a4544caa3eae9d42f342694b23b68e41\jetified-android-sdk-5.5.1\AndroidManifest.xml:23:9-70
+269-->[io.card:android-sdk:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a4544caa3eae9d42f342694b23b68e41\jetified-android-sdk-5.5.1\AndroidManifest.xml:23:19-67
+270        <activity
+270-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:17:9-19:57
+271            android:name="com.stripe.android.view.AddPaymentMethodActivity"
+271-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:18:13-76
+272            android:theme="@style/StripeDefaultTheme" />
+272-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:19:13-54
+273        <activity
+273-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:20:9-22:57
+274            android:name="com.stripe.android.view.PaymentMethodsActivity"
+274-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:21:13-74
+275            android:theme="@style/StripeDefaultTheme" />
+275-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:22:13-54
+276        <activity
+276-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:23:9-25:57
+277            android:name="com.stripe.android.view.PaymentFlowActivity"
+277-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:24:13-71
+278            android:theme="@style/StripeDefaultTheme" />
+278-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:25:13-54
+279        <activity
+279-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:26:9-29:58
+280            android:name="com.stripe.android.view.PaymentAuthWebViewActivity"
+280-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:27:13-78
+281            android:theme="@style/StripeDefaultTheme"
+281-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:28:13-54
+282            android:windowSoftInputMode="adjustResize" />
+282-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:29:13-55
+283        <activity
+283-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:30:9-32:61
+284            android:name="com.stripe.android.view.PaymentRelayActivity"
+284-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:31:13-72
+285            android:theme="@style/StripeTransparentTheme" />
+285-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:32:13-58
+286        <!--
+287        Set android:launchMode="singleTop" so that the StripeBrowserLauncherActivity instance that
+288        launched the browser Activity will also handle the return URL deep link.
+289        -->
+290        <activity
+290-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:38:9-54:20
+291            android:name="com.stripe.android.payments.StripeBrowserLauncherActivity"
+291-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:39:13-85
+292            android:launchMode="singleTop"
+292-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:40:13-43
+293            android:theme="@style/StripeTransparentTheme" >
+293-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:41:13-58
+294            <intent-filter>
+294-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:42:13-53:29
+295                <action android:name="android.intent.action.VIEW" />
+295-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:31:17-69
+295-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:31:25-66
+296
+297                <category android:name="android.intent.category.DEFAULT" />
+297-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:32:17-76
+297-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:32:27-73
+298                <category android:name="android.intent.category.BROWSABLE" />
+298-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:33:17-78
+298-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:33:27-75
+299
+300                <!-- Must match `DefaultReturnUrl#value`. -->
+301                <data
+301-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:35:17-72
+302                    android:host="payment_return_url"
+303                    android:path="/com.dietaholics.app"
+304                    android:scheme="stripesdk" />
+304-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:35:23-69
+305            </intent-filter>
+306        </activity>
+307        <activity
+307-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:55:9-57:57
+308            android:name="com.stripe.android.view.Stripe3ds2CompletionActivity"
+308-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:56:13-80
+309            android:theme="@style/StripeDefaultTheme" />
+309-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:57:13-54
+310        <activity
+310-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:58:9-60:69
+311            android:name="com.stripe.android.paymentsheet.PaymentSheetActivity"
+311-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:59:13-80
+312            android:theme="@style/StripePaymentSheetDefaultTheme" />
+312-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:60:13-66
+313        <activity
+313-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:61:9-63:69
+314            android:name="com.stripe.android.paymentsheet.PaymentOptionsActivity"
+314-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:62:13-82
+315            android:theme="@style/StripePaymentSheetDefaultTheme" />
+315-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:63:13-66
+316        <activity
+316-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:64:9-66:66
+317            android:name="com.stripe.android.googlepay.StripeGooglePayActivity"
+317-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:65:13-80
+318            android:theme="@style/StripeGooglePayDefaultTheme" />
+318-->[com.stripe:payments-core:16.10.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\a517cedcb517714a5f1592fc3cd26065\jetified-payments-core-16.10.0\AndroidManifest.xml:66:13-63
+319        <activity
+319-->[com.stripe:stripe-3ds2-android:5.3.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bcee1b3535d6976f0d399519fa94906f\jetified-stripe-3ds2-android-5.3.1\AndroidManifest.xml:10:9-12:54
+320            android:name="com.stripe.android.stripe3ds2.views.ChallengeActivity"
+320-->[com.stripe:stripe-3ds2-android:5.3.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bcee1b3535d6976f0d399519fa94906f\jetified-stripe-3ds2-android-5.3.1\AndroidManifest.xml:11:13-81
+321            android:theme="@style/Stripe3DS2Theme" />
+321-->[com.stripe:stripe-3ds2-android:5.3.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bcee1b3535d6976f0d399519fa94906f\jetified-stripe-3ds2-android-5.3.1\AndroidManifest.xml:12:13-51
+322        <activity
+322-->[com.stripe:stripe-3ds2-android:5.3.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bcee1b3535d6976f0d399519fa94906f\jetified-stripe-3ds2-android-5.3.1\AndroidManifest.xml:13:9-15:54
+323            android:name="com.stripe.android.stripe3ds2.views.ChallengeProgressActivity"
+323-->[com.stripe:stripe-3ds2-android:5.3.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bcee1b3535d6976f0d399519fa94906f\jetified-stripe-3ds2-android-5.3.1\AndroidManifest.xml:14:13-89
+324            android:theme="@style/Stripe3DS2Theme" />
+324-->[com.stripe:stripe-3ds2-android:5.3.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bcee1b3535d6976f0d399519fa94906f\jetified-stripe-3ds2-android-5.3.1\AndroidManifest.xml:15:13-51
+325
+326        <receiver
+326-->[com.google.firebase:firebase-messaging:22.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c6ee4650a72210e95bc281b4aeac49e\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:28:9-35:20
+327            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+327-->[com.google.firebase:firebase-messaging:22.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c6ee4650a72210e95bc281b4aeac49e\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:29:13-78
+328            android:exported="true"
+328-->[com.google.firebase:firebase-messaging:22.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c6ee4650a72210e95bc281b4aeac49e\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:30:13-36
+329            android:permission="com.google.android.c2dm.permission.SEND" >
+329-->[com.google.firebase:firebase-messaging:22.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c6ee4650a72210e95bc281b4aeac49e\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:31:13-73
+330            <intent-filter>
+330-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:28:13-30:29
+331                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+331-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:29:17-81
+331-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:29:25-78
+332            </intent-filter>
+333        </receiver>
+334        <!--
+335             FirebaseMessagingService performs security checks at runtime,
+336             but set to not exported to explicitly avoid allowing another app to call it.
+337        -->
+338        <service
+338-->[com.google.firebase:firebase-messaging:22.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c6ee4650a72210e95bc281b4aeac49e\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:41:9-48:19
+339            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+339-->[com.google.firebase:firebase-messaging:22.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c6ee4650a72210e95bc281b4aeac49e\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:42:13-82
+340            android:directBootAware="true"
+340-->[com.google.firebase:firebase-messaging:22.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c6ee4650a72210e95bc281b4aeac49e\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:43:13-43
+341            android:exported="false" >
+341-->[com.google.firebase:firebase-messaging:22.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c6ee4650a72210e95bc281b4aeac49e\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:44:13-37
+342            <intent-filter android:priority="-500" >
+342-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:19:13-21:29
+343                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+343-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:20:17-78
+343-->[:firebase_messaging] D:\Dietaholics\Customer_App\Detaholics_customer\build\firebase_messaging\intermediates\library_manifest\release\AndroidManifest.xml:20:25-75
+344            </intent-filter>
+345        </service>
+346        <service
+346-->[com.google.android.datatransport:transport-backend-cct:3.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\89a8681812178fdaade7271c180fdede\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:29:9-35:19
+347            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+347-->[com.google.android.datatransport:transport-backend-cct:3.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\89a8681812178fdaade7271c180fdede\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:30:13-103
+348            android:exported="false" >
+348-->[com.google.android.datatransport:transport-backend-cct:3.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\89a8681812178fdaade7271c180fdede\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:31:13-37
+349            <meta-data
+349-->[com.google.android.datatransport:transport-backend-cct:3.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\89a8681812178fdaade7271c180fdede\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:32:13-34:39
+350                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+350-->[com.google.android.datatransport:transport-backend-cct:3.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\89a8681812178fdaade7271c180fdede\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:33:17-94
+351                android:value="cct" />
+351-->[com.google.android.datatransport:transport-backend-cct:3.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\89a8681812178fdaade7271c180fdede\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:34:17-36
+352        </service>
+353
+354        <activity
+354-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:27:9-44:20
+355            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+355-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:28:13-80
+356            android:excludeFromRecents="true"
+356-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:29:13-46
+357            android:exported="true"
+357-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:30:13-36
+358            android:launchMode="singleTask"
+358-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:31:13-44
+359            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+359-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:32:13-72
+360            <intent-filter>
+360-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:33:13-43:29
+361                <action android:name="android.intent.action.VIEW" />
+361-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:31:17-69
+361-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:31:25-66
+362
+363                <category android:name="android.intent.category.DEFAULT" />
+363-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:32:17-76
+363-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:32:27-73
+364                <category android:name="android.intent.category.BROWSABLE" />
+364-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:33:17-78
+364-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:33:27-75
+365
+366                <data
+366-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:35:17-72
+367                    android:host="firebase.auth"
+368                    android:path="/"
+369                    android:scheme="genericidp" />
+369-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:35:23-69
+370            </intent-filter>
+371        </activity>
+372        <activity
+372-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:45:9-62:20
+373            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+373-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:46:13-79
+374            android:excludeFromRecents="true"
+374-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:47:13-46
+375            android:exported="true"
+375-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:48:13-36
+376            android:launchMode="singleTask"
+376-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:49:13-44
+377            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+377-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:50:13-72
+378            <intent-filter>
+378-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:51:13-61:29
+379                <action android:name="android.intent.action.VIEW" />
+379-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:31:17-69
+379-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:31:25-66
+380
+381                <category android:name="android.intent.category.DEFAULT" />
+381-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:32:17-76
+381-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:32:27-73
+382                <category android:name="android.intent.category.BROWSABLE" />
+382-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:33:17-78
+382-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:33:27-75
+383
+384                <data
+384-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:35:17-72
+385                    android:host="firebase.auth"
+386                    android:path="/"
+387                    android:scheme="recaptcha" />
+387-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:35:23-69
+388            </intent-filter>
+389        </activity>
+390
+391        <service
+391-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:64:9-73:19
+392            android:name="com.google.firebase.auth.api.fallback.service.FirebaseAuthFallbackService"
+392-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:65:13-101
+393            android:enabled="true"
+393-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:66:13-35
+394            android:exported="false" >
+394-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:67:13-37
+395            <intent-filter>
+395-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:68:13-72:29
+396                <action android:name="com.google.firebase.auth.api.gms.service.START" />
+396-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:69:17-89
+396-->[com.google.firebase:firebase-auth:21.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bce71045d03afa011e7c2269810608d9\jetified-firebase-auth-21.0.1\AndroidManifest.xml:69:25-86
+397
+398                <category android:name="android.intent.category.DEFAULT" />
+398-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:32:17-76
+398-->D:\Dietaholics\Customer_App\Detaholics_customer\android\app\src\main\AndroidManifest.xml:32:27-73
+399            </intent-filter>
+400        </service>
+401
+402        <provider
+402-->[com.google.firebase:firebase-common:20.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\0f3e9d5a9eec602f4a69489c9ac72c3b\jetified-firebase-common-20.0.0\AndroidManifest.xml:26:9-31:39
+403            android:name="com.google.firebase.provider.FirebaseInitProvider"
+403-->[com.google.firebase:firebase-common:20.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\0f3e9d5a9eec602f4a69489c9ac72c3b\jetified-firebase-common-20.0.0\AndroidManifest.xml:27:13-77
+404            android:authorities="com.dietaholics.app.firebaseinitprovider"
+404-->[com.google.firebase:firebase-common:20.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\0f3e9d5a9eec602f4a69489c9ac72c3b\jetified-firebase-common-20.0.0\AndroidManifest.xml:28:13-72
+405            android:directBootAware="true"
+405-->[com.google.firebase:firebase-common:20.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\0f3e9d5a9eec602f4a69489c9ac72c3b\jetified-firebase-common-20.0.0\AndroidManifest.xml:29:13-43
+406            android:exported="false"
+406-->[com.google.firebase:firebase-common:20.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\0f3e9d5a9eec602f4a69489c9ac72c3b\jetified-firebase-common-20.0.0\AndroidManifest.xml:30:13-37
+407            android:initOrder="100" />
+407-->[com.google.firebase:firebase-common:20.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\0f3e9d5a9eec602f4a69489c9ac72c3b\jetified-firebase-common-20.0.0\AndroidManifest.xml:31:13-36
+408
+409        <receiver
+409-->[com.google.android.gms:play-services-measurement:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\64b953dfaefb935ce9c27797ac70829c\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:29:9-33:20
+410            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+410-->[com.google.android.gms:play-services-measurement:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\64b953dfaefb935ce9c27797ac70829c\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:30:13-85
+411            android:enabled="true"
+411-->[com.google.android.gms:play-services-measurement:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\64b953dfaefb935ce9c27797ac70829c\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:31:13-35
+412            android:exported="false" >
+412-->[com.google.android.gms:play-services-measurement:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\64b953dfaefb935ce9c27797ac70829c\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:32:13-37
+413        </receiver>
+414
+415        <service
+415-->[com.google.android.gms:play-services-measurement:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\64b953dfaefb935ce9c27797ac70829c\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:35:9-38:40
+416            android:name="com.google.android.gms.measurement.AppMeasurementService"
+416-->[com.google.android.gms:play-services-measurement:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\64b953dfaefb935ce9c27797ac70829c\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:36:13-84
+417            android:enabled="true"
+417-->[com.google.android.gms:play-services-measurement:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\64b953dfaefb935ce9c27797ac70829c\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:37:13-35
+418            android:exported="false" />
+418-->[com.google.android.gms:play-services-measurement:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\64b953dfaefb935ce9c27797ac70829c\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:38:13-37
+419        <service
+419-->[com.google.android.gms:play-services-measurement:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\64b953dfaefb935ce9c27797ac70829c\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:39:9-43:72
+420            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+420-->[com.google.android.gms:play-services-measurement:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\64b953dfaefb935ce9c27797ac70829c\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:40:13-87
+421            android:enabled="true"
+421-->[com.google.android.gms:play-services-measurement:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\64b953dfaefb935ce9c27797ac70829c\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:41:13-35
+422            android:exported="false"
+422-->[com.google.android.gms:play-services-measurement:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\64b953dfaefb935ce9c27797ac70829c\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:42:13-37
+423            android:permission="android.permission.BIND_JOB_SERVICE" />
+423-->[com.google.android.gms:play-services-measurement:19.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\64b953dfaefb935ce9c27797ac70829c\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:43:13-69
+424
+425        <activity android:name="com.facebook.CustomTabMainActivity" />
+425-->[com.facebook.android:facebook-common:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c7f794b766f1cd7312830776f3b211c\jetified-facebook-common-5.5.1\AndroidManifest.xml:33:9-71
+425-->[com.facebook.android:facebook-common:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\7c7f794b766f1cd7312830776f3b211c\jetified-facebook-common-5.5.1\AndroidManifest.xml:33:19-68
+426        <!--
+427         The initialization ContentProvider will call FacebookSdk.sdkInitialize automatically
+428         with the application context. This config is merged in with the host app's manifest,
+429         but there can only be one provider with the same authority activated at any given
+430         point; so if the end user has two or more different apps that use Facebook SDK, only the
+431         first one will be able to use the provider. To work around this problem, we use the
+432         following placeholder in the authority to identify each host application as if it was
+433         a completely different provider.
+434        -->
+435        <provider
+435-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:39:9-42:40
+436            android:name="com.facebook.internal.FacebookInitProvider"
+436-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:40:13-70
+437            android:authorities="com.dietaholics.app.FacebookInitProvider"
+437-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:41:13-72
+438            android:exported="false" />
+438-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:42:13-37
+439
+440        <receiver
+440-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:44:9-50:20
+441            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
+441-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:45:13-86
+442            android:exported="false" >
+442-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:46:13-37
+443            <intent-filter>
+443-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:47:13-49:29
+444                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
+444-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:48:17-95
+444-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:48:25-92
+445            </intent-filter>
+446        </receiver>
+447        <receiver
+447-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:51:9-58:20
+448            android:name="com.facebook.CampaignTrackingReceiver"
+448-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:52:13-65
+449            android:exported="true"
+449-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:53:13-36
+450            android:permission="android.permission.INSTALL_PACKAGES" >
+450-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:54:13-69
+451            <intent-filter>
+451-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:55:13-57:29
+452                <action android:name="com.android.vending.INSTALL_REFERRER" />
+452-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:56:17-79
+452-->[com.facebook.android:facebook-core:5.5.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\85d43c51d55a84a788a8804fc2944bec\jetified-facebook-core-5.5.1\AndroidManifest.xml:56:25-76
+453            </intent-filter>
+454        </receiver>
+455
+456        <activity
+456-->[com.braintreepayments.api:drop-in:5.2.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\e2ac15d0f65bdffec48b03ab0c36d3d8\jetified-drop-in-5.2.1\AndroidManifest.xml:18:9-20:64
+457            android:name="com.braintreepayments.api.dropin.DropInActivity"
+457-->[com.braintreepayments.api:drop-in:5.2.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\e2ac15d0f65bdffec48b03ab0c36d3d8\jetified-drop-in-5.2.1\AndroidManifest.xml:19:13-75
+458            android:theme="@style/bt_drop_in_activity_theme" />
+458-->[com.braintreepayments.api:drop-in:5.2.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\e2ac15d0f65bdffec48b03ab0c36d3d8\jetified-drop-in-5.2.1\AndroidManifest.xml:20:13-61
+459        <activity
+459-->[com.braintreepayments.api:drop-in:5.2.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\e2ac15d0f65bdffec48b03ab0c36d3d8\jetified-drop-in-5.2.1\AndroidManifest.xml:21:9-23:65
+460            android:name="com.braintreepayments.api.dropin.AddCardActivity"
+460-->[com.braintreepayments.api:drop-in:5.2.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\e2ac15d0f65bdffec48b03ab0c36d3d8\jetified-drop-in-5.2.1\AndroidManifest.xml:22:13-76
+461            android:theme="@style/bt_add_card_activity_theme" />
+461-->[com.braintreepayments.api:drop-in:5.2.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\e2ac15d0f65bdffec48b03ab0c36d3d8\jetified-drop-in-5.2.1\AndroidManifest.xml:23:13-62
+462        <activity
+462-->[com.braintreepayments.api:drop-in:5.2.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\e2ac15d0f65bdffec48b03ab0c36d3d8\jetified-drop-in-5.2.1\AndroidManifest.xml:24:9-26:70
+463            android:name="com.braintreepayments.api.dropin.VaultManagerActivity"
+463-->[com.braintreepayments.api:drop-in:5.2.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\e2ac15d0f65bdffec48b03ab0c36d3d8\jetified-drop-in-5.2.1\AndroidManifest.xml:25:13-81
+464            android:theme="@style/bt_vault_manager_activity_theme" />
+464-->[com.braintreepayments.api:drop-in:5.2.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\e2ac15d0f65bdffec48b03ab0c36d3d8\jetified-drop-in-5.2.1\AndroidManifest.xml:26:13-67
+465
+466        <service
+466-->[com.google.android.datatransport:transport-runtime:3.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\cbc70f80cb7c64dba0aa935d594449da\jetified-transport-runtime-3.0.0\AndroidManifest.xml:26:9-30:19
+467            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+467-->[com.google.android.datatransport:transport-runtime:3.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\cbc70f80cb7c64dba0aa935d594449da\jetified-transport-runtime-3.0.0\AndroidManifest.xml:27:13-117
+468            android:exported="false"
+468-->[com.google.android.datatransport:transport-runtime:3.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\cbc70f80cb7c64dba0aa935d594449da\jetified-transport-runtime-3.0.0\AndroidManifest.xml:28:13-37
+469            android:permission="android.permission.BIND_JOB_SERVICE" >
+469-->[com.google.android.datatransport:transport-runtime:3.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\cbc70f80cb7c64dba0aa935d594449da\jetified-transport-runtime-3.0.0\AndroidManifest.xml:29:13-69
+470        </service>
+471
+472        <receiver
+472-->[com.google.android.datatransport:transport-runtime:3.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\cbc70f80cb7c64dba0aa935d594449da\jetified-transport-runtime-3.0.0\AndroidManifest.xml:32:9-34:40
+473            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+473-->[com.google.android.datatransport:transport-runtime:3.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\cbc70f80cb7c64dba0aa935d594449da\jetified-transport-runtime-3.0.0\AndroidManifest.xml:33:13-132
+474            android:exported="false" /> <!-- Needs to be explicitly declared on P+ -->
+474-->[com.google.android.datatransport:transport-runtime:3.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\cbc70f80cb7c64dba0aa935d594449da\jetified-transport-runtime-3.0.0\AndroidManifest.xml:34:13-37
+475        <uses-library
+475-->[com.google.android.gms:play-services-maps:17.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\8dd2f87fc4cbf5449e41413143263736\jetified-play-services-maps-17.0.0\AndroidManifest.xml:33:9-35:40
+476            android:name="org.apache.http.legacy"
+476-->[com.google.android.gms:play-services-maps:17.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\8dd2f87fc4cbf5449e41413143263736\jetified-play-services-maps-17.0.0\AndroidManifest.xml:34:13-50
+477            android:required="false" />
+477-->[com.google.android.gms:play-services-maps:17.0.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\8dd2f87fc4cbf5449e41413143263736\jetified-play-services-maps-17.0.0\AndroidManifest.xml:35:13-37
+478
+479        <service android:name="com.braintreepayments.api.internal.AnalyticsIntentService" />
+479-->[com.braintreepayments.api:braintree:3.15.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\27e46203ac2231aab56c2442e31a7af8\jetified-braintree-3.15.0\AndroidManifest.xml:17:9-93
+479-->[com.braintreepayments.api:braintree:3.15.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\27e46203ac2231aab56c2442e31a7af8\jetified-braintree-3.15.0\AndroidManifest.xml:17:18-90
+480
+481        <activity android:name="com.braintreepayments.api.ThreeDSecureActivity" />
+481-->[com.braintreepayments.api:braintree:3.15.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\27e46203ac2231aab56c2442e31a7af8\jetified-braintree-3.15.0\AndroidManifest.xml:19:9-83
+481-->[com.braintreepayments.api:braintree:3.15.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\27e46203ac2231aab56c2442e31a7af8\jetified-braintree-3.15.0\AndroidManifest.xml:19:19-80
+482        <activity
+482-->[com.google.android.gms:play-services-auth:16.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\50cc7363c5d01bc4293093fd6591a25d\jetified-play-services-auth-16.0.1\AndroidManifest.xml:23:9-27:75
+483            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+483-->[com.google.android.gms:play-services-auth:16.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\50cc7363c5d01bc4293093fd6591a25d\jetified-play-services-auth-16.0.1\AndroidManifest.xml:24:13-93
+484            android:excludeFromRecents="true"
+484-->[com.google.android.gms:play-services-auth:16.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\50cc7363c5d01bc4293093fd6591a25d\jetified-play-services-auth-16.0.1\AndroidManifest.xml:25:13-46
+485            android:exported="false"
+485-->[com.google.android.gms:play-services-auth:16.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\50cc7363c5d01bc4293093fd6591a25d\jetified-play-services-auth-16.0.1\AndroidManifest.xml:26:13-37
+486            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+486-->[com.google.android.gms:play-services-auth:16.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\50cc7363c5d01bc4293093fd6591a25d\jetified-play-services-auth-16.0.1\AndroidManifest.xml:27:13-72
+487        <!--
+488            Service handling Google Sign-In user revocation. For apps that do not integrate with
+489            Google Sign-In, this service will never be started.
+490        -->
+491        <service
+491-->[com.google.android.gms:play-services-auth:16.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\50cc7363c5d01bc4293093fd6591a25d\jetified-play-services-auth-16.0.1\AndroidManifest.xml:33:9-36:110
+492            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+492-->[com.google.android.gms:play-services-auth:16.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\50cc7363c5d01bc4293093fd6591a25d\jetified-play-services-auth-16.0.1\AndroidManifest.xml:34:13-89
+493            android:exported="true"
+493-->[com.google.android.gms:play-services-auth:16.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\50cc7363c5d01bc4293093fd6591a25d\jetified-play-services-auth-16.0.1\AndroidManifest.xml:35:13-36
+494            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
+494-->[com.google.android.gms:play-services-auth:16.0.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\50cc7363c5d01bc4293093fd6591a25d\jetified-play-services-auth-16.0.1\AndroidManifest.xml:36:13-107
+495
+496        <activity
+496-->[com.google.android.gms:play-services-base:17.5.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bb1ff80c08f612c3c7b368a536c6beab\jetified-play-services-base-17.5.0\AndroidManifest.xml:23:9-26:75
+497            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+497-->[com.google.android.gms:play-services-base:17.5.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bb1ff80c08f612c3c7b368a536c6beab\jetified-play-services-base-17.5.0\AndroidManifest.xml:24:13-79
+498            android:exported="false"
+498-->[com.google.android.gms:play-services-base:17.5.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bb1ff80c08f612c3c7b368a536c6beab\jetified-play-services-base-17.5.0\AndroidManifest.xml:25:13-37
+499            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+499-->[com.google.android.gms:play-services-base:17.5.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\bb1ff80c08f612c3c7b368a536c6beab\jetified-play-services-base-17.5.0\AndroidManifest.xml:26:13-72
+500
+501        <meta-data
+501-->[com.google.android.gms:play-services-basement:17.5.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\80028e3df90d2ceee3c893efd42b10d1\jetified-play-services-basement-17.5.0\AndroidManifest.xml:23:9-25:69
+502            android:name="com.google.android.gms.version"
+502-->[com.google.android.gms:play-services-basement:17.5.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\80028e3df90d2ceee3c893efd42b10d1\jetified-play-services-basement-17.5.0\AndroidManifest.xml:24:13-58
+503            android:value="@integer/google_play_services_version" />
+503-->[com.google.android.gms:play-services-basement:17.5.0] E:\Java\JDK\bin\caches\transforms-2\files-2.1\80028e3df90d2ceee3c893efd42b10d1\jetified-play-services-basement-17.5.0\AndroidManifest.xml:25:13-66
+504
+505        <activity
+505-->[com.braintreepayments.api:google-payment:3.3.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\96543b3c0de9a731e0dc18dc28f55e69\jetified-google-payment-3.3.1\AndroidManifest.xml:12:9-14:62
+506            android:name="com.braintreepayments.api.GooglePaymentActivity"
+506-->[com.braintreepayments.api:google-payment:3.3.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\96543b3c0de9a731e0dc18dc28f55e69\jetified-google-payment-3.3.1\AndroidManifest.xml:13:13-75
+507            android:theme="@style/bt_transparent_activity" />
+507-->[com.braintreepayments.api:google-payment:3.3.1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\96543b3c0de9a731e0dc18dc28f55e69\jetified-google-payment-3.3.1\AndroidManifest.xml:14:13-59
+508
+509        <provider
+509-->[org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.4-1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\08f8c8b3dfbc40d12f5fcb49a9e11666\jetified-cardinalmobilesdk-2.2.4-1\AndroidManifest.xml:17:9-21:40
+510            android:name="com.cardinalcommerce.shared.cs.utils.CCInitProvider"
+510-->[org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.4-1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\08f8c8b3dfbc40d12f5fcb49a9e11666\jetified-cardinalmobilesdk-2.2.4-1\AndroidManifest.xml:18:13-79
+511            android:authorities="com.dietaholics.app.CCInitProvider"
+511-->[org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.4-1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\08f8c8b3dfbc40d12f5fcb49a9e11666\jetified-cardinalmobilesdk-2.2.4-1\AndroidManifest.xml:19:13-66
+512            android:enabled="true"
+512-->[org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.4-1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\08f8c8b3dfbc40d12f5fcb49a9e11666\jetified-cardinalmobilesdk-2.2.4-1\AndroidManifest.xml:20:13-35
+513            android:exported="false" />
+513-->[org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.4-1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\08f8c8b3dfbc40d12f5fcb49a9e11666\jetified-cardinalmobilesdk-2.2.4-1\AndroidManifest.xml:21:13-37
+514
+515        <activity
+515-->[org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.4-1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\08f8c8b3dfbc40d12f5fcb49a9e11666\jetified-cardinalmobilesdk-2.2.4-1\AndroidManifest.xml:23:9-25:65
+516            android:name="com.cardinalcommerce.shared.cs.userinterfaces.ChallengeHTMLView"
+516-->[org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.4-1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\08f8c8b3dfbc40d12f5fcb49a9e11666\jetified-cardinalmobilesdk-2.2.4-1\AndroidManifest.xml:24:13-91
+517            android:theme="@style/CardinalSDKTheme.ActionBar" />
+517-->[org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.4-1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\08f8c8b3dfbc40d12f5fcb49a9e11666\jetified-cardinalmobilesdk-2.2.4-1\AndroidManifest.xml:25:13-62
+518        <activity
+518-->[org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.4-1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\08f8c8b3dfbc40d12f5fcb49a9e11666\jetified-cardinalmobilesdk-2.2.4-1\AndroidManifest.xml:26:9-29:76
+519            android:name="com.cardinalcommerce.shared.cs.userinterfaces.ChallengeNativeView"
+519-->[org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.4-1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\08f8c8b3dfbc40d12f5fcb49a9e11666\jetified-cardinalmobilesdk-2.2.4-1\AndroidManifest.xml:27:13-93
+520            android:theme="@style/CardinalSDKTheme.ActionBar"
+520-->[org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.4-1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\08f8c8b3dfbc40d12f5fcb49a9e11666\jetified-cardinalmobilesdk-2.2.4-1\AndroidManifest.xml:28:13-62
+521            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+521-->[org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.4-1] E:\Java\JDK\bin\caches\transforms-2\files-2.1\08f8c8b3dfbc40d12f5fcb49a9e11666\jetified-cardinalmobilesdk-2.2.4-1\AndroidManifest.xml:29:13-73
+522    </application>
+523
+524</manifest>

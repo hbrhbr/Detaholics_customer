@@ -94,21 +94,21 @@ _setCommonWidgetsForMealList(double titlFont, double descriptionFont,
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          new Row(
-            children: <Widget>[
-              setCommonText(
-                  "4.1", Colors.orange, ratingFont, FontWeight.w500, 1),
-              SizedBox(width: 2),
-              new Icon(
-                Icons.star,
-                size: rationIconSize,
-                color: Colors.orange,
-              ),
-              SizedBox(width: 2),
-              setCommonText("12 ${S.current.reviews}", Colors.grey, ratingFont,
-                  FontWeight.w400, 1),
-            ],
-          ),
+          // new Row(
+          //   children: <Widget>[
+          //     setCommonText(
+          //         "4.1", Colors.orange, ratingFont, FontWeight.w500, 1),
+          //     SizedBox(width: 2),
+          //     new Icon(
+          //       Icons.star,
+          //       size: rationIconSize,
+          //       color: Colors.orange,
+          //     ),
+          //     SizedBox(width: 2),
+          //     setCommonText("12 ${S.current.reviews}", Colors.grey, ratingFont,
+          //         FontWeight.w400, 1),
+          //   ],
+          // ),
           new Row(
             children: <Widget>[
               setCommonText(
