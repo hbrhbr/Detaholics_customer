@@ -481,7 +481,7 @@ setRestaurantClosedWidget(BuildContext context, String title) {
 
 String calculateDiscount(
     String price, String discountValue, String discountType) {
-  print('Item Price:------>$price');
+  print('Item Price:------>$price\t$discountValue\t$discountType');
   if (discountType == "0") {
     //Flat
     double endPrice = 0.0;
@@ -504,10 +504,9 @@ String calculateDiscount(
 
     //   100 - ((100*2)/100)
 
-    double endPrice = (double.parse(price) -
-        ((double.parse(price) * double.parse(discountValue)) / 100));
+    double endPrice = (double.parse(price) - ((double.parse(price) * double.parse(discountValue)) / 100));
 
-    print('End Price Percentage:------->$discountType');
+    print('End Price Percentage:------->$endPrice');
 
     return endPrice.toStringAsFixed(2);
   }

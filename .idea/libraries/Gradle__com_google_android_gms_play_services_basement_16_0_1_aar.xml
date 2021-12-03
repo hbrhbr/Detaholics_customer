@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.google.android.gms:play-services-basement:16.0.1@aar" type="AndroidModuleLibraryType">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b841fb9e6616ed2709e9bc6bdf147ae4/jetified-play-services-basement-16.0.1/jars/classes.jar!/" />
+      <root url="jar://E:/Java/JDK/bin/caches/transforms-2/files-2.1/34a48dfbe3140656d9d881786ab53bb7/jetified-play-services-basement-16.0.1/jars/classes.jar!/" />
+      <root url="file://E:/Java/JDK/bin/caches/transforms-2/files-2.1/34a48dfbe3140656d9d881786ab53bb7/jetified-play-services-basement-16.0.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b841fb9e6616ed2709e9bc6bdf147ae4/jetified-play-services-basement-16.0.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

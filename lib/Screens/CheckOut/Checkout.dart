@@ -705,7 +705,9 @@ class _CheckoutState extends State<Checkout> {
   }
 
   payNow(String token) async {
+    print("token--->>>$token");
     var request = BraintreeDropInRequest(
+      // tokenizationKey: 'sandbox_8hxpnkht_kzdtzv2btm4p7s5j',
       tokenizationKey: token,
       collectDeviceData: true,
       googlePaymentRequest: BraintreeGooglePaymentRequest(
@@ -713,15 +715,16 @@ class _CheckoutState extends State<Checkout> {
         currencyCode: 'USD',
         billingAddressRequired: false,
       ),
+
       paypalRequest: BraintreePayPalRequest(
         amount: '${this.widget.totalPrice}',
         displayName: '${S.current.food_zone}',
+
       ),
       cardEnabled: true,
     );
 
-    BraintreeDropInResult result = await BraintreeDropIn.start(request);
-
+    BraintreeDropInResult result = await BraintreeDropIn.start(request,);
     if (result != null) {
       print("Response of the payment ${result.paymentMethodNonce.nonce}");
 
