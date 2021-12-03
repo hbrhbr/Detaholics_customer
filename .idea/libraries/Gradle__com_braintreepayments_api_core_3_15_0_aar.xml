@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.braintreepayments.api:core:3.15.0@aar" type="AndroidModuleLibraryType">
+    <CLASSES>
+      <root url="file://E:/Java/JDK/bin/caches/transforms-2/files-2.1/255ee855b85214ffe3c6e881d4e24486/jetified-core-3.15.0/AndroidManifest.xml" />
+      <root url="jar://E:/Java/JDK/bin/caches/transforms-2/files-2.1/255ee855b85214ffe3c6e881d4e24486/jetified-core-3.15.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/255ee855b85214ffe3c6e881d4e24486/jetified-core-3.15.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/255ee855b85214ffe3c6e881d4e24486/jetified-core-3.15.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
