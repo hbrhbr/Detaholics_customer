@@ -516,12 +516,10 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                                   SizedBox(
                                     height: 2,
                                   ),
-                                  (double.parse(subcategories[row].discount) ==
-                                          0)
+                                  (double.parse(subcategories[row].discount) == 0)
                                       ? setHeight(0)
                                       : setCommonText(
-                                          (subcategories[row].discountType ==
-                                                  '0')
+                                          (subcategories[row].discountType == '0')
                                               ? '${Currency.curr}${subcategories[row].discount} off'
                                               : '${subcategories[row].discount}% off',
                                           AppColor.red,
@@ -535,15 +533,13 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                                     children: <Widget>[
                                       new Row(
                                         children: <Widget>[
-                                          (double.parse(subcategories[row]
-                                                      .discount) ==
-                                                  0)
+                                          (double.parse(subcategories[row].discount) == 0)
                                               ? setWidth(0)
                                               : new Stack(
                                                   alignment: Alignment.center,
                                                   children: <Widget>[
                                                     setCommonText(
-                                                        '${Currency.curr}${calculateDiscount(subcategories[row].price, subcategories[row].discount, subcategories[row].discountType)}',
+                                                        '${Currency.curr}${double.parse(subcategories[row].price)}',
                                                         AppColor.grey[600],
                                                         12.0,
                                                         FontWeight.w600,
@@ -559,7 +555,7 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                                             width: 5,
                                           ),
                                           setCommonText(
-                                              '${Currency.curr}${double.parse(subcategories[row].price) - double.parse(subcategories[row].discount)}',
+                                              '${Currency.curr}${calculateDiscount(subcategories[row].price, subcategories[row].discount, subcategories[row].discountType)}',
                                               AppColor.black,
                                               12.0,
                                               FontWeight.w700,

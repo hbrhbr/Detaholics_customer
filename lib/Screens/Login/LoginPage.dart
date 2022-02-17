@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
         var data = profile['picture']['data'];
         print("User Facebook Response:$profile");
         _loginWithSocialMedia(
-            '0', profile['name'], profile['email'], profile['id'], data['url']);
+            '1', profile['name'], profile['email'], profile['id'], data['url']);
         break;
       case FacebookLoginStatus.cancelledByUser:
         // _showMessage('Login cancelled by the user.');
@@ -70,8 +70,7 @@ class _LoginPageState extends State<LoginPage> {
 
 //TODO: Social Media Login
 
-  _loginWithSocialMedia(
-      String type, String name, String email, String id, String image) async {
+  _loginWithSocialMedia(String loginTypeCode, String name, String email, String id, String image) async {
     final param = {
       "email": email,
       "name": name,
@@ -79,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
       "latitude": "${SharedManager.shared.latitude}",
       "longitude": "${SharedManager.shared.longitude}",
       "social_id": id,
-      "is_social_login": '1',
+      "is_social_login": '$loginTypeCode',
       "device_token": '${SharedManager.shared.token}',
       "profile_image": '$image'
     };
@@ -396,7 +395,7 @@ class _LoginPageState extends State<LoginPage> {
                               if (result != null) {
                                 print(result);
                                 _loginWithSocialMedia(
-                                    '0', nameGoogle, emailGoogle, idGoogle, '');
+                                    '2', nameGoogle, emailGoogle, idGoogle, '');
                               }
                             });
                           },

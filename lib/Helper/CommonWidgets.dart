@@ -485,13 +485,8 @@ String calculateDiscount(
   if (discountType == "0") {
     //Flat
     double endPrice = 0.0;
-    double priceValue = (price != null)
-        ? (price != '')
-            ? double.parse(price)
-            : 0.0
-        : 0.0;
-    double discount =
-        (discountValue != null) ? double.parse(discountValue) : 0.0;
+    double priceValue = (price != null) ? (price != '') ? double.parse(price) : 0.0 : 0.0;
+    double discount = (discountValue != null) ? double.parse(discountValue) : 0.0;
 
     endPrice = (priceValue - discount);
     print('End Price:------->$endPrice');
