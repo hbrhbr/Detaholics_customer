@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:geocoder/geocoder.dart';
@@ -12,10 +13,18 @@ import 'package:product/Helper/LocationManager.dart';
 import 'package:product/Helper/SharedManaged.dart';
 import 'package:product/ModelClass/Dashboard.dart';
 import 'package:product/Provider/StoreProvider.dart';
+import 'package:product/Screens/AllRestaurantList/Widgets/MealDealListviewWidget.dart';
 import 'package:product/Screens/Cart/Cart.dart';
+import 'package:product/Screens/SubcategoryListScreen/SubcategoryListScreen.dart';
+import 'package:product/Screens/TabBarScreens/Orders/OrderScreen.dart';
+import 'package:product/Screens/TabBarScreens/Profile/ProfileScreen.dart';
+import 'package:product/Screens/TabBarScreens/Profile/Widgets/Top_search_widdget.dart';
 import 'package:product/Screens/TabBarScreens/SearchScreen/SearchScreen.dart';
 import 'package:product/generated/i18n.dart';
+import 'package:product/main.dart';
+import 'package:product/reuseablewidgets/HomescreenWidget.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Widgets/BannerBottom.dart';
 import 'Widgets/BannerFirst.dart';
 import 'Widgets/BannerRestaurants.dart';
@@ -43,6 +52,7 @@ class _DashboardAppState extends State<DashboardApp>
   LatLng currentLocation;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   StoreProvider store = StoreProvider();
+  TextEditingController _serchcontroller;
   // final List discountList = [
   //   {
   //     'discount': '14',
@@ -87,10 +97,22 @@ class _DashboardAppState extends State<DashboardApp>
   //   },
   // ];
 
-// @override
+  String name ='User';
+  String image;
+  @override
   void initState() {
     // super.initState();
     LocationManager.shared.getCurrentLocation();
+    SharedManager.shared.userName().then((value) {
+      setState((){
+        name = value;
+      });
+    });
+    SharedManager.shared.userImage().then((value) {
+      setState((){
+        image = value;
+      });
+    });
     dashboardBloc.fetchDashboardData(APIS.dashBoard, []);
     _setStatus();
     // SharedManager.shared.setBannerAdds();
@@ -146,7 +168,8 @@ class _DashboardAppState extends State<DashboardApp>
 
     final coordinates =
         new Coordinates(coordinate.latitude, coordinate.longitude);
-    var addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    var addresses =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
     var first = addresses.first;
     print('${first.addressLine}, ${first.featureName}');
     setState(() {
@@ -201,289 +224,159 @@ class _DashboardAppState extends State<DashboardApp>
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     this.store = Provider.of<StoreProvider>(context);
-    return new Scaffold(
-        key: _scaffoldKey,
-        appBar: new AppBar(
-          elevation: 0.0,
-          title: Stack(
-            children: <Widget>[
-              new Container(
-                width: width,
-                height: 50,
-                color: AppColor.white,
-                child: new InkWell(
-                  onTap: () async {
-                    // Prediction p = await PlacesAutocomplete.show(
-                    //     context: context, apiKey: Keys.kGoogleApiKey);
-                    // this.displayPrediction(p);
-                    showPlacePicker();
-                  },
-                  child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        // height: 40,
-                        // width: 40,
-                        child: InkWell(
-                          onTap: () {
-                            print('Tapped');
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => SearchScreen(),
-                                fullscreenDialog: true));
-                          },
-                          child: Icon(Icons.search, size: 25),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      new Expanded(
-                        child: Text(
-                          SharedManager.shared.address,
-                          style: TextStyle(
-                              color: AppColor.black87,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14.0,
-                              fontFamily: SharedManager.shared.fontFamilyName),
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                        ),
-                        //  setCommonText(SharedManager.shared.address,
-                        //     AppColor.black, 16.0, FontWeight.w500, 2),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      new Container(
-                          height: 38,
-                          width: 38,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 1.0, color: AppColor.black38),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: new Stack(
-                            children: <Widget>[
-                              new IconButton(
-                                  icon: Icon(Icons.shopping_cart, size: 22),
-                                  onPressed: () {}),
-                              Positioned(
-                                  top: 3,
-                                  right: 3,
-                                  child: new Container(
-                                    height: 14,
-                                    width: 14,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(7),
-                                        color: AppColor.themeColor),
-                                    child: new Center(
-                                      child: setCommonText(
-                                          '${store.getTotalCartCount()}',
-                                          AppColor.white,
-                                          14.0,
-                                          FontWeight.w500,
-                                          1),
-                                    ),
-                                  )),
-                              new GestureDetector(
-                                onTap: () {
-                                  SharedManager.shared.isFromTab = false;
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => CartApp()));
-                                },
-                                child: new Container(
-                                  height: 40,
-                                  width: 40,
-                                  color: AppColor.white.withOpacity(0),
-                                ),
-                              )
-                            ],
-                          )),
-                    ],
+    return SafeArea(
+      top: true,
+      child: new Scaffold(
+          key: _scaffoldKey,
+          backgroundColor: AppColor.bodyColor,
+          body: Container(
+            color: AppColor.bodyColor,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: [
+                searchforlocationwidget(ontap:(){showPlacePicker();},
+                    leadingicon: Icons.notification_important_sharp,
+                    hintext: SharedManager.shared.address.isEmpty?'search address':SharedManager.shared.address,
+                    trailingicon:
+                    SharedManager.shared.isLoggedIN=="yes"?
+                    PopupMenuButton(
+                      color: Colors.black,
+                        key: Key("meNUKey"),
+                        itemBuilder: (_) => <PopupMenuItem<String>>[
+                          PopupMenuItem<String>(child: Text('Home',style: TextStyle(color: Colors.white),), value: '1'),
+                          PopupMenuItem<String>(child: Text('Order',style: TextStyle(color: Colors.white),), value: '2'),
+                          PopupMenuItem<String>(child: Text('Cart',style: TextStyle(color: Colors.white),), value: '3'),
+                          PopupMenuItem<String>(child: Text('Profile',style: TextStyle(color: Colors.white),), value: '4'),
+                          PopupMenuItem<String>(child: Text('Logout',style: TextStyle(color: Colors.white),), value: '5'),
+                        ],
+                        onSelected: (value) {
+                        print("value:-> $value");
+
+                        switch(value){
+                          case '1':
+                            break;
+                          case '2':
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => OrderScreen()),
+                            );
+                            break;
+                          case '3':
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => CartApp()),
+                            );
+                            break;
+                          case '4':
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => ProfileScreen()),
+                            );
+                            break;
+                          case '5':
+                            SharedPreferences.getInstance().then((value) => value.clear());
+                            Navigator.of(context).popUntil((predicate){
+                              return predicate.isFirst;
+                            });
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(builder: (context) => Login_SignUP_Option_Screen()),
+                            );
+                            break;
+                        }
+                        },
+                      icon: Icon(Icons.menu),
+
+                        ):Icon(Icons.menu),
+                ),
+                Expanded(
+                  child: Center(
+                    child: StreamBuilder(
+                      stream: dashboardBloc.dashboardData,
+                      builder: (context, AsyncSnapshot<Dashboard> snapshot) {
+                        if (snapshot.hasData) {
+                          // dashboardBloc.dispose();
+                          var result = snapshot.data.result;
+                          return new Container(
+                            color: AppColor.bodyColor,
+                            child: new ListView(
+                              // shrinkWrap: true,
+                              children: <Widget>[
+                                // (result.bannerRestaurents.length > 0)
+                                //     ? BannerRestaurants(width, result.bannerRestaurents)
+                                //     : Text(''),
+                                // SizedBox(height: 10),
+                                 SizedBox(
+                                   child: ProfileViewWidget(
+                                       image: image,
+                                       context: context,
+                                       username: '$name',
+                                       usermessage: 'good morning, happy to join us '),
+                                      width: MediaQuery.of(context).size.width,
+                                 ),
+                                CategoryList(result.categories),
+                                _setCommonDivider(),
+                                (result.popularRestaurents.length > 0)
+                                    ? PopularRestaurants(
+                                        width, result.bannerRestaurents)
+                                    : _setItemNotAvailableWidget(
+                                        'Most Popular Item is not available'),
+                                _setCommonDivider(),
+                                // SizedBox(height: 5),
+                                // (result.couponCodes.length > 0)
+                                //     ? _setTodaysOfferWidgets(
+                                //         context, result.couponCodes)
+                                //     : SizedBox(
+                                //         height: 0,
+                                //       ),
+                                // (discountList.length > 0)
+                                //     ? SizedBox(
+                                //         height: 15,
+                                //       )
+                                //     : SizedBox(
+                                //         height: 0,
+                                //       ),
+                                // // SizedBox(height: 5),
+                                // // _setCommonDivider(),
+                                // // SizedBox(height: 5),
+                                // // BannerFirst(),
+                                // SizedBox(height: 5),
+                                (result.mealDeal.length > 0)
+                                    ? ListviewMealDashboardWidget(result. mealDeal)
+                                    : _setItemNotAvailableWidget(
+                                        'Meal Deals Item is not available'),
+                                // // _setCommonDivider(),
+                                // // SizedBox(height: 5),
+                                // // BannerSecond(),
+                                // SizedBox(height: 5),
+                                // (result.topRestaurents.length > 0)
+                                //     ? TopRestaurants(width, result.topRestaurents)
+                                //     : _setItemNotAvailableWidget(
+                                //         'Top Restaurant is not available'),
+                                // BannerBottom()
+                              ],
+                            ),
+                          );
+                        } else {
+                          return Container(
+                            color: AppColor.bodyColor,
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ),
                 ),
-              )
-            ],
-          ),
-          backgroundColor: AppColor.white,
-          // bottom: PreferredSize(
-          //   preferredSize: const Size.fromHeight(48.0),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: <Widget>[
-          //       new Container(
-          //           height: 50,
-          //           width: width - 50,
-          //           color: AppColor.white,
-          //           padding: new EdgeInsets.only(left: 20, right: 5),
-          //           child: new Column(
-          //             crossAxisAlignment: CrossAxisAlignment.center,
-          //             mainAxisAlignment: MainAxisAlignment.center,
-          //             children: <Widget>[
-          //               new Container(
-          //                 height: 40,
-          //                 width: width,
-          //                 decoration: new BoxDecoration(
-          //                     border: new Border.all(color: AppColor.black38),
-          //                     borderRadius: new BorderRadius.circular(8)),
-          //                 child: InkWell(
-          //                     onTap: () {
-          //                       print('Tapped');
-          //                       Navigator.of(context).push(MaterialPageRoute(
-          //                           builder: (context) => SearchScreen(),
-          //                           fullscreenDialog: true));
-          //                     },
-          //                     child: Row(
-          //                       children: [
-          //                         SizedBox(
-          //                           width: 5,
-          //                         ),
-          //                         Icon(Icons.search, size: 20),
-          //                         setCommonText('Search', AppColor.black38,
-          //                             16.0, FontWeight.w400, 1)
-          //                       ],
-          //                     )),
-          //               ),
-          //               SizedBox(
-          //                 height: 10,
-          //               )
-          //             ],
-          //           )),
-          //       Column(
-          //         children: <Widget>[
-          //           SizedBox(height: 1),
-          //           new Container(
-          //               height: 38,
-          //               width: 38,
-          //               decoration: BoxDecoration(
-          //                   border:
-          //                       Border.all(width: 1.0, color: AppColor.black38),
-          //                   borderRadius: BorderRadius.circular(5)),
-          //               child: new Stack(
-          //                 children: <Widget>[
-          //                   new IconButton(
-          //                       icon: Icon(Icons.shopping_cart, size: 22),
-          //                       onPressed: () {}),
-          //                   Positioned(
-          //                       top: 3,
-          //                       right: 3,
-          //                       child: new Container(
-          //                         height: 14,
-          //                         width: 14,
-          //                         decoration: BoxDecoration(
-          //                             borderRadius: BorderRadius.circular(7),
-          //                             color: AppColor.themeColor),
-          //                         child: new Center(
-          //                           child: setCommonText(
-          //                               '${SharedManager.shared.cartItems.length}',
-          //                               AppColor.white,
-          //                               14.0,
-          //                               FontWeight.w500,
-          //                               1),
-          //                         ),
-          //                       )),
-          //                   new GestureDetector(
-          //                     onTap: () {
-          //                       SharedManager.shared.isFromTab = false;
-          //                       Navigator.of(context).push(MaterialPageRoute(
-          //                           builder: (context) => CartApp()));
-          //                     },
-          //                     child: new Container(
-          //                       height: 40,
-          //                       width: 40,
-          //                       color: AppColor.white.withOpacity(0),
-          //                     ),
-          //                   )
-          //                 ],
-          //               )),
-          //         ],
-          //       ),
-          //       SizedBox(width: 5),
-          //     ],
-          //   ),
-          // ),
-        ),
-        body: new Stack(
-          children: <Widget>[
-            StreamBuilder(
-              stream: dashboardBloc.dashboardData,
-              builder: (context, AsyncSnapshot<Dashboard> snapshot) {
-                if (snapshot.hasData) {
-                  // dashboardBloc.dispose();
-                  var result = snapshot.data.result;
-                  return new Container(
-                    color: AppColor.white,
-                    child: new ListView(
-                      children: <Widget>[
-                        (result.bannerRestaurents.length > 0)
-                            ? BannerRestaurants(width, result.bannerRestaurents)
-                            : Text(''),
-                        SizedBox(height: 5),
-                        CategoryList(result.categories),
-                        _setCommonDivider(),
-                        (result.popularRestaurents.length > 0)
-                            ? PopularRestaurants(
-                                width, result.bannerRestaurents)
-                            : _setItemNotAvailableWidget(
-                                'Most Popular Item is not available'),
-                        _setCommonDivider(),
-                        SizedBox(height: 5),
-                        (result.couponCodes.length > 0)
-                            ? _setTodaysOfferWidgets(
-                                context, result.couponCodes)
-                            : SizedBox(
-                                height: 0,
-                              ),
-                        // (discountList.length > 0)
-                        //     ? SizedBox(
-                        //         height: 15,
-                        //       )
-                        //     : SizedBox(
-                        //         height: 0,
-                        //       ),
-                        SizedBox(height: 5),
-                        _setCommonDivider(),
-                        SizedBox(height: 5),
-                        BannerFirst(),
-                        SizedBox(height: 5),
-                        (result.mealDeal.length > 0)
-                            ? MealDealsItems(width, result.mealDeal)
-                            : _setItemNotAvailableWidget(
-                                'Meal Deals Item is not available'),
-                        // _setCommonDivider(),
-                        SizedBox(height: 5),
-                        BannerSecond(),
-                        SizedBox(height: 5),
-                        (result.topRestaurents.length > 0)
-                            ? TopRestaurants(width, result.topRestaurents)
-                            : _setItemNotAvailableWidget(
-                                'Top Restaurant is not available'),
-                        BannerBottom()
-                      ],
-                    ),
-                  );
-                } else {
-                  return Container(
-                    color: AppColor.white,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
-              },
+              ],
             ),
-          ],
-        ));
+          )),
+    );
   }
 }
 
 _setItemNotAvailableWidget(String title) {
   return Container(
-      alignment: Alignment.center,
       height: 100,
-      child:
-          setCommonText('$title', AppColor.black87, 14.0, FontWeight.w500, 2));
+      margin: EdgeInsets.only(top: 5,left: 20),
+      child: setCommonText('$title', AppColor.black87, 14.0, FontWeight.w500, 2));
 }
 
 _setCommonDivider() {
@@ -516,11 +409,11 @@ _setTodaysOfferWidgets(BuildContext context, List<CouponCodes> discountList) {
         ),
         Expanded(
             child: Container(
-          // color: AppColor.red[100],
+          color: AppColor.red[100],
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
               // itemCount: discountList.length,
-              itemCount: 1,
+              itemCount: 20,
               itemBuilder: (context, index) {
                 return new Container(
                     width: MediaQuery.of(context).size.width / 2.5,

@@ -16,6 +16,7 @@ xmlns:tools="http://schemas.android.com/tools"
 
          <!-- AIzaSyB93ViVy-fww-leOBtroda9hOmhYOp9qT0 -->
     <application
+        android:extractNativeLibs="true"
         android:usesCleartextTraffic="true"
         android:label="Dietaholics"
         tools:replace="android:label"

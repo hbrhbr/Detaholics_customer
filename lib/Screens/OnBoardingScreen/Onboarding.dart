@@ -7,6 +7,8 @@ import 'package:product/Helper/SharedManaged.dart';
 import 'package:product/Screens/TabBarScreens/TabScreen/TabBar.dart';
 import 'package:transformer_page_view/transformer_page_view.dart';
 
+import '../../main.dart';
+
 void main() => runApp(new Onboarding());
 
 class Onboarding extends StatefulWidget {
@@ -77,7 +79,7 @@ class _OnboardingState extends State<Onboarding> {
             ),
           );
         }),
-        itemCount: 4);
+        itemCount: images.length);
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -86,44 +88,79 @@ class _OnboardingState extends State<Onboarding> {
             children: <Widget>[
               transformerPageView,
               new Positioned(
-                  top: 40,
-                  right: 10,
-                  child: new Chip(
-                    backgroundColor: AppColor.grey[200],
-                    label: (this.slideIndex == 3)
-                        ? new GestureDetector(
-                            onTap: () async {
-                              await SharedManager.shared
-                                  .storeString("no", "isLoogedIn");
-                              Navigator.of(context, rootNavigator: true)
-                                  .pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                          builder: (context) => TabBarScreen()),
-                                      ModalRoute.withName(AppRoute.tabbar));
-                            },
-                            child: new Text(
-                              '  Home  ',
+                top: 40,
+                left: 10,
+                child: new Chip(
+                  backgroundColor: AppColor.grey[200],
+                  label: (this.slideIndex == 3)
+                      ? new GestureDetector(
+                          onTap: () async {
+                            await SharedManager.shared
+                                .storeString("no", "isLoogedIn");
+                            Navigator.of(context, rootNavigator: true)
+                                .pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (context) => TabBarScreen()),
+                                    ModalRoute.withName(AppRoute.tabbar));
+                          },
+                          child: new Text(
+                            '  Home  ',
+                            style: new TextStyle(
+                              fontFamily: SharedManager.shared.fontFamilyName,
+                            ),
+                          ),
+                        )
+                      : new GestureDetector(
+                          onTap: () async {
+                            await SharedManager.shared.storeString("no", "isLoogedIn");
+                            Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => TabBarScreen()), ModalRoute.withName(AppRoute.tabbar));
+                          },
+                          child: new Text('  Skip  ',
                               style: new TextStyle(
                                 fontFamily: SharedManager.shared.fontFamilyName,
-                              ),
-                            ),
-                          )
-                        : new GestureDetector(
-                            onTap: () async {
-                              await SharedManager.shared
-                                  .storeString("no", "isLoogedIn");
-                              Navigator.of(context, rootNavigator: true)
-                                  .pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                          builder: (context) => TabBarScreen()),
-                                      ModalRoute.withName(AppRoute.tabbar));
-                            },
-                            child: new Text('  Skip  ',
-                                style: new TextStyle(
-                                  fontFamily: SharedManager.shared.fontFamilyName,
-                                )),
-                          ),
-                  ))
+                              )),
+                        ),
+                ),
+              ),
+              Positioned(
+                right:0,
+                child: SafeArea(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: 15,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+               Positioned(
+                right:10,
+                bottom: 70,
+                child: Container(child: IconButton(
+                    onPressed: () async{
+                // code for next page
+                      if(slideIndex!=images.length-1)
+                      setState(() {
+                        slideIndex++;
+                        controller.move(slideIndex);
+                      });
+                      else{
+                        await SharedManager.shared.storeString("no", "isLoogedIn");
+                        Navigator.of(context, rootNavigator: true)
+                            .pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => Login_SignUP_Option_Screen()),
+                            ModalRoute.withName(AppRoute.tabbar));
+                      }
+                  
+                },icon: Icon(Icons.arrow_forward,color: AppColor.white,)),
+                  decoration:BoxDecoration(color: Colors.black,
+                  borderRadius: BorderRadius.only(topLeft:Radius.circular(20),
+                  bottomLeft: Radius.circular(20))),
+                  height:40,
+                  width: 100,
+                  
+                ),
+              ),
             ],
           ),
         ));

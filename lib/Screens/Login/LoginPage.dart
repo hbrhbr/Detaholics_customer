@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
         var data = profile['picture']['data'];
         print("User Facebook Response:$profile");
         _loginWithSocialMedia(
-            '0', profile['name'], profile['email'], profile['id'], data['url']);
+            '1', profile['name'], profile['email'], profile['id'], data['url']);
         break;
       case FacebookLoginStatus.cancelledByUser:
         // _showMessage('Login cancelled by the user.');
@@ -70,8 +70,7 @@ class _LoginPageState extends State<LoginPage> {
 
 //TODO: Social Media Login
 
-  _loginWithSocialMedia(
-      String type, String name, String email, String id, String image) async {
+  _loginWithSocialMedia(String loginTypeCode, String name, String email, String id, String image) async {
     final param = {
       "email": email,
       "name": name,
@@ -79,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
       "latitude": "${SharedManager.shared.latitude}",
       "longitude": "${SharedManager.shared.longitude}",
       "social_id": id,
-      "is_social_login": '1',
+      "is_social_login": '$loginTypeCode',
       "device_token": '${SharedManager.shared.token}',
       "profile_image": '$image'
     };
@@ -161,8 +160,9 @@ class _LoginPageState extends State<LoginPage> {
       await SharedManager.shared.storeString("no", "isSocialLogin");
       await SharedManager.shared.storeUserLoginData(data);
       SharedManager.shared.isLoggedIN = "yes";
+
       Navigator.pop(context);
-      SharedManager.shared.currentIndex = 2;
+      SharedManager.shared.currentIndex = 0;
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => TabBarScreen()),
@@ -179,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       key: _scaffoldkey,
       body: Container(
-        color: AppColor.white,
+        color: AppColor.bodyColor,
         child: Column(
           children: <Widget>[
             setHeight(60),
@@ -206,15 +206,15 @@ class _LoginPageState extends State<LoginPage> {
                     right: 12,
                     child: InkWell(
                       onTap: () {
-                        SharedManager.shared.currentIndex = 2;
+                        SharedManager.shared.currentIndex = 0;
                         Navigator.of(context, rootNavigator: true)
                             .pushAndRemoveUntil(
                                 MaterialPageRoute(
                                     builder: (context) => TabBarScreen()),
                                 ModalRoute.withName(AppRoute.tabbar));
                       },
-                      child: setCommonText(S.current.skip, AppColor.black, 16.0,
-                          FontWeight.w500, 1),
+                      // child: setCommonText(S.current.skip, AppColor.black, 16.0,
+                      //     FontWeight.w500, 1),
                     ))
               ],
             ),
@@ -332,11 +332,11 @@ class _LoginPageState extends State<LoginPage> {
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColor.themeColor,
+                          color: AppColor.white,
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(
                         child: setCommonText('${S.current.login}',
-                            AppColor.white, 16.0, FontWeight.bold, 1),
+                            AppColor.black, 16.0, FontWeight.bold, 1),
                       ),
                     ),
                   ),
@@ -368,6 +368,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 25),
                   Container(
                     height: 45,
+                    width: 100,
                     child: Row(
                       children: <Widget>[
                         Expanded(
@@ -377,11 +378,11 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                                color: AppColor.facebookBG,
+                                color: AppColor.black,
                                 borderRadius: BorderRadius.circular(5)),
                             child: Center(
-                              child: setCommonText('${S.current.facebook}',
-                                  AppColor.white, 16.0, FontWeight.bold, 1),
+                              child: setCommonText('${S.current.gIcon}',
+                                  AppColor.white, 24.0, FontWeight.bold, 1),
                             ),
                           ),
                         )),
@@ -396,17 +397,17 @@ class _LoginPageState extends State<LoginPage> {
                               if (result != null) {
                                 print(result);
                                 _loginWithSocialMedia(
-                                    '0', nameGoogle, emailGoogle, idGoogle, '');
+                                    '2', nameGoogle, emailGoogle, idGoogle, '');
                               }
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                                color: AppColor.googleBG,
+                                color: AppColor.black,
                                 borderRadius: BorderRadius.circular(5)),
                             child: Center(
-                              child: setCommonText('${S.current.google}',
-                                  AppColor.white, 16.0, FontWeight.bold, 1),
+                              child: setCommonText('${S.current.fIcon}',
+                                  AppColor.white, 24.0, FontWeight.bold, 1),
                             ),
                           ),
                         )),

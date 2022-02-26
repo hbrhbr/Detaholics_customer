@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:product/Helper/Constant.dart';
 import 'package:product/Helper/SharedManaged.dart';
 import 'package:product/Screens/Cart/Cart.dart';
+import 'package:product/Screens/CategoryListScreen/CategoryListScreen.dart';
 import 'package:product/Screens/TabBarScreens/Dashboard/Dashboard.dart';
 import 'package:product/Screens/TabBarScreens/DineIn/DineInScreen.dart';
 import 'package:product/Screens/TabBarScreens/Orders/OrderScreen.dart';
@@ -14,19 +15,20 @@ void main() => runApp(new TabBarScreen());
 
 class TabBarScreen extends StatefulWidget {
   @override
-  _TabBarScreenState createState() => _TabBarScreenState();
+  _TabBarScreenState createState() => _TabBarScreenState(); 
 }
 
 class _TabBarScreenState extends State<TabBarScreen> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   final List<Widget> _children = [
-    OrderScreen(),
-    SearchScreen(),
-    // DineInScreen(),
     DashboardApp(),
+   // SearchScreen(),
+    // DineInScreen(),
+    // ProfileScreen(),
+    CategoryListScreen(),
     CartApp(),
-    ProfileScreen(),
+    OrderScreen(),
   ];
 
   _onTapped(int index) {
@@ -37,29 +39,29 @@ class _TabBarScreenState extends State<TabBarScreen> {
     });
   }
 
-  _setHomeWidget(int type) {
+  _setBottomBarIcons({int type=0,int navIndex}) {
     return new Container(
         height: 30,
         width: 30,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: AppColor.grey[400],
-              blurRadius: 10.0, // has the effect of softening the shadow
-              spreadRadius: 3.0, // has the effect of extending the shadow
+              color: AppColor.navgigabariconColor,
+              //blurRadius: 5.0, // has the effect of softening the shadow
+              spreadRadius: (type == 0)?0.0:1.0, // has the effect of extending the shadow
               offset: Offset(
                 0.0, // horizontal, move right 10
                 0.0, // vertical, move down 10
               ),
             )
           ],
-          color: (type == 0) ? AppColor.grey : AppColor.themeColor,
+          color: (type == 0) ? AppColor.white : AppColor.navgigabariconColor,
           borderRadius: new BorderRadius.circular(15),
         ),
         child: new Center(
           child: new Icon(
-            Icons.home,
-            color: AppColor.white,
+            navIndex==0?Icons.home:navIndex==1?Icons.flash_on:navIndex==2?Icons.shopping_cart:Icons.local_shipping,
+            color: AppColor.grey,
             size: 23,
           ),
         ));
@@ -75,51 +77,52 @@ class _TabBarScreenState extends State<TabBarScreen> {
           _children[SharedManager.shared.currentIndex],
         ],
       ),
-      bottomNavigationBar: new BottomNavigationBar(
-        backgroundColor: AppColor.white,
-        // elevation: 1,
-        type: BottomNavigationBarType
-            .fixed, //if you remove this tab bar will white.
-        currentIndex: SharedManager.shared.currentIndex,
-        selectedLabelStyle: TextStyle(
-          color: AppColor.themeColor,
+      backgroundColor: AppColor.bodyColor,
+      bottomNavigationBar: PhysicalModel(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(50),topRight:Radius.circular(50),),
+        color: Colors.white,
+        elevation: 12,
+        child: new BottomNavigationBar(
+
+          backgroundColor: AppColor.white,
+          // elevation: 1,
+          type: BottomNavigationBarType.fixed, //if you remove this tab bar will white.
+          currentIndex: SharedManager.shared.currentIndex,
+          selectedLabelStyle: TextStyle(
+            color: AppColor.themeColor,
+          ),
+          selectedItemColor: AppColor.themeColor,
+          onTap: _onTapped,
+          items: [
+            BottomNavigationBarItem(
+                icon: _setBottomBarIcons(type: 0,navIndex: 0),
+                activeIcon: _setBottomBarIcons(type: 1,navIndex: 0),
+                label: '${S.current.home}'
+            ),
+            // BottomNavigationBarItem(
+            //     icon: new Icon(Icons.qr_code, size: 25),
+            //     activeIcon:
+            //         new Icon(Icons.qr_code, color: AppColor.themeColor, size: 25),
+            //     label: 'DineIn'),
+            // BottomNavigationBarItem(
+            //     icon: new Icon(Icons.search, size: 25),
+            //     activeIcon:
+            //         new Icon(Icons.search, color: AppColor.navgigabariconColor, size: 25),
+            //     label: 'Search'),
+            BottomNavigationBarItem(
+                icon: _setBottomBarIcons(type: 0,navIndex: 1),
+                activeIcon: _setBottomBarIcons(type: 1,navIndex: 1),
+                label: '${S.current.categories}'),
+            BottomNavigationBarItem(
+                icon: _setBottomBarIcons(type: 0,navIndex: 2),
+                activeIcon: _setBottomBarIcons(type: 1,navIndex: 2),
+                label: '${S.current.cart}'),
+            BottomNavigationBarItem(
+                icon: _setBottomBarIcons(type: 0,navIndex: 3),
+                activeIcon: _setBottomBarIcons(type: 1,navIndex: 3),
+                label: '${S.current.orders}'),
+          ],
         ),
-        selectedItemColor: AppColor.themeColor,
-        onTap: _onTapped,
-        items: [
-          BottomNavigationBarItem(
-              icon: new Icon(Icons.local_shipping, size: 25),
-              activeIcon: new Icon(Icons.local_shipping,
-                  color: AppColor.themeColor, size: 25),
-              label: '${S.current.orders}'),
-          // BottomNavigationBarItem(
-          //     icon: new Icon(Icons.qr_code, size: 25),
-          //     activeIcon:
-          //         new Icon(Icons.qr_code, color: AppColor.themeColor, size: 25),
-          //     label: 'DineIn'),
-          BottomNavigationBarItem(
-              icon: new Icon(Icons.search, size: 25),
-              activeIcon:
-                  new Icon(Icons.search, color: AppColor.themeColor, size: 25),
-              label: 'Search'),
-          BottomNavigationBarItem(
-              icon: _setHomeWidget(0),
-              activeIcon: _setHomeWidget(1),
-              label: '${S.current.home}'),
-          BottomNavigationBarItem(
-              icon: new Icon(Icons.shopping_cart, size: 25),
-              activeIcon: new Icon(Icons.shopping_cart,
-                  color: AppColor.themeColor, size: 25),
-              label: '${S.current.cart}'),
-          BottomNavigationBarItem(
-              icon: new Icon(
-                Icons.person,
-                size: 25,
-              ),
-              activeIcon:
-                  new Icon(Icons.person, color: AppColor.themeColor, size: 25),
-              label: '${S.current.profile}'),
-        ],
       ),
     );
   }

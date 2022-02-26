@@ -94,12 +94,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              (double.parse(this.widget.productData.discount) ==
-                                      0)
+                              (double.parse(this.widget.productData.discount) == 0)
                                   ? setWidth(0)
                                   : setCommonText(
-                                      (this.widget.productData.discountType ==
-                                              '0')
+                                (this.widget.productData.discountType == '0')
                                           ? '${Currency.curr}${this.widget.productData.discount} off'
                                           : '${this.widget.productData.discount}% off',
                                       AppColor.red,
@@ -110,11 +108,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  (double.parse(this
-                                              .widget
-                                              .productData
-                                              .discount) ==
-                                          0)
+                                  (double.parse(this.widget.productData.discount) == 0)
                                       ? setWidth(0)
                                       : Stack(
                                           alignment: Alignment.center,

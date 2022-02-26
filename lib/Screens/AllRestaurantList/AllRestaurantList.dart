@@ -47,74 +47,100 @@ class _AllRestaurantListState extends State<AllRestaurantList> {
     super.dispose();
   }
 
+  TextEditingController _searchcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     this.widget.isMealDeal
         ? mealDealsItemsBloc.fetchMealDealsItems(APIS.mealDeals)
         : allRestaurantListBloc.fetchAllRestaurant(this.widget.apiKey);
-    return new Scaffold(
-      appBar: new AppBar(
-        elevation: 0.0,
-        leading: new IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: AppColor.white),
-            onPressed: () {
-              Navigator.of(context).pop();
-            }),
-        backgroundColor: AppColor.themeColor,
-        title: setCommonText(
-            widget.title, AppColor.white, 20.0, FontWeight.w500, 1),
-        actions: <Widget>[
-          SizedBox(width: 10),
-          new IconButton(
-              icon: this.isGrid
-                  ? Icon(Icons.grid_on, color: AppColor.white)
-                  : Icon(Icons.list, color: AppColor.white),
-              onPressed: () {
-                setState(() {
-                  if (this.isGrid) {
-                    this.isGrid = false;
+    return SafeArea(
+      top: true,
+      child: new Scaffold(
+        body: Column(children:[
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 10,),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                  ),
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                ),
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      this.widget.isMealDeal?"Meal Deal":"Most Popular",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Icon(Icons.menu, color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 20,right: 20),
+            margin: EdgeInsets.only(left: 20,right: 20),
+            decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(50)),
+            child: TextFormField(
+              controller: _searchcontroller,
+              decoration: InputDecoration(
+                hintStyle: TextStyle(),
+                hintText: 'Search here',
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+          SizedBox(height: 20,),
+          this.widget.isMealDeal
+            ? StreamBuilder(
+                stream: mealDealsItemsBloc.mealDealsItems,
+                builder: (context, AsyncSnapshot<ResMealDeals> snapshot) {
+                  if (snapshot.hasData) {
+                    final result = snapshot.data.result;
+                    return new Container(
+                        child: this.isGrid
+                            ? GridViewMealWidget(result)
+                            : ListviewMealWidget(result)
+                        // child: _setGridViewItems(context,''),
+                        );
                   } else {
-                    this.isGrid = true;
+                    return new Center(
+                      child: new CircularProgressIndicator(),
+                    );
                   }
-                });
-              }),
-        ],
-      ),
-      body: this.widget.isMealDeal
-          ? StreamBuilder(
-              stream: mealDealsItemsBloc.mealDealsItems,
-              builder: (context, AsyncSnapshot<ResMealDeals> snapshot) {
-                if (snapshot.hasData) {
-                  final result = snapshot.data.result;
-                  return new Container(
+                })
+            : StreamBuilder(
+                stream: allRestaurantListBloc.restaurantList,
+                builder: (context, AsyncSnapshot<ResAllRestaurantList> snapshot) {
+                  if (snapshot.hasData) {
+                    final result = snapshot.data.allRestaurants;
+                    return new Container(
                       child: this.isGrid
-                          ? GridViewMealWidget(result)
-                          : ListviewMealWidget(result)
+                          ? GridViewWidgets(result)
+                          : ListViewWidget(result),
                       // child: _setGridViewItems(context,''),
-                      );
-                } else {
-                  return new Center(
-                    child: new CircularProgressIndicator(),
-                  );
-                }
-              })
-          : StreamBuilder(
-              stream: allRestaurantListBloc.restaurantList,
-              builder: (context, AsyncSnapshot<ResAllRestaurantList> snapshot) {
-                if (snapshot.hasData) {
-                  final result = snapshot.data.allRestaurants;
-                  return new Container(
-                    child: this.isGrid
-                        ? GridViewWidgets(result)
-                        : ListViewWidget(result),
-                    // child: _setGridViewItems(context,''),
-                  );
-                } else {
-                  return new Center(
-                    child: new CircularProgressIndicator(),
-                  );
-                }
-              }),
+                    );
+                  } else {
+                    return new Center(
+                      child: new CircularProgressIndicator(),
+                    );
+                  }
+                }),])
+      ),
     );
   }
 }

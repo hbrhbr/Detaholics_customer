@@ -91,6 +91,8 @@ class AppColor {
   static var teal = Colors.teal;
   static var facebookBG = hexToColor("#5B7CB4"); //Facebook icon color
   static var googleBG = hexToColor("#D95946"); //Google plus icon color
+  static var bodyColor = hexToColor("#f2f2f2");
+  static var navgigabariconColor = hexToColor("#EDBB99  ");
 
   // You can use sample theme color
 

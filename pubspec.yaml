@@ -92,6 +92,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - Assets/imgLogo.png
+   - Assets/defaultProfileImage.png
    - Assets/FoodZoneLogo.png
    - Assets/googlePlus.png
    - Assets/facebook.png
@@ -127,11 +128,14 @@ flutter:
    - Assets/images/dataNotFound.png
    - Assets/images/bell.png
    - Assets/images/mail.png
+   - Assets/images/password.png
    - Assets/error.png
    - Assets/Onboarding/ob1.png
    - Assets/Onboarding/ob2.png
    - Assets/Onboarding/ob3.png
    - Assets/Onboarding/ob4.png
+   - Assets/Onboarding/ob5.png
+   - Assets/Onboarding/ob5.png
    - Assets/flags/brazil.png
    - Assets/flags/canada.png
    - Assets/flags/spain.png

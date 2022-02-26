@@ -5,6 +5,7 @@ import 'package:product/Helper/Constant.dart';
 import 'package:product/Helper/SharedManaged.dart';
 import 'package:product/ModelClass/ModelOrderList.dart';
 import 'package:product/generated/i18n.dart';
+import 'package:product/main.dart';
 import 'Widgets/OrderListWidgets.dart';
 
 void main() => runApp(new OrderScreen());
@@ -69,7 +70,7 @@ class _OrderScreenState extends State<OrderScreen> {
     return new Scaffold(
       appBar: new AppBar(
         elevation: 0.0,
-        backgroundColor: AppColor.themeColor,
+        backgroundColor: AppColor.black,
         centerTitle: true,
         title: setCommonText(
             S.current.history_order, AppColor.white, 20.0, FontWeight.w500, 1),
@@ -166,7 +167,7 @@ class _OrderScreenState extends State<OrderScreen> {
                 }
               },
             )
-          : setLockedAccessWidgets(context, false),
+          : Login_SignUP_Option_Screen(),
     );
   }
 }

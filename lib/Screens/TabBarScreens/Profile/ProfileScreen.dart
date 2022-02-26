@@ -56,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   email = snapshot.data.result.email;
                   image = snapshot.data.result.profileImage;
                   return new Container(
-                    color: AppColor.white,
+                    color: AppColor.bodyColor,
                     child: new ListView(
                       children: <Widget>[
                         ProfileWidgets(
@@ -67,7 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             snapshot.data.result.phone,
                             snapshot.data.result.totalOrder),
                         ProfileListWidget(isLoginwithSocialMedia),
-                        RecentOrderWidgets(result)
+                        // RecentOrderWidgets(result)
                       ],
                     ),
                   );

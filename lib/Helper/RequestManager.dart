@@ -389,6 +389,7 @@ class Requestmanager {
 
 //Update Profile Data
   Future<ResUpdateProfile> updateProfileData(dynamic param) async {
+    print("param :-> ${param}");
     http.Response response = await _apiRequest(APIS.updateProfile, param);
     if (response.statusCode == 200) {
       var result = json.decode(response.body);

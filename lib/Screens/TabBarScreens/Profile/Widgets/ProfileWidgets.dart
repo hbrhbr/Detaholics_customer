@@ -19,26 +19,28 @@ class ProfileListWidget extends StatelessWidget {
   final List<PROFILELIST> listOptions = [
     PROFILELIST(
         S.current.change_password,
-        Icon(Icons.lock, color: AppColor.grey[700], size: 18),
+        Icon(Icons.lock, color: AppColor.grey[700], size: 18.0),
         ChangePasswordScreen()),
     PROFILELIST(
         S.current.support,
-        Icon(Icons.headset_mic, color: AppColor.grey[700], size: 18),
+        Icon(Icons.headset_mic, color: AppColor.grey[700], size: 18.0),
         SupportScreen()),
     PROFILELIST(
         S.current.languages,
-        Icon(Icons.language, color: AppColor.grey[700], size: 18),
+        Icon(Icons.language, color: AppColor.grey[700], size: 18.0),
         LanguageScreen()),
     PROFILELIST(
         S.current.notifications,
-        Icon(Icons.notifications, color: AppColor.grey[700], size: 18),
+        Icon(Icons.notifications, color: AppColor.grey[700], size: 18.0),
         NotificationList()),
     PROFILELIST(
         S.current.saved_address,
-        Icon(Icons.note_add, color: AppColor.grey[700], size: 18),
+        Icon(Icons.note_add, color: AppColor.grey[700], size: 18.0),
         ChangeAddress()),
-    PROFILELIST(S.current.logout,
-        Icon(Icons.settings_power, color: AppColor.grey[700], size: 18), null),
+    PROFILELIST(
+        S.current.logout,
+        Icon(Icons.settings_power, color: AppColor.grey[700], size: 18.0),
+        null),
   ];
 
   // final List listOptions = [
@@ -115,6 +117,7 @@ class ProfileListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
         height: (60.0 * listOptions.length),
+        color: AppColor.bodyColor,
         // color: AppColor.green,
         padding: new EdgeInsets.all(15),
         child: ListView.builder(
@@ -220,15 +223,14 @@ class ProfileListWidget extends StatelessWidget {
                   children: <Widget>[
                     new Expanded(
                       child: new Container(
-                        color: AppColor.white,
                         child: new Row(
                           children: <Widget>[
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                child: listOptions[index].icon,
-                              ),
-                            ),
+                            // Expanded(
+                            //   flex: 1,
+                            //   child: Container(
+                            //     child: listOptions[index].icon,
+                            //   ),
+                            // ),
                             Expanded(
                               flex: 10,
                               child: Container(
@@ -237,8 +239,8 @@ class ProfileListWidget extends StatelessWidget {
                                     new EdgeInsets.only(left: 10, right: 10),
                                 child: setCommonText(
                                     listOptions[index].title,
-                                    AppColor.grey[500],
-                                    14.0,
+                                    AppColor.grey[700],
+                                    18.0,
                                     FontWeight.w400,
                                     1),
                               ),
@@ -273,8 +275,8 @@ class ProfileWidgets extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          height: 265,
-          color: AppColor.white,
+          height: 225,
+          color: AppColor.bodyColor,
           padding: new EdgeInsets.only(top: 20, right: 15, left: 30),
           child: new Column(
             children: <Widget>[
@@ -306,123 +308,47 @@ class ProfileWidgets extends StatelessWidget {
               SizedBox(
                 height: 15,
               ),
-              Row(
-                children: <Widget>[
-                  new Container(
-                    height: 80,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: AppColor.grey,
-                        width: 4,
+              Container(
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(width: 30,),
+                    PhysicalModel(
+                        elevation: 5,
+                        color: Colors.white.withOpacity(0.4),
+                        borderRadius: BorderRadius.circular(35),
+                        child: CircleAvatar(
+                          radius: 40,
+                          child: image==null?Icon(Icons.person):SizedBox(),
+                          backgroundColor: Colors.white,
+                          backgroundImage:NetworkImage(image,),
+                        )),
+                    SizedBox(width: 10,),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Flexible(child: Text('$name',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),)),
+                          Flexible(child: Text('good morning, happy to join us ',style: TextStyle(fontWeight: FontWeight.bold),))
+                        ],
                       ),
-                      // image: DecorationImage(
-                      //     image: NetworkImage(image), fit: BoxFit.cover)
-                    ),
-                  ),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Expanded(
-                    child: setCommonText(
-                        name, AppColor.black87, 18.0, FontWeight.w500, 1),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
-              SizedBox(
-                height: 15,
-              ),
-              Column(
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.email,
-                        color: AppColor.grey[500],
-                        size: 18,
-                      ),
-                      SizedBox(
-                        width: 12,
-                      ),
-                      setCommonText(
-                          email, AppColor.grey[500], 15.0, FontWeight.w400, 1),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.phone,
-                        color: AppColor.grey[500],
-                        size: 18,
-                      ),
-                      SizedBox(
-                        width: 12,
-                      ),
-                      setCommonText('$mobile', AppColor.grey[500], 13.0,
-                          FontWeight.w400, 1),
-                    ],
-                  ),
-                ],
-              )
-              // new Container(
-              //   decoration: BoxDecoration(
-              //       image: DecorationImage(
-              //           image: ExactAssetImage('Assets/res.jpeg'),
-              //           fit: BoxFit.cover)),
-              // ),
-              // Container(
-              //   color: AppColor.black38,
-              // ),
-              // new Align(
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     crossAxisAlignment: CrossAxisAlignment.center,
-              //     children: <Widget>[
-              // new Container(
-              //   height: 100,
-              //   width: 100,
-              //   decoration: BoxDecoration(
-              //       shape: BoxShape.circle,
-              //       border: Border.all(
-              //         color: AppColor.white,
-              //         width: 4,
-              //       ),
-              //       image: DecorationImage(
-              //           image: NetworkImage(image), fit: BoxFit.cover)),
-              // ),
-              //       SizedBox(
-              //         height: 10,
-              //       ),
-              //       setCommonText(name, AppColor.white, 20.0, FontWeight.w500, 1),
-              //       SizedBox(
-              //         height: 2,
-              //       ),
-              //       setCommonText(email, AppColor.white, 18.0, FontWeight.w500, 1),
-              //       new FlatButton(
-              //         child: setCommonText(S.current.edit_profile,
-              //             AppColor.themeColor, 16.0, FontWeight.bold, 1),
-              //         onPressed: () {
-              // Navigator.of(context).push(MaterialPageRoute(
-              //     builder: (context) => EditProfileScreen()));
-              //         },
-              //       )
-              //     ],
-              //   ),
-              // )
             ],
           ),
         ),
         Container(
           height: 1,
-          color: AppColor.grey[300],
+          color: AppColor.grey[500],
         ),
         Container(
           height: 60,
-          color: AppColor.white,
+          color: AppColor.bodyColor,
           child: Row(
             children: <Widget>[
               Expanded(
@@ -440,7 +366,7 @@ class ProfileWidgets extends StatelessWidget {
               )),
               Container(
                 width: 1,
-                color: AppColor.grey[300],
+                color: AppColor.grey[500],
               ),
               Expanded(
                   child: Container(
@@ -460,7 +386,7 @@ class ProfileWidgets extends StatelessWidget {
         ),
         Container(
           height: 1,
-          color: AppColor.grey[300],
+          color: AppColor.grey[500],
         ),
       ],
     );

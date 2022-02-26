@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:product/BlocClass/MainModelBlocClass/RestaurantDetails.dart';
 import 'package:product/Helper/CommonWidgets.dart';
 import 'package:product/Helper/Constant.dart';
@@ -14,6 +16,7 @@ import 'package:product/Screens/ProductDetails/ProductDetails.dart';
 import 'package:product/Screens/RestaurantItemList/RestaurantItemList.dart';
 import 'package:product/Screens/ReviewListScreen/ReviewListScreen.dart';
 import 'package:product/generated/i18n.dart';
+import 'package:progressive_image/progressive_image.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,78 +41,173 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
   // var result = ResDetails();
   StoreProvider store = StoreProvider();
 
-  _setImageStackView(double width, String bannerImage, String resName) {
-    return new Stack(
-      children: <Widget>[
-        setNetworkImage(bannerImage, width - 150, width),
-        // new Container(
-        //   width: width,
-        //   height: width - 150,
-        //   decoration: BoxDecoration(
-        //       image: DecorationImage(
-        //           image: NetworkImage(bannerImage), fit: BoxFit.fill)),
-        // ),
-        Container(
-          color: AppColor.black.withOpacity(0.4),
-          height: width - 150,
+  _setImageStackView(double width, String bannerImage, String resName,String resAddress,String resEmail) {
+    return Container(
+      height: 300,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: NetworkImage(bannerImage),
         ),
-        new Container(
-          padding: new EdgeInsets.only(top: 25, bottom: 5),
-          width: width,
-          height: width - 150,
-          child: new Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              new IconButton(
-                icon: new Icon(Icons.arrow_back_ios, color: AppColor.white),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              new Container(
-                padding: new EdgeInsets.only(left: 15, right: 0),
-                width: width,
-                height: 80,
-                child: new Row(
-                  children: <Widget>[
-                    new Expanded(
-                      flex: 2,
-                      child: new Container(
-                        // color: AppColor.red,
-                        child: setCommonText('$resName',
-                            AppColor.amber.shade300, 18.0, FontWeight.bold, 2),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: new Container(
-                          // color: AppColor.white,
-                          child: new Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new Icon(
-                            Icons.place,
-                            color: AppColor.amber.shade300,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(30),
+          bottomRight: Radius.circular(30),
+        ),
+      ),
+      child: Container(
+        color: Colors.black26,
+        child: Column(
+          children: [
+            SizedBox(height: 30,),
+            Row(
+              children: [
+                SizedBox(width: 30,),
+                IconButton(
+                  icon: Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.white,
                           ),
-                          setCommonText(
-                              S.current.view_on_map,
-                              AppColor.amber.shade300,
-                              12.0,
-                              FontWeight.bold,
-                              2),
-                        ],
-                      )),
-                    )
-                  ],
+                      ),
+                      alignment: Alignment.center,
+                      child: new Icon(Icons.arrow_back_ios, color: AppColor.white,size: 18,)),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
-              )
-            ],
-          ),
+                SizedBox(width: 50,),
+                setCommonText('$resName',AppColor.white, 24.0, FontWeight.bold, 2)
+              ],
+            ),
+            Spacer(),
+            Row(
+              children: [
+                SizedBox(width: 30,),
+                setCommonText('$resEmail',AppColor.white, 16.0, FontWeight.bold, 2),
+                Spacer(),
+                IconButton(
+                  icon: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.white,
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                      child: new Icon(Icons.share, color: AppColor.white,size: 18,)),
+                  onPressed: () {
+                    Share.share(
+                      '$resName , ${SharedManager.shared.resAddress}',
+                    );
+                  },
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                SizedBox(width: 30,),
+                Expanded(child: setCommonText('$resAddress',AppColor.white, 16.0, FontWeight.bold, 3),),
+
+                IconButton(
+                  icon: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.white,
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                      child: new Icon(Icons.phone, color: AppColor.white,size: 18,)),
+                  onPressed: () {
+                    _calling();
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
-      ],
+      ),
     );
+    // return new Stack(
+    //   children: <Widget>[
+    //     setNetworkImage(bannerImage, width - 150, width),
+    //     // new Container(
+    //     //   width: width,
+    //     //   height: width - 150,
+    //     //   decoration: BoxDecoration(
+    //     //       image: DecorationImage(
+    //     //           image: NetworkImage(bannerImage), fit: BoxFit.fill)),
+    //     // ),
+    //     Container(
+    //       color: AppColor.black.withOpacity(0.4),
+    //       height: width - 150,
+    //     ),
+    //     new Container(
+    //       padding: new EdgeInsets.only(top: 25, bottom: 5),
+    //       width: width,
+    //       height: width - 150,
+    //       child: new Column(
+    //         crossAxisAlignment: CrossAxisAlignment.start,
+    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //         children: <Widget>[
+    //           new IconButton(
+    //             icon: Container(
+    //                 decoration: BoxDecoration(
+    //                   shape: BoxShape.circle,
+    //                   border: Border.all(
+    //                     color: Colors.white,
+    //                   )
+    //                 ),
+    //                 alignment: Alignment.center,
+    //                 child: new Icon(Icons.arrow_back_ios, color: AppColor.white,size: 18,)),
+    //             onPressed: () {
+    //               Navigator.of(context).pop();
+    //             },
+    //           ),
+    //           new Container(
+    //             padding: new EdgeInsets.only(left: 15, right: 0),
+    //             width: width,
+    //             height: 80,
+    //             child: new Row(
+    //               children: <Widget>[
+    //                 new Expanded(
+    //                   flex: 2,
+    //                   child: new Container(
+    //                     // color: AppColor.red,
+    //                     child: setCommonText('$resName',
+    //                         AppColor.amber.shade300, 18.0, FontWeight.bold, 2),
+    //                   ),
+    //                 ),
+    //                 Expanded(
+    //                   flex: 1,
+    //                   child: new Container(
+    //                       // color: AppColor.white,
+    //                       child: new Column(
+    //                     crossAxisAlignment: CrossAxisAlignment.center,
+    //                     mainAxisAlignment: MainAxisAlignment.center,
+    //                     children: <Widget>[
+    //                       new Icon(
+    //                         Icons.place,
+    //                         color: AppColor.amber.shade300,
+    //                       ),
+    //                       setCommonText(
+    //                           S.current.view_on_map,
+    //                           AppColor.amber.shade300,
+    //                           12.0,
+    //                           FontWeight.bold,
+    //                           2),
+    //                     ],
+    //                   )),
+    //                 )
+    //               ],
+    //             ),
+    //           )
+    //         ],
+    //       ),
+    //     ),
+    //   ],
+    // );
   }
 
   _calling() async {
@@ -370,10 +468,11 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
   _setDynamicCategory(int subCatCount, dynamic data, double width,
       List<Categories> categories) {
     return Container(
-      height: (calculateTotalHeight(categories)),
+      // height: (calculateTotalHeight(categories)),
+      width: width,
       color: AppColor.white,
       child: new ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
+        scrollDirection: Axis.horizontal,
         itemCount: subCatCount,
         itemBuilder: (context, index) {
           return _checkStatus(index, categories[index].subcategories,
@@ -419,6 +518,8 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
             height: (subcategories.length * 140.0) + 20,
             // color: AppColor.black,
             child: new ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
               physics: NeverScrollableScrollPhysics(),
               itemCount: subcategories.length,
               itemBuilder: (context, row) {
@@ -516,12 +617,10 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                                   SizedBox(
                                     height: 2,
                                   ),
-                                  (double.parse(subcategories[row].discount) ==
-                                          0)
+                                  (double.parse(subcategories[row].discount) == 0)
                                       ? setHeight(0)
                                       : setCommonText(
-                                          (subcategories[row].discountType ==
-                                                  '0')
+                                          (subcategories[row].discountType == '0')
                                               ? '${Currency.curr}${subcategories[row].discount} off'
                                               : '${subcategories[row].discount}% off',
                                           AppColor.red,
@@ -535,15 +634,13 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                                     children: <Widget>[
                                       new Row(
                                         children: <Widget>[
-                                          (double.parse(subcategories[row]
-                                                      .discount) ==
-                                                  0)
+                                          (double.parse(subcategories[row].discount) == 0)
                                               ? setWidth(0)
                                               : new Stack(
                                                   alignment: Alignment.center,
                                                   children: <Widget>[
                                                     setCommonText(
-                                                        '${Currency.curr}${calculateDiscount(subcategories[row].price, subcategories[row].discount, subcategories[row].discountType)}',
+                                                        '${Currency.curr}${double.parse(subcategories[row].price)}',
                                                         AppColor.grey[600],
                                                         12.0,
                                                         FontWeight.w600,
@@ -559,7 +656,7 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                                             width: 5,
                                           ),
                                           setCommonText(
-                                              '${Currency.curr}${double.parse(subcategories[row].price) - double.parse(subcategories[row].discount)}',
+                                              '${Currency.curr}${calculateDiscount(subcategories[row].price, subcategories[row].discount, subcategories[row].discountType)}',
                                               AppColor.black,
                                               12.0,
                                               FontWeight.w700,
@@ -741,6 +838,7 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
     super.dispose();
   }
 
+  bool isInfoSelected = true;
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
@@ -748,8 +846,7 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
     this.store = Provider.of<StoreProvider>(context);
 
     return Scaffold(
-      primary: false,
-      appBar: EmptyAppBar(),
+      backgroundColor: AppColor.bodyColor,
       body: StreamBuilder(
           stream: resDetailsBloc.restaurantDetails,
           builder: (context, AsyncSnapshot<ResRestaurantDetails> snapshot) {
@@ -769,136 +866,223 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                     this.store.restaurantDetails.name;
                 _fillAllCategoryData();
               } else {}
-              return Column(
-                children: <Widget>[
-                  Expanded(
-                    flex: 12,
-                    child: Container(
-                      color: AppColor.white,
-                      child: new ListView(
-                        controller: _controller,
-                        children: <Widget>[
-                          _setImageStackView(
-                              width,
-                              this.store.restaurantDetails.bannerImage,
-                              this.store.restaurantDetails.name),
-                          ResDetailsWidget(
-                              this.store.restaurantDetails.address,
-                              this.store.restaurantDetails.discount,
-                              this.store.restaurantDetails.openingTime,
-                              this.store.restaurantDetails.closingTime,
-                              (this.store.restaurantDetails.avgReview != null)
-                                  ? this.store.restaurantDetails.avgReview
-                                  : '0.0'),
-                          // _setSocialWidgets(
-                          //     width,
-                          //     (result.avgReview != null)
-                          //         ? result.avgReview
-                          //         : '0.0',
-                          //     result.name),
-                          (this.store.restaurantDetails.categories.length > 0)
-                              ? _setRestaurantDetails(
-                                  this.store.restaurantDetails.categories)
-                              : Container(
-                                  height: 150,
-                                  alignment: Alignment.center,
-                                  child: setCommonText(
-                                      'No Data Found',
-                                      AppColor.black87,
-                                      18.0,
-                                      FontWeight.w600,
-                                      1),
+              return Container(
+                color: AppColor.bodyColor,
+                child: Column(
+                  children: <Widget>[
+                    _setImageStackView(
+                        width,
+                        this.store.restaurantDetails.bannerImage,
+                        this.store.restaurantDetails.name,this.store.restaurantDetails.address,this.store.restaurantDetails.email,),
+                    Expanded(
+                      child: Stack(
+                        children: [
+                          Container(
+                            color: AppColor.bodyColor,
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height,
+                            child: Row(
+                              children: [
+                                Column(
+                                  children: [
+                                    isInfoSelected?
+                                        infoWidget(
+                                          address: this.store.restaurantDetails.address,
+                                          time: '${this.store.restaurantDetails.openingTime}-${this.store.restaurantDetails.closingTime}',
+                                          status: this.store.restaurantDetails.isAvailable == '1'
+                                                      ? '${S.current.open}'
+                                                      : '${S.current.closed}',
+                                          phoneNumber: this.store.restaurantDetails.phone,
+
+                                        )
+                                        :Expanded(child: menuWidget(this.store)),
+                                  ],
                                 ),
-                          _setDynamicCategory(
-                              this.store.restaurantDetails.categories.length,
-                              this.store.restaurantDetails.categories,
-                              width,
-                              this.store.restaurantDetails.categories),
-                          (this.store.restaurantDetails.reviews.length > 0)
-                              ? ReviewWidgets(
-                                  this.store.restaurantDetails.reviews,
-                                  this.widget.restaurantID,
-                                  this.store.restaurantDetails.name)
-                              : Text('')
+                                Spacer(),
+                                Container(
+                                  height:double.infinity,
+                                  width: 20,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            right: 20,
+                            bottom: 110,
+                            child: InkWell(
+                              onTap: () async{
+                                setState(() {
+                                  isInfoSelected = true;
+                                });
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                decoration:BoxDecoration(
+                                    color: isInfoSelected?Colors.black:Colors.grey,
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(100),
+                                      topLeft: Radius.circular(100),
+                                    )
+                                ),
+                                height:isInfoSelected?50:45,
+                                width: 100,
+                                child: Text(
+                                    'Info',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            right: 20,
+                            bottom: 50,
+                            child: InkWell(
+                              onTap: () async{
+                                setState(() {
+                                  isInfoSelected = false;
+                                });
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                decoration:BoxDecoration(
+                                    color: isInfoSelected?Colors.grey:Colors.black,
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(100),
+                                      topLeft: Radius.circular(100),
+                                    )
+                                ),
+                                height:isInfoSelected?45:50,
+                                width: 100,
+                                child: Text(
+                                    'Menu',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                  ),
-                  (this.store.getTotalCartCount() > 0)
-                      ? InkWell(
-                          onTap: () {
-                            if (this.store.restaurantDetails.isAvailable ==
-                                '1') {
-                              SharedManager.shared.isFromTab = false;
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => CartApp()));
-                            } else {
-                              commonRestaurantCloseAlert(context);
-                            }
-                          },
-                          child: Container(
-                              padding: new EdgeInsets.only(
-                                  left: 15, right: 90, top: 5),
-                              color: AppColor.white,
-                              width: width,
-                              height: 50,
-                              child: new Material(
-                                  color: AppColor.themeColor,
-                                  borderRadius: new BorderRadius.circular(30),
-                                  child: new Container(
-                                    padding: new EdgeInsets.only(
-                                        left: 12, right: 15),
-                                    child: new Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        new Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            setCommonText(
-                                                '${this.store.getTotalCartCount()} ${S.current.items}',
-                                                AppColor.white,
-                                                12.0,
-                                                FontWeight.w600,
-                                                1),
-                                            SizedBox(
-                                              height: 3,
-                                            ),
-                                            setCommonText(
-                                                '${S.current.totals} ${Currency.curr}${this.store.getTotalPrice()}',
-                                                AppColor.white,
-                                                12.0,
-                                                FontWeight.w600,
-                                                1),
-                                          ],
-                                        ),
-                                        new Row(
-                                          children: <Widget>[
-                                            setCommonText(
-                                                S.current.view_cart,
-                                                AppColor.white,
-                                                13.0,
-                                                FontWeight.w600,
-                                                1),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            new Icon(Icons.arrow_forward,
-                                                color: AppColor.white, size: 18)
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ))),
-                        )
-                      : new Container(),
-                  SizedBox(
-                    height: 15,
-                  )
-                ],
+                    // ResDetailsWidget(
+                    //     this.store.restaurantDetails.address,
+                    //     this.store.restaurantDetails.discount,
+                    //     this.store.restaurantDetails.openingTime,
+                    //     this.store.restaurantDetails.closingTime,
+                    //     (this.store.restaurantDetails.avgReview != null)
+                    //         ? this.store.restaurantDetails.avgReview
+                    //         : '0.0'),
+                    // _setSocialWidgets(
+                    //     width,
+                    //     (result.avgReview != null)
+                    //         ? result.avgReview
+                    //         : '0.0',
+                    //     result.name),
+                    // (this.store.restaurantDetails.categories.length > 0)
+                    //     ? _setRestaurantDetails(
+                    //     this.store.restaurantDetails.categories)
+                    //     : Container(
+                    //   height: 150,
+                    //   alignment: Alignment.center,
+                    //   child: setCommonText(
+                    //       'No Data Found',
+                    //       AppColor.black87,
+                    //       18.0,
+                    //       FontWeight.w600,
+                    //       1),
+                    // ),
+                    // _setDynamicCategory(
+                    //     this.store.restaurantDetails.categories.length,
+                    //     this.store.restaurantDetails.categories,
+                    //     width,
+                    //     this.store.restaurantDetails.categories),
+                    // (this.store.restaurantDetails.reviews.length > 0)
+                    //     ? ReviewWidgets(
+                    //     this.store.restaurantDetails.reviews,
+                    //     this.widget.restaurantID,
+                    //     this.store.restaurantDetails.name)
+                    //     : Text(''),
+                    // (this.store.getTotalCartCount() > 0)
+                    //     ? InkWell(
+                    //         onTap: () {
+                    //           if (this.store.restaurantDetails.isAvailable ==
+                    //               '1') {
+                    //             SharedManager.shared.isFromTab = false;
+                    //             Navigator.of(context).push(MaterialPageRoute(
+                    //                 builder: (context) => CartApp()));
+                    //           } else {
+                    //             commonRestaurantCloseAlert(context);
+                    //           }
+                    //         },
+                    //         child: Container(
+                    //             padding: new EdgeInsets.only(
+                    //                 left: 15, right: 90, top: 5),
+                    //             color: AppColor.white,
+                    //             width: width,
+                    //             height: 50,
+                    //             child: new Material(
+                    //                 color: AppColor.themeColor,
+                    //                 borderRadius: new BorderRadius.circular(30),
+                    //                 child: new Container(
+                    //                   padding: new EdgeInsets.only(
+                    //                       left: 12, right: 15),
+                    //                   child: new Row(
+                    //                     mainAxisAlignment:
+                    //                         MainAxisAlignment.spaceBetween,
+                    //                     children: <Widget>[
+                    //                       new Column(
+                    //                         mainAxisAlignment:
+                    //                             MainAxisAlignment.center,
+                    //                         crossAxisAlignment:
+                    //                             CrossAxisAlignment.start,
+                    //                         children: <Widget>[
+                    //                           setCommonText(
+                    //                               '${this.store.getTotalCartCount()} ${S.current.items}',
+                    //                               AppColor.white,
+                    //                               12.0,
+                    //                               FontWeight.w600,
+                    //                               1),
+                    //                           SizedBox(
+                    //                             height: 3,
+                    //                           ),
+                    //                           setCommonText(
+                    //                               '${S.current.totals} ${Currency.curr}${this.store.getTotalPrice()}',
+                    //                               AppColor.white,
+                    //                               12.0,
+                    //                               FontWeight.w600,
+                    //                               1),
+                    //                         ],
+                    //                       ),
+                    //                       new Row(
+                    //                         children: <Widget>[
+                    //                           setCommonText(
+                    //                               S.current.view_cart,
+                    //                               AppColor.white,
+                    //                               13.0,
+                    //                               FontWeight.w600,
+                    //                               1),
+                    //                           SizedBox(
+                    //                             width: 5,
+                    //                           ),
+                    //                           new Icon(Icons.arrow_forward,
+                    //                               color: AppColor.white, size: 18)
+                    //                         ],
+                    //                       )
+                    //                     ],
+                    //                   ),
+                    //                 ))),
+                    //       )
+                    //     : new Container(),
+                  ],
+                ),
               );
             } else {
               return new Center(
@@ -906,34 +1090,324 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
               );
             }
           }),
-      floatingActionButton: SpeedDial(
-          childMargin: EdgeInsets.only(right: 18, bottom: 20),
-          animatedIcon: AnimatedIcons.menu_close,
-          animatedIconTheme: IconThemeData(size: 20.0),
-          // this is ignored if animatedIcon is non null
-          visible: true,
-          // If true user is forced to close dial manually
-          // by tapping main button and overlay is not rendered.
-          closeManually: false,
-          curve: Curves.bounceIn,
-          overlayColor: AppColor.black,
-          overlayOpacity: 0.5,
-          onOpen: () {
-            print('DIAL OPEN');
-            if (isFirst) {
-              setState(() {});
-            }
-          },
-          onClose: () => print('DIAL CLOSED'),
-          tooltip: 'Speed Dial',
-          heroTag: 'speed-dial-hero-tag',
-          backgroundColor: AppColor.themeColor,
-          foregroundColor: AppColor.white,
-          elevation: 8.0,
-          children: setSpeedDialChild(
-              (this.store.restaurantDetails.categories == null)
-                  ? []
-                  : this.store.restaurantDetails.categories)),
+      // floatingActionButton: SpeedDial(
+      //     childMargin: EdgeInsets.only(right: 18, bottom: 20),
+      //     animatedIcon: AnimatedIcons.menu_close,
+      //     animatedIconTheme: IconThemeData(size: 20.0),
+      //     // this is ignored if animatedIcon is non null
+      //     visible: true,
+      //     // If true user is forced to close dial manually
+      //     // by tapping main button and overlay is not rendered.
+      //     closeManually: false,
+      //     curve: Curves.bounceIn,
+      //     overlayColor: AppColor.black,
+      //     overlayOpacity: 0.5,
+      //     onOpen: () {
+      //       print('DIAL OPEN');
+      //       if (isFirst) {
+      //         setState(() {});
+      //       }
+      //     },
+      //     onClose: () => print('DIAL CLOSED'),
+      //     tooltip: 'Speed Dial',
+      //     heroTag: 'speed-dial-hero-tag',
+      //     backgroundColor: AppColor.themeColor,
+      //     foregroundColor: AppColor.white,
+      //     elevation: 8.0,
+      //     children: setSpeedDialChild(
+      //         (this.store.restaurantDetails.categories == null)
+      //             ? []
+      //             : this.store.restaurantDetails.categories)),
+    );
+  }
+  Widget infoWidget({String address,String time,String status,String phoneNumber}){
+    return Column(
+      children: [
+        SizedBox(height: 30,),
+        Container(
+          width: MediaQuery.of(context).size.width-20,
+          padding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+          child: Row(
+            children: [
+              Icon(Icons.location_pin,color: Colors.grey,),
+              SizedBox(width: 10,),
+              Flexible(
+                child: Text(
+                    '$address',
+                  maxLines: 3,
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 5,),
+        Container(
+          width: MediaQuery.of(context).size.width-20,
+          padding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+          child: Row(
+            children: [
+              Icon(Icons.access_time,color: Colors.grey,),
+              SizedBox(width: 10,),
+              Text(
+                  '$time'
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 5,),
+        Container(
+          width: MediaQuery.of(context).size.width-20,
+          padding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+          child: Row(
+            children: [
+              Icon(Icons.home,color: Colors.grey,),
+              SizedBox(width: 10,),
+              Text(
+                  '$status'
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 5,),
+        Container(
+          width: MediaQuery.of(context).size.width-20,
+          padding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+          child: Row(
+            children: [
+              Icon(Icons.phone,color: Colors.grey,),
+              SizedBox(width: 10,),
+              Text(
+                  '$phoneNumber'
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+  Widget menuWidget(store){
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 30,),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Text(
+              "Restaurants Menu",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              SizedBox(width: 10,),
+              InkWell(
+                onTap: () async{
+
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  decoration:BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(100),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 15,horizontal: 30),
+                  child: Text(
+                    'All',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 10,),
+              // InkWell(
+              //   onTap: () async{
+              //
+              //   },
+              //   child: Container(
+              //     alignment: Alignment.center,
+              //     decoration:BoxDecoration(
+              //         color: Colors.grey,
+              //         borderRadius: BorderRadius.circular(100),
+              //     ),
+              //     padding: EdgeInsets.symmetric(vertical: 15,horizontal: 20),
+              //     child: Text(
+              //       'Restaurant',
+              //       style: TextStyle(
+              //         color: Colors.white,
+              //         fontWeight: FontWeight.w800,
+              //         fontSize: 16,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+            ],
+          ),
+          SizedBox(height: 20,),
+          Container(width: 150,height: 2,color: Colors.grey,),
+          SizedBox(height: 20,),
+          Flexible(
+            child: Container(
+              width: MediaQuery.of(context).size.width-60,
+              // height: 120,
+              child: ListView.builder(
+                itemCount: this.store.restaurantDetails.categories.length,
+                scrollDirection: Axis.horizontal,
+                  itemBuilder: (context,index){
+                  List<Subcategories>_list = this.store.restaurantDetails.categories[index].subcategories;
+                    return ListView.builder(
+                      shrinkWrap: true,
+                        itemCount: _list.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (ctx,idx){
+                      return InkWell(
+                        onTap: (){
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ProductDetails(
+                                productData: _list[idx],
+                                resId: this.widget.restaurantID,
+                              )));
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                            ClipRRect(
+                              child: ProgressiveImage(
+                                  fit: BoxFit.cover,
+                                  placeholder: AssetImage('Assets/loading.gif'),
+                                  // size: 1.87KB
+                                  thumbnail: AssetImage('Assets/loading.gif'),
+                                  // size: 1.29MB
+                                  image: CachedNetworkImageProvider(_list[idx].image),
+                                  height: 80,
+                                  width: 80,
+                                ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                              Flexible(
+                                child: Text(
+                                  _list[idx].name,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Flexible(
+                                child: Text(
+                                  "\$"+_list[idx].price,
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 10,),
+                              InkWell(
+                                onTap: () async{
+                                  if (_list[idx].isAvailable == '1') {
+                                    setState(() {
+                                      if (_list[idx].isAdded) {
+                                        this.store.removeItemFromCart(_list[idx]);
+                                      } else {
+                                        this.store.addItemTocart(_list[idx], this.widget.restaurantID, context);
+                                      }
+                                    });
+                                  } else {
+                                    commonItemOutofStockAlert(
+                                        context);
+                                  }
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  decoration:BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
+                                  child: Text(
+                                    'add cart',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    });
+                  }
+              ),
+            ),
+          ),
+          // Flexible(child:
+          // _setDynamicCategory(
+          //     this.store.restaurantDetails.categories.length,
+          //     this.store.restaurantDetails.categories,
+          //     MediaQuery.of(context).size.width-70,
+          //     this.store.restaurantDetails.categories),
+          // ),
+          // Flexible(
+          //   child: ListView.builder(
+          //       scrollDirection: Axis.horizontal,
+          //       shrinkWrap: true,
+          //       itemCount: this.store.cartItemList.length,
+          //       itemBuilder: (context,index){
+          //         return  Column(
+          //           mainAxisSize: MainAxisSize.min,
+          //           children: [
+          //             Padding(
+          //               padding: const EdgeInsets.all(10.0),
+          //               child: new Container(
+          //                 width: 80,
+          //                 child: ClipRRect(
+          //                   borderRadius: BorderRadius.circular(6),
+          //                   child: ProgressiveImage(
+          //                     fit: BoxFit.cover,
+          //                     placeholder: AssetImage('Assets/loading.gif'),
+          //                     // size: 1.87KB
+          //                     thumbnail: AssetImage('Assets/loading.gif'),
+          //                     // size: 1.29MB
+          //                     image: CachedNetworkImageProvider(store.cartItemList[index].image),
+          //                     height: 80,
+          //                     width: 80,
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //             SizedBox(width: 20,),
+          //             Column(
+          //               crossAxisAlignment: CrossAxisAlignment.start,
+          //               children: [
+          //                 SizedBox(height: 2),
+          //                 setCommonText(store.cartItemList[index].name, Colors.black, 18.0, FontWeight.w800, 1),
+          //                 SizedBox(height: 3),
+          //                 setCommonText(store.cartItemList[index].catigoryName, Colors.grey[700], 16.0,
+          //                     FontWeight.w600, 2),
+          //                 SizedBox(
+          //                   height: 3,
+          //                 ),
+          //               ],
+          //             ),
+          //           ],
+          //         );
+          //       }),
+          // ),
+        ],
+      ),
     );
   }
 }

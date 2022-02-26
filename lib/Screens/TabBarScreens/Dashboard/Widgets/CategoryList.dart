@@ -16,42 +16,21 @@ class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 115,
+      height: 140,
       width: MediaQuery.of(context).size.width,
-      color: AppColor.white,
-      padding: new EdgeInsets.only(left: 2, right: 8, bottom: 0),
+      color: AppColor.bodyColor,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: new Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                setCommonText('Cuisines around you', AppColor.black, 15.0,
-                    FontWeight.w500, 1),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CategoryListScreen()));
-                  },
-                  child: Row(
-                    children: [
-                      setCommonText(S.current.seeAll, AppColor.black, 12.0,
-                          FontWeight.w400, 1),
-                      Icon(Icons.arrow_forward,
-                          color: AppColor.orange, size: 16)
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 8,
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 30,vertical: 5),
+            child: setCommonText('Cuisines around you', AppColor.black, 18.0,
+                FontWeight.w500, 1),
           ),
           Expanded(
               child: Container(
-            color: AppColor.white,
+                margin: const EdgeInsets.symmetric(horizontal: 30,vertical: 5),
+                color: AppColor.bodyColor,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: categoryList.length,
@@ -66,49 +45,33 @@ class CategoryList extends StatelessWidget {
                     },
                     child: Container(
                       width: 90,
+                      height: 120,
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)
+                      ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            height: 60,
-                            width: 60,
-                            // color: AppColor.amber,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: AppColor.grey[300],
-                                    offset: Offset(0, 0))
-                              ],
-                              // image: DecorationImage(
-                              //     fit: BoxFit.cover,
-                              //     image: NetworkImage(
-                              //         '${categoryList[index].image}'))
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: PhysicalModel(
+                              color: Colors.white30,
+                              elevation: 10,
+                              child: setNetworkImage(
+                                  categoryList[index].image, 50, 50),
                             ),
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(30),
-                                child: setNetworkImage(
-                                    categoryList[index].image, 60, 60)
-                                // ProgressiveImage(
-                                //   placeholder: AssetImage('Assets/loading.gif'),
-                                //   // size: 1.87KB
-                                //   thumbnail: AssetImage('Assets/loading.gif'),
-                                //   // size: 1.29MB
-                                //   // image: NetworkImage(categoryList[index].image),
-                                //   image: CachedNetworkImageProvider(
-                                //     categoryList[index].image,
-                                //   ),
-                                //   height: 60,
-                                //   width: 60,
-                                // ),
-                                ),
                           ),
                           SizedBox(height: 5),
-                          setCommonText('${categoryList[index].categoryName}',
-                              AppColor.black, 12.0, FontWeight.w400, 1)
+                          setCommonText(
+                              '${categoryList[index].categoryName}',
+                              AppColor.black,
+                              12.0,
+                              FontWeight.w400,
+                              1)
                         ],
                       ),
                     ),

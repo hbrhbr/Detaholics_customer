@@ -67,19 +67,27 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         elevation: 1.0,
       ),
       body: Container(
-        color: AppColor.white,
+        color: AppColor.bodyColor,
         padding: new EdgeInsets.all(15),
         child: Column(
           children: <Widget>[
             Container(
+              height: 150,
+              width: 150,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('Assets/images/password.png'))),
+            ),
+            Container(
               width: MediaQuery.of(context).size.width,
-              color: AppColor.white,
+              color: AppColor.bodyColor,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   setCommonText('', AppColor.black87, 15.0, FontWeight.w500, 1),
                   Row(
                     children: <Widget>[
+                      Icon(Icons.lock, color: AppColor.grey, size: 22),
                       Expanded(
                         child: TextFormField(
                           controller: oldPasswordController,
@@ -124,13 +132,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              color: AppColor.white,
+              color: AppColor.bodyColor,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   setCommonText('', AppColor.black87, 15.0, FontWeight.w500, 1),
                   Row(
                     children: <Widget>[
+                      Icon(Icons.lock, color: AppColor.grey, size: 22),
                       Expanded(
                         child: TextFormField(
                           controller: newPasswordController,
@@ -175,13 +184,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              color: AppColor.white,
+              color: AppColor.bodyColor,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   setCommonText('', AppColor.black87, 14.0, FontWeight.w500, 1),
                   Row(
                     children: <Widget>[
+                      Icon(Icons.lock, color: AppColor.grey, size: 22),
                       Expanded(
                         child: TextFormField(
                           controller: confirmPasswordController,
@@ -240,13 +250,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               },
               child: Container(
                 height: 45,
-                // width: 120,
+                width: 120,
                 decoration: BoxDecoration(
                     color: AppColor.themeColor,
                     borderRadius: BorderRadius.circular(22.5)),
                 child: Center(
-                  child: setCommonText('${S.current.changePass}',
-                      AppColor.white, 15.0, FontWeight.w500, 1),
+                  child: setCommonText('${S.current.save}', AppColor.white,
+                      15.0, FontWeight.w500, 1),
                 ),
               ),
             )

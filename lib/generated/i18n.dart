@@ -185,6 +185,7 @@ class S implements WidgetsLocalizations {
   String get newOldPassShouldBeSame =>
       'New password and confirm password should be same';
   String get changePass => 'Change Password';
+  String get save => 'Save';
   String get oldPass => 'Old password';
   String get newPass => 'New password';
   String get confirmPass => 'Confirm password';
@@ -214,6 +215,8 @@ class S implements WidgetsLocalizations {
   String get inValidEmail => 'Invalid email address';
   String get facebook => 'Facebook';
   String get google => 'Google';
+  String get gIcon => 'M';
+  String get fIcon => 'F';
   String get trackOrder => 'Track Order';
   String get driverDetails => 'Driver Details';
   String get orderDeliveredTrackingNotWorking =>

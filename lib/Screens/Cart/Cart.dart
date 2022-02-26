@@ -8,6 +8,7 @@ import 'package:product/Provider/StoreProvider.dart';
 import 'package:product/Screens/ChangeAddress/ChangeAddress.dart';
 import 'package:product/Screens/CheckOut/Checkout.dart';
 import 'package:product/generated/i18n.dart';
+import 'package:product/main.dart';
 import 'package:provider/provider.dart';
 
 class CartApp extends StatefulWidget {
@@ -43,54 +44,11 @@ class _CartAppState extends State<CartApp> {
 
   _setAddedCartListWidgets() {
     return new Container(
-      height: (100.0 * this.store.cartItemList.length) + 170,
-      color: Colors.white,
+      height: (100.0 * this.store.cartItemList.length)+10,
+      color: AppColor.bodyColor,
       padding: new EdgeInsets.all(5),
       child: new Column(
         children: <Widget>[
-          new Container(
-            height: 80,
-            // color: Colors.blue,
-            child: new Row(
-              children: <Widget>[
-                setNetworkImage(SharedManager.shared.resImage, 60, 100),
-                // new Container(
-                //   width: 100,
-                //   padding: new EdgeInsets.all(10),
-                //   // color: Colors.yellow,
-                //   child: new Image(
-                //     image: NetworkImage(SharedManager.shared.resImage),
-                //     fit: BoxFit.cover,
-                //   ),
-                // ),
-                SizedBox(
-                  width: 5,
-                ),
-                new Expanded(
-                  flex: 2,
-                  child: new Container(
-                    padding: new EdgeInsets.all(5),
-                    // color: Colors.pink,
-                    child: new Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        setCommonText('${SharedManager.shared.resName}',
-                            Colors.black, 13.0, FontWeight.w500, 2),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        setCommonText('${SharedManager.shared.resAddress}',
-                            Colors.grey, 12.0, FontWeight.w400, 3),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          new Divider(
-            color: Colors.grey,
-          ),
           _setAddedProductList((this.store.cartItemList.length * 100.0)),
           _setCartTotalAndDescriptionWidgets(60),
         ],
@@ -100,81 +58,7 @@ class _CartAppState extends State<CartApp> {
 
   _setCartTotalAndDescriptionWidgets(double height) {
     return new Container(
-      height: height,
       // color: Colors.yellow,
-      child: new Column(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: new Container(
-                // color:Colors.red,
-                child: new Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                new Icon(
-                  Icons.note_add,
-                  color: Colors.black38,
-                  size: 18,
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                new Expanded(
-                  child: new TextFormField(
-                    controller: coockingInstructions,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: S.current.coocking_instructions,
-                        hintStyle: new TextStyle(color: Colors.amber)),
-                    style: new TextStyle(
-                        fontSize: 13,
-                        color: Colors.black87,
-                        fontFamily: SharedManager.shared.fontFamilyName),
-                  ),
-                )
-              ],
-            )),
-          ),
-          // Expanded(
-          //   flex: 1,
-          //   child: new Container(
-          //     padding: new EdgeInsets.only(left: 10, right: 10),
-          //     // color:Colors.blue,
-          //     child: new Row(
-          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //       children: <Widget>[
-          //         new Row(
-          //           children: <Widget>[
-          //             setCommonText(S.current.item_total, Colors.grey, 14.0,
-          //                 FontWeight.w500, 2),
-          //           ],
-          //         ),
-          //         new Row(
-          //           children: <Widget>[
-          //             new Stack(
-          //               alignment: Alignment.center,
-          //               children: <Widget>[
-          //                 setCommonText('${Currency.curr}${this.paidPrice}',
-          //                     Colors.grey, 14.0, FontWeight.w500, 1),
-          //                 new Container(
-          //                     width: 50, height: 2, color: Colors.grey),
-          //               ],
-          //             ),
-          //             SizedBox(
-          //               width: 6,
-          //             ),
-          //             setCommonText('${Currency.curr}${this.totalPrice}',
-          //                 Colors.grey, 14.0, FontWeight.w500, 1),
-          //           ],
-          //         )
-          //       ],
-          //     ),
-          //   ),
-          // ),
-          new Divider(color: Colors.grey)
-        ],
-      ),
     );
   }
 
@@ -184,10 +68,11 @@ class _CartAppState extends State<CartApp> {
     for (var i = 0; i < this.store.cartItemList.length; i++) {
       var price = double.parse(this.store.cartItemList[i].price);
       var discount = double.parse(this.store.cartItemList[i].discount);
+      String discountType = this.store.cartItemList[i].discountType;
       var count = this.store.cartItemList[i].count;
 
       total = total + (count * price);
-      totalWithDis = totalWithDis + (count * (price - discount));
+      totalWithDis = totalWithDis + (count *(discountType=='0'?(price - discount):(price - discount*price/100)));
     }
     this.paidPrice = total;
     this.totalPrice = totalWithDis;
@@ -199,7 +84,7 @@ class _CartAppState extends State<CartApp> {
   _setAddedProductList(double height) {
     return new Container(
       height: height,
-      // color: Colors.red,
+      color: AppColor.bodyColor,
       child: MediaQuery.removePadding(
         context: context,
         removeTop: true,
@@ -209,19 +94,20 @@ class _CartAppState extends State<CartApp> {
           itemBuilder: (context, index) {
             return new Container(
               height: 100,
+              color: AppColor.bodyColor,
               child: new Column(
                 children: <Widget>[
                   Expanded(
                     child: Stack(
                       children: <Widget>[
                         new Container(
-                          color: Colors.white,
+                          color: AppColor.bodyColor,
                           child: new Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               new Container(
-                                color: Colors.white,
+                                color: AppColor.bodyColor,
                                 padding: new EdgeInsets.all(10),
                                 child: setNetworkImage(
                                     this.store.cartItemList[index].image,
@@ -232,10 +118,10 @@ class _CartAppState extends State<CartApp> {
                                 flex: 4,
                                 child: new Container(
                                   padding: new EdgeInsets.all(3),
-                                  color: Colors.white,
+                                  color: AppColor.bodyColor,
                                   child: new Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Row(
@@ -243,16 +129,17 @@ class _CartAppState extends State<CartApp> {
                                           Container(
                                             height: 15,
                                             width: 15,
+                                            color: AppColor.bodyColor,
                                             child: new Image(
                                               image: (this
-                                                          .store
-                                                          .cartItemList[index]
-                                                          .type ==
-                                                      "1")
+                                                  .store
+                                                  .cartItemList[index]
+                                                  .type ==
+                                                  "1")
                                                   ? AssetImage(
-                                                      'Assets/RestaurantDetails/veg.png')
+                                                  'Assets/RestaurantDetails/veg.png')
                                                   : AssetImage(
-                                                      'Assets/RestaurantDetails/nonVeg.png'),
+                                                  'Assets/RestaurantDetails/nonVeg.png'),
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -287,25 +174,27 @@ class _CartAppState extends State<CartApp> {
                                       ),
                                       new Row(
                                         children: <Widget>[
-                                          new Stack(
-                                            alignment: Alignment.center,
-                                            children: <Widget>[
-                                              setCommonText(
-                                                  '${Currency.curr}${this.store.cartItemList[index].price}',
-                                                  Colors.deepOrangeAccent,
-                                                  12.0,
-                                                  FontWeight.w500,
-                                                  1),
-                                              new Container(
-                                                height: 1,
-                                                width: 45,
-                                                color: Colors.black87,
-                                              )
-                                            ],
-                                          ),
+                                          // new Stack(
+                                          //   alignment: Alignment.center,
+                                          //   children: <Widget>[
+                                          //     setCommonText(
+                                          //         '${Currency.curr}${this.store.cartItemList[index].price}',
+                                          //         Colors.deepOrangeAccent,
+                                          //         12.0,
+                                          //         FontWeight.w500,
+                                          //         1),
+                                          //     new Container(
+                                          //       height: 1,
+                                          //       width: 45,
+                                          //       color: Colors.black87,
+                                          //     )
+                                          //   ],
+                                          // ),
                                           new SizedBox(width: 5),
                                           setCommonText(
-                                              '${Currency.curr}${(double.parse(this.store.cartItemList[index].price)) - (double.parse(this.store.cartItemList[index].discount))}',
+                                              this.store.cartItemList[index].discountType=='0'
+                                                  ? '${Currency.curr}${(double.parse(this.store.cartItemList[index].price)) - (double.parse(this.store.cartItemList[index].discount))}'
+                                                  : '${Currency.curr}${(double.parse(this.store.cartItemList[index].price)) - ((double.parse(this.store.cartItemList[index].price))*double.parse(this.store.cartItemList[index].discount)/100)}',
                                               Colors.black54,
                                               12.0,
                                               FontWeight.w500,
@@ -325,42 +214,38 @@ class _CartAppState extends State<CartApp> {
                                   children: <Widget>[
                                     new Container(
                                         height: 28,
-                                        // color: Colors.green,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            border: Border.all(
-                                              color: AppColor.themeColor,
-                                            )),
                                         child: new Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                           children: <Widget>[
                                             Expanded(
                                               flex: 1,
                                               child: new Container(
-                                                  color: Colors.white,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(color: Colors.black,width: 1)
+                                                  ),
                                                   child: new Align(
                                                     alignment:
-                                                        Alignment.topCenter,
+                                                    Alignment.topCenter,
                                                     child: new GestureDetector(
                                                       onTap: () {
                                                         if (this
-                                                                .store
-                                                                .cartItemList[
-                                                                    index]
-                                                                .count >
+                                                            .store
+                                                            .cartItemList[
+                                                        index]
+                                                            .count >
                                                             1) {
                                                           this
                                                               .store
                                                               .removeItemFromCart(
-                                                                this
-                                                                        .store
-                                                                        .cartItemList[
-                                                                    index],
-                                                              );
+                                                            this
+                                                                .store
+                                                                .cartItemList[
+                                                            index],
+                                                          );
                                                           // setState(() {
                                                           //   this
                                                           //       .store
@@ -389,12 +274,11 @@ class _CartAppState extends State<CartApp> {
                                             Expanded(
                                               flex: 1,
                                               child: new Container(
-                                                color: AppColor.themeColor,
                                                 child: new Center(
                                                   child: setCommonText(
                                                       '${this.store.cartItemList[index].count}',
-                                                      Colors.white,
-                                                      14.0,
+                                                      Colors.red,
+                                                      20.0,
                                                       FontWeight.w500,
                                                       1),
                                                 ),
@@ -403,15 +287,18 @@ class _CartAppState extends State<CartApp> {
                                             Expanded(
                                               flex: 1,
                                               child: new Container(
-                                                color: Colors.white,
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(color: Colors.black,width: 1)
+                                                ),
                                                 child: new Center(
                                                   child: new GestureDetector(
                                                     onTap: () {
                                                       this.store.addItemTocart(
                                                           this
-                                                                  .store
-                                                                  .cartItemList[
-                                                              index],
+                                                              .store
+                                                              .cartItemList[
+                                                          index],
                                                           SharedManager.shared
                                                               .restaurantID,
                                                           context);
@@ -441,15 +328,6 @@ class _CartAppState extends State<CartApp> {
                                             ),
                                           ],
                                         )),
-                                    new SizedBox(
-                                      height: 5,
-                                    ),
-                                    setCommonText(
-                                        '${Currency.curr}${(((double.parse(this.store.cartItemList[index].price)) - (double.parse(this.store.cartItemList[index].discount))) * this.store.cartItemList[index].count)}',
-                                        Colors.black87,
-                                        15.0,
-                                        FontWeight.w500,
-                                        1),
                                   ],
                                 ),
                               ),
@@ -505,36 +383,36 @@ class _CartAppState extends State<CartApp> {
                 onTap: () {
                   (SharedManager.shared.addressId != "")
                       ? Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Checkout(
-                                charge:
-                                    "${SharedManager.shared.deliveryCharge}",
-                                discountedPrice: "${this.totalPrice}",
-                                grandTotalAmount:
-                                    "${this.totalPrice + SharedManager.shared.deliveryCharge + this.riderTip}",
-                                tipAmount: "${this.riderTip}",
-                                totalPrice: "${this.paidPrice}",
-                                coockingInstructions:
-                                    this.coockingInstructions.text,
-                                totalSaving:
-                                    "${this.totalPrice + SharedManager.shared.deliveryCharge}",
-                                cartItems: this.store.cartItemList,
-                              )))
+                      builder: (context) => Checkout(
+                        charge:
+                        "${SharedManager.shared.deliveryCharge}",
+                        discountedPrice: "${this.totalPrice}",
+                        grandTotalAmount:
+                        "${this.totalPrice + SharedManager.shared.deliveryCharge + this.riderTip}",
+                        tipAmount: "${this.riderTip}",
+                        totalPrice: "${this.paidPrice}",
+                        coockingInstructions:
+                        this.coockingInstructions.text,
+                        totalSaving:
+                        "${this.totalPrice + SharedManager.shared.deliveryCharge}",
+                        cartItems: this.store.cartItemList,
+                      )))
                       : SharedManager.shared.showAlertDialog(
-                          S.current.select_address_first, context);
+                      S.current.select_address_first, context);
                 },
                 child: new Material(
                   color: AppColor.themeColor,
                   borderRadius: new BorderRadius.circular(5),
                   child: new Center(
                       child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      setCommonText(S.current.place_order, Colors.white, 18.0,
-                          FontWeight.w500, 1),
-                      SizedBox(width: 5),
-                      Icon(Icons.arrow_forward, color: Colors.white, size: 20)
-                    ],
-                  )),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          setCommonText(S.current.place_order, Colors.white, 18.0,
+                              FontWeight.w500, 1),
+                          SizedBox(width: 5),
+                          Icon(Icons.arrow_forward, color: Colors.white, size: 20)
+                        ],
+                      )),
                 ),
               ),
             ),
@@ -543,67 +421,6 @@ class _CartAppState extends State<CartApp> {
       ),
     );
   }
-
-  // _setRiderTipWidgets() {
-  //   return new Container(
-  //       padding: new EdgeInsets.all(8),
-  //       height: 120,
-  //       color: Colors.grey[100],
-  //       child: new Column(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: <Widget>[
-  //           // setCommonText(S.current.addTip_for_rider, Colors.black87, 14.0,
-  //           //     FontWeight.w500, 1),
-  //           // setCommonText(S.current.valid_for_driver, Colors.black38, 12.0,
-  //           //     FontWeight.w400, 1),
-  //           SizedBox(
-  //             height: 5,
-  //           ),
-  //           new Container(
-  //             height: 50,
-  //             // color: Colors.amber,
-  //             child: new ListView.builder(
-  //               itemCount: this.riderTipList.length,
-  //               scrollDirection: Axis.horizontal,
-  //               itemBuilder: (context, index) {
-  //                 return new Container(
-  //                   padding: new EdgeInsets.only(top: 8, bottom: 8, right: 8),
-  //                   width: 70,
-  //                   child: new GestureDetector(
-  //                     onTap: () {
-  //                       setState(() {
-  //                         _setTipData();
-  //                         this.riderTipList[index]['isSelect'] = true;
-  //                         this.riderTip = this.riderTipList[index]["price"];
-  //                       });
-  //                     },
-  //                     child: new Container(
-  //                       decoration: BoxDecoration(
-  //                           borderRadius: BorderRadius.circular(5),
-  //                           border: Border.all(
-  //                             color: (this.riderTipList[index]['isSelect'])
-  //                                 ? Colors.black
-  //                                 : AppColor.themeColor,
-  //                           )),
-  //                       child: new Center(
-  //                           child: setCommonText(
-  //                               '${Currency.curr}${this.riderTipList[index]["price"]}',
-  //                               (this.riderTipList[index]['isSelect'])
-  //                                   ? Colors.black87
-  //                                   : AppColor.themeColor,
-  //                               14.0,
-  //                               FontWeight.w500,
-  //                               1)),
-  //                     ),
-  //                   ),
-  //                 );
-  //               },
-  //             ),
-  //           )
-  //         ],
-  //       ));
-  // }
 
   _setTipData() {
     for (var i = 0; i < this.riderTipList.length; i++) {
@@ -665,75 +482,6 @@ class _CartAppState extends State<CartApp> {
       height: 220,
       width: MediaQuery.of(context).size.width,
       // color: AppColor.white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          setCommonText(
-              'Available Coupons', AppColor.black87, 18.0, FontWeight.w500, 1),
-          setHeight(10),
-          Expanded(
-              child: Container(
-            // color: AppColor.amber,
-            child: ListView.builder(
-                itemCount: 2,
-                itemBuilder: (context, index) {
-                  return Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        setHeight(8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              alignment: Alignment.center,
-                              height: 35,
-                              // width: 120,
-                              decoration: BoxDecoration(
-                                color: AppColor.orange.shade300,
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(
-                                    width: 1, color: AppColor.deepOrange),
-                              ),
-                              child: setCommonText('  HOLISPECIAL  ',
-                                  AppColor.white, 15.0, FontWeight.w500, 1),
-                            ),
-                            Container(
-                              height: 30,
-                              width: 70,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: AppColor.deepOrange,
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: setCommonText('SELECT', AppColor.white,
-                                  12.0, FontWeight.w500, 1),
-                            )
-                          ],
-                        ),
-                        setHeight(5),
-                        setCommonText(
-                            '${Currency.curr}16 off on all orders above ${Currency.curr} 250',
-                            AppColor.black87,
-                            14.0,
-                            FontWeight.w400,
-                            1),
-                        setHeight(3),
-                        setCommonText('Applicable only once per user',
-                            AppColor.grey, 14.0, FontWeight.w400, 1),
-                        setHeight(8),
-                        Container(
-                          height: 1,
-                          color: AppColor.grey[300],
-                        )
-                      ],
-                    ),
-                  );
-                }),
-          ))
-        ],
-      ),
     );
   }
 
@@ -741,76 +489,17 @@ class _CartAppState extends State<CartApp> {
     return Container(
       height: 50,
       // color: AppColor.white,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                  child: Container(
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      hintText: "Add Code Here", border: InputBorder.none),
-                ),
-              )),
-              Padding(
-                padding: EdgeInsets.only(left: 8, right: 5, top: 4, bottom: 4),
-                child: setCommonText(
-                    'ADD', AppColor.deepOrange, 15.0, FontWeight.w500, 1),
-              )
-            ],
-          ),
-          Container(height: 1, color: AppColor.grey)
-        ],
-      ),
     );
   }
 
   _setPromoCodeGrandTotalWidgets() {
     return new Container(
-      height: 230,
-      color: Colors.grey[100],
+      height: 130,
+      color: AppColor.bodyColor,
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Container(
-            height: 60,
-            color: AppColor.white,
-            padding: EdgeInsets.only(left: 12, right: 12),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
-                  onTap: () {
-                    _applyCouponCodeFunctionality();
-                  },
-                  child: Row(
-                    children: [
-                      Image(
-                        height: 35,
-                        width: 40,
-                        image: AssetImage('Assets/Cart/coupon.png'),
-                      ),
-                      setWidth(8),
-                      setCommonText('APPLY COUPON', AppColor.deepOrange, 18.0,
-                          FontWeight.w500, 1),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 30,
-                  width: 50,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: AppColor.deepOrange,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: setCommonText(
-                      'APPLY', AppColor.white, 12.0, FontWeight.w500, 1),
-                )
-              ],
-            ),
-          ),
           // new Expanded(
           //   flex: 1,
           //   child: new Container(
@@ -884,7 +573,7 @@ class _CartAppState extends State<CartApp> {
             flex: 3,
             child: new Container(
                 padding: new EdgeInsets.only(left: 15, right: 15),
-                color: Colors.white,
+                color: AppColor.bodyColor,
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -900,19 +589,19 @@ class _CartAppState extends State<CartApp> {
                         ),
                         new Row(
                           children: <Widget>[
-                            new Stack(
-                              alignment: Alignment.center,
-                              children: <Widget>[
-                                setCommonText(
-                                    '${Currency.curr}${this.paidPrice}',
-                                    Colors.grey,
-                                    13.0,
-                                    FontWeight.w500,
-                                    1),
-                                new Container(
-                                    width: 40, height: 2, color: Colors.grey),
-                              ],
-                            ),
+                            // new Stack(
+                            //   alignment: Alignment.center,
+                            //   children: <Widget>[
+                            //     setCommonText(
+                            //         '${Currency.curr}${this.paidPrice}',
+                            //         Colors.grey,
+                            //         13.0,
+                            //         FontWeight.w500,
+                            //         1),
+                            //     new Container(
+                            //         width: 40, height: 2, color: Colors.grey),
+                            //   ],
+                            // ),
                             SizedBox(
                               width: 6,
                             ),
@@ -1033,15 +722,15 @@ class _CartAppState extends State<CartApp> {
                 (this.totalPrice * double.parse(value.data.discount)) / 100);
             SharedManager.shared.discountPice =
                 ((SharedManager.shared.tempTotalPrice *
-                            double.parse(value.data.discount)) /
-                        100)
+                    double.parse(value.data.discount)) /
+                    100)
                     .toString();
           });
         }
         //Flat Amount
         else {
           this.totalPrice =
-              (this.totalPrice - double.parse(value.data.discount));
+          (this.totalPrice - double.parse(value.data.discount));
           SharedManager.shared.discountPice = value.data.discount;
         }
       }
@@ -1072,7 +761,7 @@ class _CartAppState extends State<CartApp> {
             new Expanded(
               flex: 4,
               child: new Container(
-                color: Colors.white,
+                color: AppColor.bodyColor,
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -1110,9 +799,9 @@ class _CartAppState extends State<CartApp> {
                         ),
                         (SharedManager.shared.addressId != "")
                             ? setCommonText(SharedManager.shared.address,
-                                Colors.orange, 12.0, FontWeight.w500, 3)
+                            Colors.orange, 12.0, FontWeight.w500, 3)
                             : setCommonText(S.current.select_address,
-                                Colors.orange, 12.0, FontWeight.w500, 3),
+                            Colors.orange, 12.0, FontWeight.w500, 3),
                       ],
                     ),
                   ],
@@ -1158,61 +847,109 @@ class _CartAppState extends State<CartApp> {
   Widget build(BuildContext context) {
     this.store = Provider.of<StoreProvider>(context);
     _setTotalPriceCount();
-    return new Scaffold(
-      key: _scaffoldKey,
-      resizeToAvoidBottomInset: false,
-      body: (SharedManager.shared.isLoggedIN == 'yes')
-          ? ((this.store.cartItemList.length > 0)
-              ? new Container(
-                  child: Column(
-                  children: <Widget>[
-                    new Expanded(
-                        flex: 10,
-                        child: new Container(
-                          color: Colors.white,
-                          child: new ListView(
-                            children: <Widget>[
-                              _setAddedCartListWidgets(),
-                              // _setRiderTipWidgets(),
-                              _setPromoCodeGrandTotalWidgets(),
-                              _setPersonalDetailsWidgets(),
-                              // _setCouponWidget(),
-                              SizedBox(
-                                height: 15,
-                              )
-                            ],
-                          ),
-                        )),
-                    new Expanded(
-                      flex: 1,
-                      child: _setBottomPlaceOrderWidgets(),
-                    )
-                  ],
-                ))
-              : dataFound(context, S.current.dont_have_single_item_to_cart,
-                  AssetImage(AppImages.cartDefaultImage), "0"))
-          : setLockedAccessWidgets(context, true),
-      appBar: new AppBar(
-        centerTitle: true,
-        leading: (!SharedManager.shared.isFromTab)
+    return SafeArea(
+      top: true,
+      bottom: true,
+      child: new Scaffold(
+        key: _scaffoldKey,
+        backgroundColor: AppColor.bodyColor,
+        resizeToAvoidBottomInset: false,
+        body: (SharedManager.shared.isLoggedIN == 'yes')
             ? ((this.store.cartItemList.length > 0)
-                ? new IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: AppColor.white,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    color: Colors.white,
-                  )
-                : new Text(''))
-            : new Text(''),
-        backgroundColor: AppColor.themeColor,
-        elevation: 0.0,
-        brightness: Brightness.light,
-        title: setCommonText(
-            S.current.cart, AppColor.white, 20.0, FontWeight.w600, 1),
+            ? new Container(
+          color: AppColor.bodyColor,
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10,),
+                  child: Row(
+                    children: [
+                      (!SharedManager.shared.isFromTab) && (this.store.cartItemList.length > 0)
+                            ? new IconButton(
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: AppColor.black,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          color: Colors.white,
+                        ):
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Icon(
+                          Icons.notifications,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            "Cart",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Icon(Icons.menu, color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ),
+                new Expanded(
+                    flex: 10,
+                    child: new Container(
+                      color: AppColor.bodyColor,
+                      child: new ListView(
+                        children: <Widget>[
+                          _setAddedCartListWidgets(),
+                          // _setRiderTipWidgets(),
+                          _setPromoCodeGrandTotalWidgets(),
+                          _setPersonalDetailsWidgets(),
+                          // _setCouponWidget(),
+                          SizedBox(
+                            height: 15,
+                          )
+                        ],
+                      ),
+                    )),
+                new Expanded(
+                  flex: 1,
+                  child: _setBottomPlaceOrderWidgets(),
+                )
+              ],
+            ))
+            : dataFound(context, S.current.dont_have_single_item_to_cart,
+            AssetImage(AppImages.cartDefaultImage), "0"))
+            : Login_SignUP_Option_Screen(),
+        // appBar: new AppBar(
+        //   centerTitle: true,
+        //   leading: (!SharedManager.shared.isFromTab)
+        //       ? ((this.store.cartItemList.length > 0)
+        //       ? new IconButton(
+        //     icon: Icon(
+        //       Icons.arrow_back,
+        //       color: AppColor.white,
+        //     ),
+        //     onPressed: () {
+        //       Navigator.of(context).pop();
+        //     },
+        //     color: Colors.white,
+        //   )
+        //       : new Text(''))
+        //       : new Text(''),
+        //   backgroundColor: AppColor.themeColor,
+        //   elevation: 0.0,
+        //   brightness: Brightness.light,
+        //   title: setCommonText(
+        //       S.current.cart, AppColor.white, 20.0, FontWeight.w600, 1),
+        // ),
       ),
     );
   }

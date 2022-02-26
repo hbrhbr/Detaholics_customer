@@ -9,10 +9,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:product/Helper/Constant.dart';
 import 'package:product/Helper/SharedManaged.dart';
 import 'package:product/Provider/StoreProvider.dart';
+import 'package:product/Screens/SignUP/SignUp.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'Helper/CommonWidgets.dart';
+import 'Screens/Login/LoginPage.dart';
 import 'Screens/OnBoardingScreen/Onboarding.dart';
 import 'Screens/OrderStatusPage/OrderStatusPage.dart';
 import 'Screens/TabBarScreens/Orders/OrderScreen.dart';
@@ -77,6 +80,13 @@ class MyApp extends StatelessWidget {
               // onGenerateRoute: RouteGenerator.generateRoute,
               debugShowCheckedModeBanner: false,
               locale: value,
+              builder: (BuildContext context, Widget child){
+                final MediaQueryData data = MediaQuery.of(context);
+                return MediaQuery(
+                  data: data.copyWith(textScaleFactor: 1),
+                  child: child,
+                );
+              },
               localizationsDelegates: [
                 S.delegate,
                 GlobalMaterialLocalizations.delegate,
@@ -86,7 +96,8 @@ class MyApp extends StatelessWidget {
               localeListResolutionCallback:
                   S.delegate.listResolution(fallback: const Locale('en', '')),
               theme: ThemeData(primaryColor: AppColor.themeColor),
-              home: new Splash(),
+              home:
+           new Splash(),
             ),
           );
         });
@@ -124,10 +135,15 @@ class SplashState extends State<Splash> {
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool _seen = (prefs.getBool('seen') ?? false);
-
     if (_seen) {
-      Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new TabBarScreen()));
+      if(prefs.getString("isLoogedIn")!=null&&prefs.getString("isLoogedIn")=='yes') {
+        SharedManager.shared.isLoggedIN = "yes";
+        SharedManager.shared.currentIndex = 0;
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => new TabBarScreen()));
+      } else
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => new Login_SignUP_Option_Screen()));
+
     } else {
       await prefs.setBool('seen', true);
       Navigator.of(context).pushReplacement(
@@ -176,6 +192,18 @@ class SplashState extends State<Splash> {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published!');
     });
+    Platform.isAndroid
+        ? FirebaseMessaging.instance.getToken().then((fcmToken) async {
+            SharedManager.shared.token = fcmToken;
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setString(DefaultKeys.pushToken, fcmToken);
+          })
+        : FirebaseMessaging.instance.getAPNSToken().then((fcmToken) async {
+            SharedManager.shared.token = fcmToken;
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setString(DefaultKeys.pushToken, fcmToken);
+          });
+
     // _firebaseMessaging.configure(
     //   onMessage: (Map<String, dynamic> message) {
     //     // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
@@ -244,6 +272,89 @@ class SplashState extends State<Splash> {
                           image: AssetImage(AppImages.appLogo))),
                 )
               : new Text('')),
+    );
+  }
+}
+
+class Login_SignUP_Option_Screen extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColor.bodyColor,
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+                color: AppColor.bodyColor,
+                image: DecorationImage(fit:BoxFit.cover, image: AssetImage("Assets/Onboarding/ob5.png"))),
+          ),
+          Positioned(
+            top: 40,
+            left: 10,
+            child: new Chip(
+              backgroundColor: AppColor.grey[200],
+              label: GestureDetector(
+                onTap: () async {
+                  await SharedManager.shared
+                      .storeString("no", "isLoogedIn");
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => new TabBarScreen()));
+
+                },
+                child: new Text('  Skip  ',
+                    style: new TextStyle(
+                      fontFamily: SharedManager.shared.fontFamilyName,
+                    )),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 70,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: ()async{
+                      await SharedManager.shared.storeString("no", "isLoogedIn");
+                      SharedManager.shared.currentIndex = 0;
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => new LoginPage()));
+                    },
+                    child: Container(
+                      height: 40,
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      decoration: BoxDecoration(
+                          color: AppColor.black,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Center(
+                        child: setCommonText('${S.current.login}', AppColor.white, 16.0, FontWeight.bold, 1),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10,),
+                  InkWell(
+                    onTap: ()async{
+                      await SharedManager.shared.storeString("no", "isLoogedIn");
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => new SignUpPage()));
+                      },
+                    child: Container(
+                      height: 40,
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      decoration: BoxDecoration(
+                          color: AppColor.orangeDeep,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Center(
+                        child: setCommonText('${S.current.register}', AppColor.white, 16.0, FontWeight.bold, 1),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

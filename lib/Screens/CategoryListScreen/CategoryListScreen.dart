@@ -30,126 +30,149 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
     super.dispose();
   }
 
+  TextEditingController _searchcontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     categoryListBloc.fetchAllCategoryList();
-    return Scaffold(
-      appBar: AppBar(
-        title: setCommonText('${S.current.categories}', AppColor.white, 20.0,
-            FontWeight.w500, 1),
-        backgroundColor: AppColor.themeColor,
-        elevation: 1.0,
-        leading: IconButton(
-            icon: Icon(
-              Platform.isAndroid ? Icons.arrow_back : Icons.arrow_back_ios,
-              color: AppColor.white,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            }),
-      ),
-      body: StreamBuilder(
-          stream: categoryListBloc.categoryList,
-          builder: (context, AsyncSnapshot<ResCategoryList> snapshot) {
-            if (snapshot.hasData) {
-              final categoryList = snapshot.data.categoryList;
-              return Container(
-                color: AppColor.grey[200],
-                child: new GridView.count(
-                  crossAxisCount: 3,
-                  childAspectRatio: 0.9,
-                  children:
-                      new List<Widget>.generate(categoryList.length, (index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => SubcategoryListScreen(
-                                  categoryID: categoryList[index].categoryId,
-                                  categoryName:
-                                      categoryList[index].categoryName,
-                                )));
-                      },
-                      child: new GridTile(
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.only(bottom: 1.0, left: 1.0),
-                          child: Container(
-                              color: AppColor.white,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    height: 70,
-                                    width: 70,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            blurRadius: 2,
-                                            spreadRadius: 1,
-                                            offset: Offset(0, 1),
-                                            color: AppColor.grey[400])
-                                      ],
-                                      // image: DecorationImage(
-                                      //   fit: BoxFit.cover,
-                                      //   image: NetworkImage(
-                                      //       categoryList[index].image),
-                                      // )
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(35),
-                                      child: ProgressiveImage(
-                                        placeholder:
-                                            AssetImage('Assets/loading.gif'),
-                                        // size: 1.87KB
-                                        thumbnail:
-                                            AssetImage('Assets/loading.gif'),
-                                        // size: 1.29MB
-                                        image: CachedNetworkImageProvider(
-                                            categoryList[index].image),
-                                        height: 70,
-                                        width: 70,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        setCommonText(
-                                            categoryList[index].categoryName,
-                                            AppColor.black87,
-                                            14.0,
-                                            FontWeight.w500,
-                                            1),
-                                        setCommonText(
-                                            '${categoryList[index].totalCount} ${S.current.items}',
-                                            AppColor.grey[500],
-                                            12.0,
-                                            FontWeight.w500,
-                                            1)
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              )),
+    return SafeArea(
+      top: true,
+      child: Scaffold(
+        backgroundColor: AppColor.bodyColor,
+        body: Container(
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10,),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Icon(
+                        Icons.notifications,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                            "Cuisine Around You",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700
+                          ),
                         ),
                       ),
-                    );
-                  }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Icon(Icons.menu, color: Colors.black),
+                    ),
+                  ],
                 ),
-              );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          }),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 20,right: 20),
+                decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(50)),
+                child: TextFormField(
+                  controller: _searchcontroller,
+                  decoration: InputDecoration(
+                    hintStyle: TextStyle(),
+                    hintText: 'Search here',
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20,),
+              Expanded(
+                child: StreamBuilder(
+                    stream: categoryListBloc.categoryList,
+                    builder: (context, AsyncSnapshot<ResCategoryList> snapshot) {
+                      if (snapshot.hasData) {
+                        final categoryList = snapshot.data.categoryList;
+                        return ListView.builder(
+                          itemCount: categoryList.length,
+                            itemBuilder: (context,index){
+                            return InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => SubcategoryListScreen(
+                                    categoryID: categoryList[index].categoryId,
+                                    categoryName:
+                                    categoryList[index].categoryName,
+                                  )));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              padding: EdgeInsets.symmetric(horizontal: 5,vertical: 15),
+                                decoration: BoxDecoration(
+                                  color: AppColor.white,
+                                  borderRadius: BorderRadius.circular(10)
+                                ),
+                                alignment: Alignment.center,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    SizedBox(width: 10,),
+                                    Container(
+                                      height: 40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(35),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              blurRadius: 2,
+                                              spreadRadius: 1,
+                                              offset: Offset(0, 1),
+                                              color: AppColor.grey[400])
+                                        ],
+                                        // image: DecorationImage(
+                                        //   fit: BoxFit.cover,
+                                        //   image: NetworkImage(
+                                        //       categoryList[index].image),
+                                        // )
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(35),
+                                        child: ProgressiveImage(
+                                          placeholder:
+                                          AssetImage('Assets/loading.gif'),
+                                          // size: 1.87KB
+                                          thumbnail:
+                                          AssetImage('Assets/loading.gif'),
+                                          // size: 1.29MB
+                                          image: CachedNetworkImageProvider(
+                                              categoryList[index].image),
+                                          height: 70,
+                                          width: 70,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: 10,),
+                                    setCommonText(
+                                        categoryList[index].categoryName,
+                                        AppColor.black54, 20.0, FontWeight.w800, 1),
+                                  ],
+                                )),
+                          );
+                        });
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    }),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

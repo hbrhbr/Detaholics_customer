@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:product/Helper/CommonWidgets.dart';
 import 'package:product/Helper/Constant.dart';
+import 'package:product/Helper/SharedManaged.dart';
 import 'package:product/ModelClass/ModelAllRestaurantList.dart';
 import 'package:product/Screens/BannerDetailsScreen/BannerDetailsScreen.dart';
 import 'package:product/generated/i18n.dart';
@@ -11,75 +12,77 @@ class ListViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: restaurants.length,
-      itemBuilder: (context, index) {
-        return new InkWell(
-          onTap: () {
-            if (restaurants[index].isAvailable == '1') {
-              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
-                  builder: (context) => BannerDetailsScreen(
-                        restaurantID: restaurants[index].id,
-                      )));
-            } else {
-              commonRestaurantCloseAlert(context);
-            }
-          },
-          child: new Container(
-            height: 100,
-            // color: Colors.red,
-            width: MediaQuery.of(context).size.width,
-            padding: new EdgeInsets.only(left: 8, right: 8, top: 3, bottom: 3),
-            child: new Material(
-              elevation: 1.0,
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              child: new Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        right: 0.0, left: 10.0, top: 8, bottom: 8),
-                    child: Stack(
-                      children: <Widget>[
-                        setNetworkImage(restaurants[index].image, 60, 70),
-                        // new Container(
-                        //   width: 70,
-                        //   height: 60,
-                        //   decoration: BoxDecoration(
-                        //     image: DecorationImage(
-                        //         image: NetworkImage(restaurants[index].image),
-                        //         fit: BoxFit.cover),
-                        //   ),
-                        // ),
-                        Container(
-                          width: 70,
-                          height: 60,
-                          child: (restaurants[index].isAvailable == '0')
-                              ? setRestaurantClosedWidget(
-                                  context, '${S.current.closed}')
-                              : Text(''),
-                        )
+    return Container(
+      margin: EdgeInsets.only(top: 10),
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: restaurants.length,
+        itemBuilder: (context, index) {
+          return new InkWell(
+            onTap: () {
+              if (restaurants[index].isAvailable == '1') {
+                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+                    builder: (context) => BannerDetailsScreen(
+                          restaurantID: restaurants[index].id,
+                        )));
+              } else {
+                commonRestaurantCloseAlert(context);
+              }
+            },
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 30,vertical: 3),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 170,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        restaurants[index].image,
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Container(
+                    color: Colors.black26,
+                    padding: new EdgeInsets.all(8),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          restaurants[index].name,
+                          style: TextStyle(
+                              color: AppColor.white,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 18.0,
+                              fontFamily: SharedManager.shared.fontFamilyName),
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                        ),
+                        SizedBox(height: 3),
+                        Text(
+                          restaurants[index].address,
+                          style: TextStyle(
+                              color: AppColor.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16.0,
+                              fontFamily: SharedManager
+                                  .shared.fontFamilyName),
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                        ),
                       ],
                     ),
                   ),
-                  setWidth(8),
-                  new Expanded(
-                      child: new Container(
-                    // color: AppColor.red,
-                    padding: new EdgeInsets.only(left: 0, top: 10, right: 5),
-                    child: Stack(
-                      children: <Widget>[
-                        _setCommonWidgets(
-                            14.0, 12.0, 12.0, 12.0, 15, restaurants[index]),
-                      ],
-                    ),
-                  ))
-                ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
