@@ -5,11 +5,13 @@ import 'package:product/Helper/Constant.dart';
 import 'package:product/Helper/SharedManaged.dart';
 import 'package:product/ModelClass/Dashboard.dart';
 import 'package:product/ModelClass/ModelRestaurantDetails.dart';
+import 'package:product/Provider/StoreProvider.dart';
 import 'package:product/Screens/CheckOut/Checkout.dart';
 import 'package:product/Screens/RestaurantDetails/RestaurantDetails.dart';
 import 'package:product/ModelClass/ModelMealDeals.dart';
 import 'package:product/generated/i18n.dart';
 import 'package:progressive_image/progressive_image.dart';
+import 'package:provider/provider.dart';
 
 import '../AllRestaurantList.dart';
 
@@ -265,6 +267,49 @@ _setDashboardCommonWidgetsForMealList(double titlFont, double descriptionFont, d
 }
 
 _showBottomSheet({Result item, BuildContext context}){
+  String calculateDiscount(String price, String discountValue, String discountType) {
+    print('Item Price:------>$price\t$discountValue\t$discountType');
+    if (discountType == "0") {
+      //Flat
+      double endPrice = 0.0;
+      double priceValue = (price != null) ? (price != '') ? double.parse(price) : 0.0 : 0.0;
+      double discount = (discountValue != null) ? double.parse(discountValue) : 0.0;
+      endPrice = (priceValue - discount);
+      print('End Price:------->$endPrice');
+      return endPrice.toStringAsFixed(2);
+    } else {
+      double endPrice = (double.parse(price) - ((double.parse(price) * double.parse(discountValue)) / 100));
+      print('End Price Percentage:------->$endPrice');
+      return endPrice.toStringAsFixed(2);
+    }
+  }
+  StoreProvider store = StoreProvider();
+  int count = 0;
+  bool isAlreadyAdded = store.cartItemList.any((element) {
+    if(element.id == item.id)
+      count = element.count;
+    return element.id == item.id;
+  });
+  Subcategories prod = Subcategories(
+    id:item.id,
+    name:item.name,
+    catigoryName: item.categoryName,
+    extraNote:'',
+    image:item.image,
+    price:item.price,
+    discount:item.discount,
+    discountType:item.discountType,
+    type:item.type,
+    description:item.description,
+    isAvailable:item.status,
+    isAdded: isAlreadyAdded,
+    count: count++,
+  );
+  try{
+    store.addItemTocart(prod,item.id, context);
+  }catch(e){
+
+  }
   showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
@@ -328,7 +373,8 @@ _showBottomSheet({Result item, BuildContext context}){
               children: <Widget>[
                 InkWell(
                   onTap: ()async{
-
+                    Navigator.pop(ctc);
+                    store.addItemTocart(prod,item.id, context);
                   },
                   child: Container(
                     height: 35,
@@ -344,7 +390,20 @@ _showBottomSheet({Result item, BuildContext context}){
                 SizedBox(width: 10,),
                 InkWell(
                   onTap: ()async{
-
+                    Navigator.pop(ctc);
+                    store.addItemTocart(prod,item.restaurantId, context);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Checkout(
+                          charge:
+                          "${SharedManager.shared.deliveryCharge}",
+                          discountedPrice: "${calculateDiscount(item.price, item.discount, item.discountType)}",
+                          grandTotalAmount: "${double.parse(calculateDiscount(item.price, item.discount, item.discountType)) + SharedManager.shared.deliveryCharge + 0}",
+                          tipAmount: "0",
+                          totalPrice: "${double.parse(calculateDiscount(item.price, item.discount, item.discountType))}",
+                          coockingInstructions: '',
+                          totalSaving: "${double.parse(calculateDiscount(item.price, item.discount, item.discountType)) + SharedManager.shared.deliveryCharge + 0}",
+                          cartItems: store.cartItemList,
+                        )));
                   },
                   child: Container(
                     height: 35,
@@ -367,6 +426,50 @@ _showBottomSheet({Result item, BuildContext context}){
   );
 }
 _showDashboardBottomSheet({MealDeal item, BuildContext context}){
+  String calculateDiscount(String price, String discountValue, String discountType) {
+    print('Item Price:------>$price\t$discountValue\t$discountType');
+    if (discountType == "0") {
+      //Flat
+      double endPrice = 0.0;
+      double priceValue = (price != null) ? (price != '') ? double.parse(price) : 0.0 : 0.0;
+      double discount = (discountValue != null) ? double.parse(discountValue) : 0.0;
+      endPrice = (priceValue - discount);
+      print('End Price:------->$endPrice');
+      return endPrice.toStringAsFixed(2);
+    } else {
+      double endPrice = (double.parse(price) - ((double.parse(price) * double.parse(discountValue)) / 100));
+      print('End Price Percentage:------->$endPrice');
+      return endPrice.toStringAsFixed(2);
+    }
+  }
+  StoreProvider store = Provider.of<StoreProvider>(context,listen: false);
+  int count = 0;
+  bool isAlreadyAdded = store.cartItemList.any((element) {
+    if(element.id == item.id)
+      count = element.count;
+    return element.id == item.id;
+  });
+  Subcategories prod = Subcategories(
+    id:item.id,
+    name:item.name,
+    catigoryName: item.categoryName,
+    extraNote:'',
+    image:item.image,
+    price:item.price,
+    discount:item.discount,
+    discountType:item.discountType,
+    type:item.type,
+    description:item.description,
+    isAvailable:item.status,
+    isAdded: isAlreadyAdded,
+    count: count++,
+  );
+  try{
+    store.addItemTocart(prod,item.id, context);
+  }catch(e){
+
+  }
+
   showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
@@ -430,7 +533,8 @@ _showDashboardBottomSheet({MealDeal item, BuildContext context}){
               children: <Widget>[
                 InkWell(
                   onTap: ()async{
-
+                    Navigator.pop(ctc);
+                    store.addItemTocart(prod,item.id, context);
                   },
                   child: Container(
                     height: 35,
@@ -446,7 +550,20 @@ _showDashboardBottomSheet({MealDeal item, BuildContext context}){
                 SizedBox(width: 10,),
                 InkWell(
                   onTap: ()async{
-
+                    Navigator.pop(ctc);
+                    store.addItemTocart(prod,item.restaurantId, context);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Checkout(
+                          charge:
+                          "${SharedManager.shared.deliveryCharge}",
+                          discountedPrice: "${calculateDiscount(item.price, item.discount, item.discountType)}",
+                          grandTotalAmount: "${double.parse(calculateDiscount(item.price, item.discount, item.discountType)) + SharedManager.shared.deliveryCharge + 0}",
+                          tipAmount: "0",
+                          totalPrice: "${double.parse(calculateDiscount(item.price, item.discount, item.discountType))}",
+                          coockingInstructions: '',
+                          totalSaving: "${double.parse(calculateDiscount(item.price, item.discount, item.discountType)) + SharedManager.shared.deliveryCharge + 0}",
+                          cartItems: store.cartItemList,
+                        )));
                   },
                   child: Container(
                     height: 35,
@@ -467,4 +584,5 @@ _showDashboardBottomSheet({MealDeal item, BuildContext context}){
       );
     }
   );
+
 }

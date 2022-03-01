@@ -11,6 +11,7 @@ import 'package:product/ModelClass/ModelWalletAmount.dart';
 import 'package:product/Provider/StoreProvider.dart';
 import 'package:product/Screens/CheckOut/cbk_payment_gateway.dart';
 import 'package:product/Screens/CheckoutSuccess/CheckoutSuccess.dart';
+import 'package:product/Screens/TabBarScreens/TabScreen/TabBar.dart';
 import 'package:product/generated/i18n.dart';
 import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:provider/provider.dart';
@@ -853,23 +854,96 @@ class _CheckoutState extends State<Checkout> {
           if(cbkPaymentResult!=null&& cbkPaymentResult["result"]??false){
             this.store.clearCartList();
             this.store.storedRestaurantID = '';
-            Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => CheckoutSuccess()),
-                ModalRoute.withName(AppRoute.checkOut));
+            showSuccessModel();
           }
         }
         else{
           this.store.clearCartList();
           this.store.storedRestaurantID = '';
-          Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => CheckoutSuccess()),
-              ModalRoute.withName(AppRoute.checkOut));
+          showSuccessModel();
         }
       } else {
         SharedManager.shared
             .showAlertDialog('Please try after sometimes', context);
       }
     });
+  }
+
+  showSuccessModel(){
+    showDialog(
+        context: context,
+        builder: (ctx){
+          return Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Container(
+              height: MediaQuery.of(context).size.height,
+              alignment: Alignment.center,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 40,),
+                padding: EdgeInsets.symmetric(vertical: 30,),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                // alignment: Alignment.center,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 20,),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.black54,
+                        shape: BoxShape.circle,
+                      ),
+                      alignment: Alignment.center,
+                      child:Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                    ),
+                    const SizedBox(height: 50,),
+                    Text(
+                      S.current.orderConfirm,
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 30,),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.of(context).popUntil((predicate){
+                          return predicate.isFirst;
+                        });
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => TabBarScreen()),);
+                      },
+                      child: Container(
+                        width: 250,
+                        child: Material(
+                          elevation: 2.0,
+                          borderRadius: BorderRadius.circular(26),
+                          color: AppColor.themeColor,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 10),
+                            child: new Center(
+                              child: setCommonText(
+                                  S.current.continueShopping, AppColor.white, 14.0, FontWeight.w500, 1),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+
+                ),
+              ),
+            ),
+          );
+        });
   }
 
   ModalRoute<dynamic> _route;

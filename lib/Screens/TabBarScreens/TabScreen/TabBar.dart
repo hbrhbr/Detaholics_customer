@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:product/BlocClass/MainModelBlocClass/RestaurantDetails.dart';
 import 'package:product/Helper/Constant.dart';
 import 'package:product/Helper/SharedManaged.dart';
 import 'package:product/Screens/Cart/Cart.dart';
@@ -65,6 +66,23 @@ class _TabBarScreenState extends State<TabBarScreen> {
             size: 23,
           ),
         ));
+  }
+
+  _setStatus() async {
+    final status = await SharedManager.shared.isLoggedIn();
+    final userId = await SharedManager.shared.userId();
+    // final token = await SharedManager.shared.getPushToken();
+
+    print("Login Status:$status");
+    print("User ID is:$userId");
+    SharedManager.shared.isLoggedIN = status;
+    SharedManager.shared.userID = userId;
+    if(SharedManager.shared.isLoggedIN=="yes")
+      resDetailsBloc.restaurantDetails;
+  }
+
+  @override void initState() {
+    super.initState();
   }
 
   @override

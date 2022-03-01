@@ -334,12 +334,19 @@ class MealDeal {
   String name;
   String status;
   String restaurantName;
+  String categoryName;
+  String restaurantId;
   String image;
   String price;
   String discount;
+  String description;
   String latitude;
   String longitude;
   String discountType;
+  String type;
+  bool isAdded;
+  int count = 0;
+  String isAvailable;
 
   MealDeal(
       {this.id,
@@ -351,19 +358,32 @@ class MealDeal {
       this.discount,
       this.latitude,
       this.longitude,
-      this.discountType});
+      this.discountType,
+      this.description,
+        this.type,
+        this.isAvailable,
+        this.categoryName,
+        this.restaurantId
+      });
 
   MealDeal.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     status = json['status'];
     restaurantName = json['restaurant_name'];
+    restaurantId = json['restaurant_id'];
+    categoryName = json['catigoryName'];
     image = json['image'];
     price = json['price'];
     discount = json['discount'];
+    description = json['description'];
     latitude = json['latitude'];
     longitude = json['longitude'];
     discountType = json['discount_type'];
+    isAvailable = json['status'];
+    type = json['type'];
+    isAdded = false;
+    count = this.count;
   }
 
   Map<String, dynamic> toJson() {

@@ -479,8 +479,7 @@ setRestaurantClosedWidget(BuildContext context, String title) {
   );
 }
 
-String calculateDiscount(
-    String price, String discountValue, String discountType) {
+String calculateDiscount(String price, String discountValue, String discountType) {
   print('Item Price:------>$price\t$discountValue\t$discountType');
   if (discountType == "0") {
     //Flat

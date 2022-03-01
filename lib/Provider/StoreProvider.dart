@@ -11,8 +11,7 @@ class StoreProvider extends ChangeNotifier {
   Subcategories productData;
 
   removeItemFromCart(Subcategories item) {
-    Subcategories found =
-        _cartItemList.firstWhere((p) => p.id == item.id, orElse: () => null);
+    Subcategories found = _cartItemList.firstWhere((p) => p.id == item.id, orElse: () => null);
     print("Founded item object:-${found.name}");
 
     if (found != null && found.count == 1) {
@@ -39,16 +38,19 @@ class StoreProvider extends ChangeNotifier {
 
   addItemTocart(Subcategories item, String resId, BuildContext context) {
     if (this.storedRestaurantID != resId) {
+      print("In this.storedRestaurantID != resId");
       this._cartItemList = [];
-      if (this.storedRestaurantID != '') {
-        SharedManager.shared
-            .showAlertDialog('Old items deleted from the cart', context);
-      }
       this.storedRestaurantID = resId;
+      // if (this.storedRestaurantID != '') {
+      //   SharedManager.shared
+      //       .showAlertDialog('Old items deleted from the cart', context);
+      // }
+
+    }else{
+      print("In ELSE OF this.storedRestaurantID != resId");
     }
 
-    Subcategories subCat =
-        _cartItemList.firstWhere((p) => p.id == item.id, orElse: () => null);
+    Subcategories subCat = _cartItemList.firstWhere((p) => p.id == item.id, orElse: () => null);
     if (subCat != null) {
       print("Item Count:${subCat.count}");
       subCat.count += 1;

@@ -178,248 +178,421 @@ class _LoginPageState extends State<LoginPage> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return Scaffold(
       key: _scaffoldkey,
+      backgroundColor: AppColor.bodyColor,
       body: Container(
-        color: AppColor.bodyColor,
+        margin: EdgeInsets.only(right: 30, left: 30),
         child: Column(
           children: <Widget>[
-            setHeight(60),
-            Stack(
-              children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  // color: AppColor.red,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      CircleAvatar(
-                        radius: 40,
-                        backgroundImage: AssetImage(AppImages.appLogo),
-                      ),
-                      setCommonText(S.current.food_zone, AppColor.black54, 20.0,
-                          FontWeight.w500, 1)
-                    ],
-                  ),
-                ),
-                Positioned(
-                    top: 40,
-                    right: 12,
-                    child: InkWell(
-                      onTap: () {
-                        SharedManager.shared.currentIndex = 0;
-                        Navigator.of(context, rootNavigator: true)
-                            .pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (context) => TabBarScreen()),
-                                ModalRoute.withName(AppRoute.tabbar));
-                      },
-                      // child: setCommonText(S.current.skip, AppColor.black, 16.0,
-                      //     FontWeight.w500, 1),
-                    ))
-              ],
-            ),
             Container(
-              padding: EdgeInsets.only(right: 20, left: 20),
-              // color: AppColor.amber,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  const SizedBox(height: 25,),
+                  setCommonText(S.current.login, AppColor.black, 25.0, FontWeight.bold, 1),
+                  const SizedBox(height: 8,),
                   Container(
-                    // height: 60,
-                    child: Column(
-                      children: <Widget>[
-                        TextFormField(
-                          controller: emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: '${S.current.email}'),
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              color: AppColor.grey,
-                              fontFamily: SharedManager.shared.fontFamilyName),
-                        ),
-                        Container(
-                          height: 1,
-                          color: AppColor.black38,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
                         )
-                      ],
+                    ),
+                    padding: EdgeInsets.all(5),
+                    child: TextFormField(
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.email,color: Colors.grey,),
+                          enabledBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          focusedErrorBorder: InputBorder.none,
+                          hintText: '${S.current.email}'),
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: AppColor.black,
+                          fontFamily: SharedManager.shared.fontFamilyName),
                     ),
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 8,),
                   Container(
-                    // height: 60,
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: TextFormField(
-                                controller: passwordController,
-                                obscureText: this.isSecure ? true : false,
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: '${S.current.password}'),
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColor.grey,
-                                    fontFamily:
-                                        SharedManager.shared.fontFamilyName),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  this.isSecure = !this.isSecure;
-                                });
-                              },
-                              child: Icon(
-                                this.isSecure
-                                    ? Icons.visibility_off
-                                    : Icons.remove_red_eye,
-                                color: this.isSecure
-                                    ? AppColor.grey
-                                    : AppColor.black54,
-                                size: 20.0,
-                              ),
-                            )
-                          ],
-                        ),
-                        Container(
-                          height: 1,
-                          color: AppColor.black38,
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => ForgotPassword()));
-                              },
-                              child: setCommonText(
-                                  '${S.current.forgotPassword}',
-                                  AppColor.grey,
-                                  14.0,
-                                  FontWeight.w500,
-                                  1),
-                            )
-                          ],
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
                         )
-                      ],
                     ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          });
-                      _setLoginMethod();
-                    },
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: AppColor.white,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Center(
-                        child: setCommonText('${S.current.login}',
-                            AppColor.black, 16.0, FontWeight.bold, 1),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      setCommonText('${S.current.dont_have_account}',
-                          AppColor.grey, 14.0, FontWeight.w500, 1),
-                      SizedBox(
-                        width: 4,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          //SignUpPage
-                          //OTPVerificationPage
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SignUpPage(
-                                    isFromLoginPage: true,
-                                  )));
-                        },
-                        child: setCommonText('${S.current.register}',
-                            AppColor.themeColor, 15.0, FontWeight.bold, 1),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 25),
-                  Container(
-                    height: 45,
-                    width: 100,
+                    padding: EdgeInsets.all(5),
                     child: Row(
                       children: <Widget>[
                         Expanded(
-                            child: InkWell(
-                          onTap: () {
-                            _loginWithFacebook();
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
+                          child: TextFormField(
+                            controller: passwordController,
+                            obscureText: this.isSecure ? true : false,
+                            decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.lock,color: Colors.grey,),
+                                enabledBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                focusedErrorBorder: InputBorder.none,
+                                hintText: '${S.current.password}'),
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
                                 color: AppColor.black,
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Center(
-                              child: setCommonText('${S.current.gIcon}',
-                                  AppColor.white, 24.0, FontWeight.bold, 1),
-                            ),
+                                fontFamily: SharedManager
+                                    .shared.fontFamilyName),
                           ),
-                        )),
-                        SizedBox(
-                          width: 15,
                         ),
-                        Expanded(
-                            child: InkWell(
+                        InkWell(
                           onTap: () {
-                            // _logOut();
-                            signInWithGoogle().then((result) {
-                              if (result != null) {
-                                print(result);
-                                _loginWithSocialMedia(
-                                    '2', nameGoogle, emailGoogle, idGoogle, '');
-                              }
+                            setState(() {
+                              this.isSecure = !this.isSecure;
                             });
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: AppColor.black,
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Center(
-                              child: setCommonText('${S.current.fIcon}',
-                                  AppColor.white, 24.0, FontWeight.bold, 1),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Icon(
+                              this.isSecure
+                                  ? Icons.visibility_off
+                                  : Icons.remove_red_eye,
+                              color: this.isSecure
+                                  ? AppColor.grey
+                                  : AppColor.black54,
+                              size: 20.0,
                             ),
                           ),
-                        )),
+                        )
                       ],
                     ),
                   ),
                 ],
               ),
             ),
+            const SizedBox(height: 25,),
+            InkWell(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  });
+              _setLoginMethod();
+              },
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    color: AppColor.white,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Center(
+                  child: setCommonText('${S.current.login}',
+                      AppColor.black, 18.0, FontWeight.bold, 1),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            setCommonText('OR', AppColor.themeColor, 15.0, FontWeight.bold, 1),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                InkWell(
+                  onTap: () {
+                _loginWithFacebook();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    color: AppColor.black,
+                    borderRadius: BorderRadius.circular(5)),
+                child: Center(
+                  child: setCommonText('F', AppColor.white, 20.0, FontWeight.bold, 1),
+                ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                InkWell(
+                  onTap: () {
+                    signInWithGoogle().then((result) {
+                      if (result != null) {
+                        print(result);
+                        _loginWithSocialMedia('0', nameGoogle,
+                            emailGoogle, idGoogle, '');
+                      }
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        color: AppColor.black,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Center(
+                      child: setCommonText('M', AppColor.white, 20.0, FontWeight.bold, 1),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
+      // body: Container(
+      //   color: AppColor.bodyColor,
+      //   child: Column(
+      //     children: <Widget>[
+      //       setHeight(60),
+      //       Stack(
+      //         children: <Widget>[
+      //           Container(
+      //             width: MediaQuery.of(context).size.width,
+      //             // color: AppColor.red,
+      //             child: Column(
+      //               mainAxisAlignment: MainAxisAlignment.end,
+      //               crossAxisAlignment: CrossAxisAlignment.center,
+      //               children: <Widget>[
+      //                 CircleAvatar(
+      //                   radius: 40,
+      //                   backgroundImage: AssetImage(AppImages.appLogo),
+      //                 ),
+      //                 setCommonText(S.current.food_zone, AppColor.black54, 20.0,
+      //                     FontWeight.w500, 1)
+      //               ],
+      //             ),
+      //           ),
+      //           Positioned(
+      //               top: 40,
+      //               right: 12,
+      //               child: InkWell(
+      //                 onTap: () {
+      //                   SharedManager.shared.currentIndex = 0;
+      //                   Navigator.of(context, rootNavigator: true)
+      //                       .pushAndRemoveUntil(
+      //                           MaterialPageRoute(
+      //                               builder: (context) => TabBarScreen()),
+      //                           ModalRoute.withName(AppRoute.tabbar));
+      //                 },
+      //                 // child: setCommonText(S.current.skip, AppColor.black, 16.0,
+      //                 //     FontWeight.w500, 1),
+      //               ))
+      //         ],
+      //       ),
+      //       Container(
+      //         padding: EdgeInsets.only(right: 20, left: 20),
+      //         // color: AppColor.amber,
+      //         child: Column(
+      //           children: <Widget>[
+      //             Container(
+      //               // height: 60,
+      //               child: Column(
+      //                 children: <Widget>[
+      //                   TextFormField(
+      //                     controller: emailController,
+      //                     keyboardType: TextInputType.emailAddress,
+      //                     decoration: InputDecoration(
+      //                         border: InputBorder.none,
+      //                         hintText: '${S.current.email}'),
+      //                     style: TextStyle(
+      //                         fontSize: 15,
+      //                         fontWeight: FontWeight.w500,
+      //                         color: AppColor.grey,
+      //                         fontFamily: SharedManager.shared.fontFamilyName),
+      //                   ),
+      //                   Container(
+      //                     height: 1,
+      //                     color: AppColor.black38,
+      //                   )
+      //                 ],
+      //               ),
+      //             ),
+      //             SizedBox(
+      //               height: 30,
+      //             ),
+      //             Container(
+      //               // height: 60,
+      //               child: Column(
+      //                 children: <Widget>[
+      //                   Row(
+      //                     children: <Widget>[
+      //                       Expanded(
+      //                         child: TextFormField(
+      //                           controller: passwordController,
+      //                           obscureText: this.isSecure ? true : false,
+      //                           decoration: InputDecoration(
+      //                               border: InputBorder.none,
+      //                               hintText: '${S.current.password}'),
+      //                           style: TextStyle(
+      //                               fontSize: 15,
+      //                               fontWeight: FontWeight.w500,
+      //                               color: AppColor.grey,
+      //                               fontFamily:
+      //                                   SharedManager.shared.fontFamilyName),
+      //                         ),
+      //                       ),
+      //                       InkWell(
+      //                         onTap: () {
+      //                           setState(() {
+      //                             this.isSecure = !this.isSecure;
+      //                           });
+      //                         },
+      //                         child: Icon(
+      //                           this.isSecure
+      //                               ? Icons.visibility_off
+      //                               : Icons.remove_red_eye,
+      //                           color: this.isSecure
+      //                               ? AppColor.grey
+      //                               : AppColor.black54,
+      //                           size: 20.0,
+      //                         ),
+      //                       )
+      //                     ],
+      //                   ),
+      //                   Container(
+      //                     height: 1,
+      //                     color: AppColor.black38,
+      //                   ),
+      //                   SizedBox(
+      //                     height: 15,
+      //                   ),
+      //                   Row(
+      //                     mainAxisAlignment: MainAxisAlignment.end,
+      //                     children: <Widget>[
+      //                       InkWell(
+      //                         onTap: () {
+      //                           Navigator.of(context).push(MaterialPageRoute(
+      //                               builder: (context) => ForgotPassword()));
+      //                         },
+      //                         child: setCommonText(
+      //                             '${S.current.forgotPassword}',
+      //                             AppColor.grey,
+      //                             14.0,
+      //                             FontWeight.w500,
+      //                             1),
+      //                       )
+      //                     ],
+      //                   )
+      //                 ],
+      //               ),
+      //             ),
+      //             SizedBox(
+      //               height: 40,
+      //             ),
+      //             InkWell(
+      //               onTap: () {
+      //                 showDialog(
+      //                     context: context,
+      //                     builder: (BuildContext context) {
+      //                       return Center(
+      //                         child: CircularProgressIndicator(),
+      //                       );
+      //                     });
+      //                 _setLoginMethod();
+      //               },
+      //               child: Container(
+      //                 height: 50,
+      //                 decoration: BoxDecoration(
+      //                     color: AppColor.white,
+      //                     borderRadius: BorderRadius.circular(5)),
+      //                 child: Center(
+      //                   child: setCommonText('${S.current.login}',
+      //                       AppColor.black, 16.0, FontWeight.bold, 1),
+      //                 ),
+      //               ),
+      //             ),
+      //             SizedBox(
+      //               height: 15,
+      //             ),
+      //             Row(
+      //               mainAxisAlignment: MainAxisAlignment.end,
+      //               children: <Widget>[
+      //                 setCommonText('${S.current.dont_have_account}',
+      //                     AppColor.grey, 14.0, FontWeight.w500, 1),
+      //                 SizedBox(
+      //                   width: 4,
+      //                 ),
+      //                 InkWell(
+      //                   onTap: () {
+      //                     //SignUpPage
+      //                     //OTPVerificationPage
+      //                     Navigator.of(context).push(MaterialPageRoute(
+      //                         builder: (context) => SignUpPage(
+      //                               isFromLoginPage: true,
+      //                             )));
+      //                   },
+      //                   child: setCommonText('${S.current.register}',
+      //                       AppColor.themeColor, 15.0, FontWeight.bold, 1),
+      //                 )
+      //               ],
+      //             ),
+      //             SizedBox(height: 25),
+      //             Container(
+      //               height: 45,
+      //               width: 100,
+      //               child: Row(
+      //                 children: <Widget>[
+      //                   Expanded(
+      //                       child: InkWell(
+      //                     onTap: () {
+      //                       _loginWithFacebook();
+      //                     },
+      //                     child: Container(
+      //                       decoration: BoxDecoration(
+      //                           color: AppColor.black,
+      //                           borderRadius: BorderRadius.circular(5)),
+      //                       child: Center(
+      //                         child: setCommonText('${S.current.gIcon}',
+      //                             AppColor.white, 24.0, FontWeight.bold, 1),
+      //                       ),
+      //                     ),
+      //                   )),
+      //                   SizedBox(
+      //                     width: 15,
+      //                   ),
+      //                   Expanded(
+      //                       child: InkWell(
+      //                     onTap: () {
+      //                       // _logOut();
+      //                       signInWithGoogle().then((result) {
+      //                         if (result != null) {
+      //                           print(result);
+      //                           _loginWithSocialMedia(
+      //                               '2', nameGoogle, emailGoogle, idGoogle, '');
+      //                         }
+      //                       });
+      //                     },
+      //                     child: Container(
+      //                       decoration: BoxDecoration(
+      //                           color: AppColor.black,
+      //                           borderRadius: BorderRadius.circular(5)),
+      //                       child: Center(
+      //                         child: setCommonText('${S.current.fIcon}',
+      //                             AppColor.white, 24.0, FontWeight.bold, 1),
+      //                       ),
+      //                     ),
+      //                   )),
+      //                 ],
+      //               ),
+      //             ),
+      //           ],
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }

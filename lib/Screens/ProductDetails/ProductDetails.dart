@@ -236,9 +236,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           //Add to cart or delete from cart
                           if (this.widget.productData.isAvailable == '1') {
                             if (this.isAddedToCart) {
-                              this
-                                  .store
-                                  .removeItemFromCart(this.widget.productData);
+                              this.store.removeItemFromCart(this.widget.productData);
                               this.isAddedToCart = false;
                             } else {
                               this.store.addItemTocart(this.widget.productData,

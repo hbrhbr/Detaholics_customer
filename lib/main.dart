@@ -10,6 +10,7 @@ import 'package:product/Helper/Constant.dart';
 import 'package:product/Helper/SharedManaged.dart';
 import 'package:product/Provider/StoreProvider.dart';
 import 'package:product/Screens/SignUP/SignUp.dart';
+import 'package:product/Screens/SignUP/login_signup.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -319,7 +320,7 @@ class Login_SignUP_Option_Screen extends StatelessWidget {
                     onTap: ()async{
                       await SharedManager.shared.storeString("no", "isLoogedIn");
                       SharedManager.shared.currentIndex = 0;
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => new LoginPage()));
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginSignUpScreen(isLoginSelected: true)));
                     },
                     child: Container(
                       height: 40,
@@ -336,7 +337,7 @@ class Login_SignUP_Option_Screen extends StatelessWidget {
                   InkWell(
                     onTap: ()async{
                       await SharedManager.shared.storeString("no", "isLoogedIn");
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => new SignUpPage()));
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginSignUpScreen(isLoginSelected: false)));
                       },
                     child: Container(
                       height: 40,
