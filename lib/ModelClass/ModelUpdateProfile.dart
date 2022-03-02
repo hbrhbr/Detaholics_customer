@@ -11,7 +11,7 @@ class ResUpdateProfile extends BaseModel {
     code = json['code'];
     message = json['message'];
     userData = json['result'] != null
-        ? new ProfileUserData.fromJson(json)
+        ? new ProfileUserData.fromJson(json['result'])
         : null;
   }
 

@@ -11,6 +11,7 @@ import 'package:product/Helper/SharedManaged.dart';
 import 'package:product/Screens/TabBarScreens/TabScreen/TabBar.dart';
 import 'package:product/generated/i18n.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final String name;
@@ -80,7 +81,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   _updateProfile() async {
     final param = {
       "fullname": "${nameController.text}",
-      "id": SharedManager.shared.userID,
+      "user_id": SharedManager.shared.userID,
       "phone": "${mobileController.text}",
       "image": "$imageString"
     };
@@ -97,12 +98,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     showSnackbar('${S.current.loading}', scaffoldKey, context);
     Requestmanager manager = Requestmanager();
-    await manager.updateProfileData(param).then((value) {
+    await manager.updateProfileData(param).then((value) async{
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       if (value.code == 1) {
         SharedManager.shared
             .showAlertDialog('Profile Update Successfully', context);
-        SharedManager.shared.currentIndex = 4;
+        SharedManager.shared.currentIndex = 0;
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString(DefaultKeys.userImage, value.userData.profileImage);
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => TabBarScreen()),
